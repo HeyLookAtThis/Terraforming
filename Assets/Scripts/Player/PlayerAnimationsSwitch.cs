@@ -3,27 +3,29 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationsController : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement _movement;
-
+    private PlayerFellFromCloudState _playerFellFromCloudState;
+    private PlayerSatOnCloudState _playerOnCloudState;
     private Animator _animator;
 
     private void Awake()
     {
+        _playerFellFromCloudState = GetComponentInParent<PlayerFellFromCloudState>();
+        _playerOnCloudState = GetComponentInParent<PlayerSatOnCloudState>();
         _animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
     {
-        _movement.Falling += PlayIdle;
-        _movement.Sitting += PlaySitting;
-        _movement.Running += SetSpeed;
+        _playerFellFromCloudState.Falling += PlayIdle;
+        _playerOnCloudState.SatOnCloud += PlaySitting;
+        _playerFellFromCloudState.Running += SetSpeed;
     }
 
     private void OnDisable()
     {
-        _movement.Falling -= PlayIdle;
-        _movement.Sitting -= PlaySitting;
-        _movement.Running -= SetSpeed;
+        _playerFellFromCloudState.Falling -= PlayIdle;
+        _playerOnCloudState.SatOnCloud -= PlaySitting;
+        _playerFellFromCloudState.Running -= SetSpeed;
     }
 
     private void PlayIdle()

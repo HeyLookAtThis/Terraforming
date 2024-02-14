@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cloud : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerMovement _player;
 
-    public Player Player => _player;
+    public PlayerMovement Player => _player;
 }

@@ -3,8 +3,6 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     [SerializeField] private State _firstState;
-    [SerializeField] private Cloud _cloud;
-    [SerializeField] private Player _player;
 
     private State _currentState;
 
@@ -29,7 +27,7 @@ public class StateMachine : MonoBehaviour
         _currentState = state;
 
         if (_currentState != null)
-            _currentState.Enter(_player, _cloud);
+            _currentState.Enter();
     }
 
     private void Transit(State nextState)

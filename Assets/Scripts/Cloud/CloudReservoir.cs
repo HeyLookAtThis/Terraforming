@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Cloud))]
 public class CloudReservoir : CloudStatChanger
 {
     private UnityAction _waterIsOver;

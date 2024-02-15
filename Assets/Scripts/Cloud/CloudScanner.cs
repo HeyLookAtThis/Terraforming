@@ -62,9 +62,13 @@ public class CloudScanner : MonoBehaviour
     //    _cloud.LevelFinisher.Begun -= Deactivate;
     //}
 
+    private void Start()
+    {
+        Activate();
+    }
+
     private void Update()
     {
-        Debug.Log(_isActivated);
 
         if (_isActivated)
         {
@@ -120,30 +124,30 @@ public class CloudScanner : MonoBehaviour
 
     private void CheckColliders()
     {
-        //foreach (var collider in _colliders)
-        //{
-        //    if (collider.TryGetComponent<Plant>(out var plant))
-        //    {
-        //        if (plant.IsGreen == false)
-        //        {
-        //            _foundDryPlant?.Invoke();
+        foreach (var collider in _colliders)
+        {
+            if (collider.TryGetComponent<Plant>(out var plant))
+            {
+                if (plant.IsGreen == false)
+                {
+                    _foundDryPlant?.Invoke();
 
-        //            if (_reservoir.HaveWater)
-        //                plant.MakeGreen();
-        //        }
-        //    }
+                    if (_reservoir.HaveWater)
+                        plant.MakeGreen();
+                }
+            }
 
-        //    if (collider.TryGetComponent<Coin>(out var coin))
-        //        coin.TurnOn();
+            //    if (collider.TryGetComponent<Coin>(out var coin))
+            //        coin.TurnOn();
 
-        //    if (collider.TryGetComponent<Volcano>(out var volcano))
-        //    {
-        //        if (_cloud.Player.HaveCristall && volcano.IsFrozen == false)
-        //        {
-        //            volcano.Freeze();
-        //            _cloud.Player.RemoveIceCristall();
-        //        }
-        //    }
-        //}
+            //    if (collider.TryGetComponent<Volcano>(out var volcano))
+            //    {
+            //        if (_cloud.Player.HaveCristall && volcano.IsFrozen == false)
+            //        {
+            //            volcano.Freeze();
+            //            _cloud.Player.RemoveIceCristall();
+            //        }
+            //    }
+        }
     }
 }

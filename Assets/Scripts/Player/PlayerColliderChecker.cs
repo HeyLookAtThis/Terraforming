@@ -34,7 +34,7 @@ public class PlayerColliderChecker : MonoBehaviour
             _foundWater?.Invoke();
         }
 
-        if (_previousCollider != hit.collider)
+        if (_previousCollider != hit.collider || _previousCollider == null)
         {
             if (hit.collider.TryGetComponent<Ground>(out Ground ground))
                 _grounded = true;

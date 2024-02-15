@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant : MonoBehaviour
+public abstract class Plant : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool IsGreen { get; private set; } = false;
+
+    private void Awake()
     {
-        
+        gameObject.isStatic = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public abstract void MakeGreen();
+
+    public void TurnOnGreen()
     {
-        
+        IsGreen = true;
+    }
+
+    public void TurnOffGreen()
+    {
+        IsGreen = false;
     }
 }

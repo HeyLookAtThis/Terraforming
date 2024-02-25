@@ -11,8 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: c8110ef7c96474f73b2ee5f90e026b10, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - SHADOWS
+  m_ValidKeywords: []
   m_InvalidKeywords:
   - FANCY_SHADOWS
   - SAMPLE_SHADOWS
@@ -40,10 +39,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DepthDensity: 0.417
-    - _DistanceDensity: 0.0075
+    - _DepthDensity: 0
+    - _DistanceDensity: 0
     - _EdgeFoamDepth: 1
-    - _FancyShadows: 1
+    - _FancyShadows: 0
     - _FoamContribution: 0.657
     - _FoamNoiseScale: 0.32
     - _FoamScale: 10

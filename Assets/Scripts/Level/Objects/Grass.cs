@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Grass : Plant
 {
+    [SerializeField] private float _duration;
     [SerializeField] private ParticleSystem _particleSystem;
 
     private Coroutine _growBeginner;
-    private float _duration = 0.3f;
 
     public override void MakeGreen()
     {

@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Cloud), typeof(CloudReservoir))]
+[RequireComponent(typeof(Cloud), typeof(CloudReservoir), typeof(CloudWithWaterState))]
 public class CloudScanner : MonoBehaviour
 {
     private float _radius;
@@ -17,19 +17,12 @@ public class CloudScanner : MonoBehaviour
     private Vector3 _nextSpherePosition;
 
     private UnityAction _foundWater;
-    private UnityAction _lostWater;
     private UnityAction _foundDryPlant;
 
     public event UnityAction FoundWater
     {
         add => _foundWater += value;
         remove => _foundWater -= value;
-    }
-
-    public event UnityAction LostWater
-    {
-        add => _lostWater += value;
-        remove => _lostWater -= value;
     }
 
     public event UnityAction FoundDryPlant
@@ -50,34 +43,26 @@ public class CloudScanner : MonoBehaviour
         _colliders = Physics.OverlapSphere(_spherePosition, _radius);
     }
 
-    //private void OnEnable()
-    //{
-    //    _cloud.LevelStarter.Beginning += Activate;
-    //    _cloud.LevelFinisher.Begun += Deactivate;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    _cloud.LevelStarter.Beginning -= Activate;
-    //    _cloud.LevelFinisher.Begun -= Deactivate;
-    //}
-
-    private void Start()
+    private void OnEnable()
     {
-        Activate();
+        GetComponent<CloudWithWaterState>().TookPosition += Activate;
+        _reservoir.WaterIsOver += Deactivate;
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<CloudWithWaterState>().TookPosition -= Activate;
+        _reservoir.WaterIsOver -= Deactivate;
     }
 
     private void Update()
     {
-
         if (_isActivated)
         {
             _spherePosition = new Vector3(transform.position.x, _yPosition, transform.position.z);
 
             if (IsContainsWater())
                 _foundWater?.Invoke();
-            else
-                _lostWater?.Invoke();
 
             if (_spherePosition != _nextSpherePosition)
             {
@@ -92,14 +77,20 @@ public class CloudScanner : MonoBehaviour
 
     public void Activate()
     {
-        ClearColliders();
-        _isActivated = true;
+        if (_isActivated == false)
+        {
+            ClearColliders();
+            _isActivated = true;
+        }
     }
 
-    public void Deactivate()
+    private void Deactivate()
     {
-        _isActivated = false;
-        ClearColliders();
+        if (_isActivated)
+        {
+            _isActivated = false;
+            ClearColliders();
+        }
     }
 
     private void ClearColliders()

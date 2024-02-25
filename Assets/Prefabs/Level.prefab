@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grass: {fileID: 320045719542072073, guid: c6ca62ceb4a52e34eb5d018bd6b7c997, type: 3}
+  _grid: {fileID: 0}
 --- !u!1 &5038166101837260671
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,9 +55,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1594286736581445670}
+  - component: {fileID: 7511620745979757145}
   - component: {fileID: 1202813967082212056}
   - component: {fileID: 3475802437859812671}
-  - component: {fileID: 7511620745979757145}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -79,6 +80,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4521929816452466123}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7511620745979757145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038166101837260671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82bd0221b3e5a854f93b43303c3429b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!218 &1202813967082212056
 Terrain:
   m_ObjectHideFlags: 0
@@ -138,18 +151,6 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 61638b6c72e3b9d418edbf5f2cb658aa, type: 2}
   m_EnableTreeColliders: 1
---- !u!114 &7511620745979757145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5038166101837260671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82bd0221b3e5a854f93b43303c3429b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7167086689059485194
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +162,6 @@ GameObject:
   - component: {fileID: 1716714289536560013}
   - component: {fileID: 6292140751623954987}
   - component: {fileID: 2983800888488027194}
-  - component: {fileID: 2315865100518730332}
   - component: {fileID: 5080937895469692911}
   - component: {fileID: 1361404996966377784}
   m_Layer: 0
@@ -236,27 +236,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2315865100518730332
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7167086689059485194}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5080937895469692911
 MonoBehaviour:
   m_ObjectHideFlags: 0

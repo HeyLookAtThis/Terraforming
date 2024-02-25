@@ -1,12 +1,16 @@
+using UnityEngine;
+
 public class PlayerFellFromCloudTransition : Transition
 {
+    [SerializeField] private CloudReservoir _cloudReservoir;
+
     private void OnEnable()
     {
-        GetComponent<PlayerColliderChecker>().FellFromCloud += TurnOnNeedTransit;
+        _cloudReservoir.WaterIsOver += TurnOnNeedTransit;
     }
 
     private void OnDisable()
     {
-        GetComponent<PlayerColliderChecker>().FellFromCloud -= TurnOnNeedTransit;
+        _cloudReservoir.WaterIsOver -= TurnOnNeedTransit;
     }
 }

@@ -8,8 +8,8 @@ public class CloudResizer : CloudStatChanger
 
     private void Start()
     {
-        float upperValue = 0.06f;
-        float lowerValue = 0.02f;
+        float upperValue = 1f;
+        float lowerValue = 0.4f;
 
         InitializeValues(upperValue, lowerValue);
     }

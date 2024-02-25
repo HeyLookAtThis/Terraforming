@@ -1,15 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CloudScanner))]
+[RequireComponent(typeof(Cloud))]
 public class CloudFoundWaterTransition : Transition
 {
     private void OnEnable()
     {
-        GetComponent<CloudScanner>().FoundWater += TurnOnNeedTransit;
+        GetComponent<Cloud>().PlayerColliderChecker.FoundWater += TurnOnNeedTransit;
     }
 
     private void OnDisable()
     {
-        GetComponent<CloudScanner>().FoundWater -= TurnOnNeedTransit;
+        GetComponent<Cloud>().PlayerColliderChecker.FoundWater -= TurnOnNeedTransit;
     }
 }

@@ -4,9 +4,17 @@ using UnityEngine;
 public class Grass : Plant
 {
     [SerializeField] private float _duration;
+    [SerializeField] private uint _rateOverTime;
     [SerializeField] private ParticleSystem _particleSystem;
 
     private Coroutine _growBeginner;
+
+    protected override void Awake()
+    {
+        var emission = _particleSystem.emission;
+        emission.rateOverTime = _rateOverTime;
+        base.Awake();
+    }
 
     public override void MakeGreen()
     {
@@ -18,11 +26,11 @@ public class Grass : Plant
         }
     }
 
-    public void TurnOff()
+    public override void TurnOffGreen()
     {
         _particleSystem.Stop();
         _particleSystem.gameObject.SetActive(false);
-        TurnOffGreen();
+        base.TurnOffGreen();
     }
 
     private void BeginToGrow()

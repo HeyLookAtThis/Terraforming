@@ -5,8 +5,6 @@ public class GrassCreator : ObjectsInstantiator
 {
     [SerializeField] private Grass _grass;
 
-    private List<Grass> _grassList = new List<Grass>();
-
     private bool _isCreated;
 
     public override void Create(uint currentLevel)
@@ -25,18 +23,12 @@ public class GrassCreator : ObjectsInstantiator
                 if (IsEmptyGround(position))
                 {
                     Grass grass = Instantiate(_grass, position, Quaternion.identity, this.transform);
-                    grass.TurnOffGreen();
-                    _grassList.Add(grass);
+                    grass.ReturnToDefaultState();
+                    AddInteractionObject(grass);
                 }
             }
         }
 
         _isCreated = true;
-    }
-
-    public override void SetDefaultState()
-    {
-        foreach (var grass in _grassList)
-            grass.TurnOffGreen();
     }
 }

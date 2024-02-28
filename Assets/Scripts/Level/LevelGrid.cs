@@ -34,6 +34,11 @@ public class LevelGrid : MonoBehaviour
         return Vector3.zero;
     }
 
+    public Vector3 GetRandomCoordinate()
+    {
+        return new Vector3(Random.Range(_startingCoordinate.x, _endingCoordinate.x), _yAxisValue, Random.Range(_startingCoordinate.z, _endingCoordinate.z));
+    }
+
     private void Initialize()
     {
         _cellCoordinates = new List<Vector3>();

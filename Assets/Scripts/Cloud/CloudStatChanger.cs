@@ -45,13 +45,13 @@ public abstract class CloudStatChanger : MonoBehaviour
     private void OnEnable()
     {
         _scanner.FoundWater += IncreaseCurrentValue;
-        _scanner.FoundDryPlant += DecreaseCurrentValue;
+        _scanner.FoundInteractionObject += DecreaseCurrentValue;
     }
 
     private void OnDisable()
     {
         _scanner.FoundWater -= IncreaseCurrentValue;
-        _scanner.FoundDryPlant -= DecreaseCurrentValue;
+        _scanner.FoundInteractionObject -= DecreaseCurrentValue;
     }
 
     protected virtual void DecreaseCurrentValue()

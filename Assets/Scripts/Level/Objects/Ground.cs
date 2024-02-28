@@ -17,6 +17,12 @@ public class Ground : MonoBehaviour
 
     private float _secondsInMinute => 60;
 
+    private void Awake()
+    {
+        StartingTemperature = 0;
+        CurrentTemperature = StartingTemperature;
+    }
+
     //public LevelCounter LevelGenerator => _levelCounter;
 
     //public LevelStarter LevelStarter => _levelStarter;

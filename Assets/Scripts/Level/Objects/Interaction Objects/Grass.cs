@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Grass : Plant
+public class Grass : InteractionObject
 {
     [SerializeField] private float _duration;
     [SerializeField] private uint _rateOverTime;
@@ -16,21 +16,31 @@ public class Grass : Plant
         base.Awake();
     }
 
-    public override void MakeGreen()
+    public override void ReactToPlayer(Player player)
     {
-        if (IsGreen == false)
-        {
-            _particleSystem.gameObject.SetActive(true);
-            BeginToGrow();
-            TurnOnGreen();
-        }
+        MakeVisible();
     }
 
-    public override void TurnOffGreen()
+    public override void ReactToTree()
+    {
+        MakeVisible();
+    }
+
+    public override void ReturnToDefaultState()
     {
         _particleSystem.Stop();
         _particleSystem.gameObject.SetActive(false);
-        base.TurnOffGreen();
+        TurnOffUsed();
+    }
+
+    private void MakeVisible()
+    {
+        if (WasUsedByPlayer == false)
+        {
+            _particleSystem.gameObject.SetActive(true);
+            BeginToGrow();
+            TurnOnUsed();
+        }
     }
 
     private void BeginToGrow()

@@ -7,6 +7,8 @@ public abstract class ObjectsInstantiator : MonoBehaviour
     [SerializeField] private LevelGrid _grid;
     [SerializeField] private LevelGenerator _levelGenerator;
 
+    private List<InteractionObject> _interactionObjects = new List<InteractionObject>();
+
     protected LevelGrid levelGrid => _grid;
 
     private void OnEnable()
@@ -21,7 +23,24 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     public abstract void Create(uint currentLevel);
 
-    public abstract void SetDefaultState();
+    protected virtual void ReturnDefaultState()
+    {
+        if (_interactionObjects != null)
+        {
+            foreach (var interactionObject in _interactionObjects)
+            {
+                interactionObject.ReturnToDefaultState();
+
+                if (interactionObject.GetType() != typeof(Grass))
+                    _interactionObjects.Remove(interactionObject);
+            }
+        }
+    }
+
+    protected void AddInteractionObject(InteractionObject interactionObject)
+    {
+        _interactionObjects.Add(interactionObject);
+    }
 
     protected Vector3 GetAllowedCoordinate()
     {

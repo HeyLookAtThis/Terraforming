@@ -5,55 +5,46 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    private int _coinsNumber;
-    private int _cristallNumber;
+    private int _coinsCount;
+    private int _cristallCount;
+    private int _frozenVolcanoCount;
+    private int _greenTreeCount;
 
-    private UnityAction<int> _cristallsNumberChanged;
-    private UnityAction<int> _coinsNumberChanged;
+    private UnityAction<InteractionObject, int> _countChanged;
 
-    public event UnityAction<int> CristallsNumberChanged
+    public event UnityAction<InteractionObject, int> CountChanged
     {
-        add => _cristallsNumberChanged += value;
-        remove => _cristallsNumberChanged -= value;
+        add => _countChanged += value;
+        remove => _countChanged -= value;
     }
 
-    public event UnityAction<int> CoinsNumberChanged
+    public int CoinsNumber => _coinsCount;
+
+    public bool HaveCristall => _cristallCount > 0;
+
+    public void UseObject(InteractionObject interactionObject)
     {
-        add => _coinsNumberChanged += value;
-        remove => _coinsNumberChanged -= value;
-    }
+        int newCount = 0;
 
-    public int CoinsNumber => _coinsNumber;
-
-    public bool HaveCristall => _cristallNumber > 0;
-
-    public void AddCoin()
-    {
-        _coinsNumber++;
-        _coinsNumberChanged?.Invoke(_coinsNumber);
-    }
-
-    public void RemoveCoin()
-    {
-        if (_coinsNumber > 0)
+        switch(interactionObject)
         {
-            _coinsNumber--;
-            _coinsNumberChanged?.Invoke(_coinsNumber);
-        }
-    }
+            case Volcano:
+                newCount = ++_frozenVolcanoCount;
+                break;
 
-    public void AddCristall()
-    {
-        _cristallNumber++;
-        _cristallsNumberChanged?.Invoke(_cristallNumber);
-    }
+            case Tree:
+                newCount = ++_greenTreeCount;
+                break;
 
-    public void RemoveIceCristall()
-    {
-        if (HaveCristall)
-        {
-            _cristallNumber--;
-            _cristallsNumberChanged?.Invoke(_cristallNumber);
+            //case Cristall:
+            //    newCount = ++_cristallCount;
+            //    break;
+
+            //case Coin:
+            //    newCount = ++_coinsCount;
+            //    break;
         }
+
+        _countChanged?.Invoke(interactionObject, newCount);
     }
 }

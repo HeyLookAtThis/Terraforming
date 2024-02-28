@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -666,6 +666,10 @@ PrefabInstance:
     - target: {fileID: 3351807308939244596, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
       propertyPath: _player
       value: 
+      objectReference: {fileID: 163108644}
+    - target: {fileID: 3351807308939244596, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
+      propertyPath: _playerMovement
+      value: 
       objectReference: {fileID: 163108643}
     - target: {fileID: 3351807308939244596, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
       propertyPath: _playerColliderChecker
@@ -840,6 +844,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2835649095125830587, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
+      propertyPath: _ground
+      value: 
+      objectReference: {fileID: 1981339934}
     - target: {fileID: 2983800888488027194, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -910,11 +918,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5956940333303740214, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
       propertyPath: _startLevelNumber
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5956940333303740214, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
       propertyPath: _finishLevelNumber
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6885197768050367714, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
       propertyPath: _edgeOffset
@@ -1073,6 +1081,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
   m_PrefabInstance: {fileID: 1845827798}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1981339934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7511620745979757145, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
+  m_PrefabInstance: {fileID: 1586144483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82bd0221b3e5a854f93b43303c3429b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2024102862
 GameObject:
   m_ObjectHideFlags: 0

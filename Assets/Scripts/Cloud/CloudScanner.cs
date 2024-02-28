@@ -17,7 +17,7 @@ public class CloudScanner : MonoBehaviour
     private Vector3 _nextSpherePosition;
 
     private UnityAction _foundWater;
-    private UnityAction _foundDryPlant;
+    private UnityAction _foundInteractionObject;
 
     public event UnityAction FoundWater
     {
@@ -25,10 +25,10 @@ public class CloudScanner : MonoBehaviour
         remove => _foundWater -= value;
     }
 
-    public event UnityAction FoundDryPlant
+    public event UnityAction FoundInteractionObject
     {
-        add => _foundDryPlant += value;
-        remove => _foundDryPlant -= value;
+        add => _foundInteractionObject += value;
+        remove => _foundInteractionObject -= value;
     }
 
     private void Awake()
@@ -117,16 +117,27 @@ public class CloudScanner : MonoBehaviour
     {
         foreach (var collider in _colliders)
         {
-            if (collider.TryGetComponent<Plant>(out var plant))
+            if (collider.TryGetComponent<InteractionObject>(out InteractionObject interactionObject))
             {
-                if (plant.IsGreen == false)
+                if(interactionObject.WasUsedByPlayer == false)
                 {
-                    _foundDryPlant?.Invoke();
+                    _foundInteractionObject?.Invoke();
 
                     if (_reservoir.HaveWater)
-                        plant.MakeGreen();
+                        interactionObject.ReactToPlayer(_cloud.Player);
                 }
             }
+
+            //if (collider.TryGetComponent<Plant>(out var plant))
+            //{
+            //    if (plant.IsGreen == false)
+            //    {
+            //        _foundDryPlant?.Invoke();
+
+            //        if (_reservoir.HaveWater)
+            //            plant.MakeGreen();
+            //    }
+            //}
 
             //    if (collider.TryGetComponent<Coin>(out var coin))
             //        coin.TurnOn();

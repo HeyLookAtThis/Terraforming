@@ -11,19 +11,22 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     protected LevelGrid levelGrid => _grid;
 
-    private void OnEnable()
+    protected IReadOnlyList<InteractionObject> interactionObjects => _interactionObjects;
+
+
+    protected virtual void OnEnable()
     {
         _levelGenerator.Launched += Create;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         _levelGenerator.Launched -= Create;
     }
 
     public abstract void Create(uint currentLevel);
 
-    protected virtual void ReturnDefaultState()
+    public void ReturnDefaultState()
     {
         if (_interactionObjects != null)
         {
@@ -61,7 +64,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     protected bool IsEmptyGround(Vector3 position)
     {
-        float rayOriginHeight = 1f;
+        float rayOriginHeight = 0.1f;
 
         Vector3 rayPoint = new Vector3(position.x, position.y + rayOriginHeight, position.z);
         Physics.Raycast(rayPoint, Vector3.down, out RaycastHit hit);

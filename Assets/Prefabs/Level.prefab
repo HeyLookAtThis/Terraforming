@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1672563453135052342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4900683069731035849}
+  - component: {fileID: 9161898130285056453}
+  m_Layer: 0
+  m_Name: Trees
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &4900683069731035849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672563453135052342}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4521929816452466123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9161898130285056453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672563453135052342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222738aab0e728e41b94dc587c97701d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _water: {fileID: 5080937895469692911}
+  _grid: {fileID: 6885197768050367714}
+  _levelGenerator: {fileID: 826973380645405754}
+  _prefab: {fileID: 6992593130393523405, guid: 8b9b5a6b9bdf44d45bdc6be8e396e615, type: 3}
 --- !u!1 &2222605232954839532
 GameObject:
   m_ObjectHideFlags: 0
@@ -48,6 +96,7 @@ MonoBehaviour:
   _grid: {fileID: 6885197768050367714}
   _levelGenerator: {fileID: 826973380645405754}
   _prefab: {fileID: 1246911378323680080, guid: 9201976754f8494449966a9b60c1b669, type: 3}
+  _ground: {fileID: 0}
 --- !u!1 &2751783268941782379
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,8 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6d5f31f88dad14cb09343a70d779d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startCoordinateNumber: 2.5
-  _cellSize: 10
+  _edgeOffset: 2.5
   _yAxisValue: 1
   _terrain: {fileID: 1202813967082212056}
 --- !u!1 &3971149999737039058
@@ -280,6 +328,104 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 61638b6c72e3b9d418edbf5f2cb658aa, type: 2}
   m_EnableTreeColliders: 1
+--- !u!1 &5669084142486990114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2641717297216958779}
+  - component: {fileID: 4523383080409478079}
+  m_Layer: 0
+  m_Name: Coins
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &2641717297216958779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5669084142486990114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4521929816452466123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4523383080409478079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5669084142486990114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde449d2a16923546ab7a9be36eeaba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _water: {fileID: 5080937895469692911}
+  _grid: {fileID: 6885197768050367714}
+  _levelGenerator: {fileID: 826973380645405754}
+  _coin: {fileID: 8255771718386438790, guid: ad0f7f0f221f654428aa47e27972bb7a, type: 3}
+  _amount: 100
+--- !u!1 &6276873217789995452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6340012354038544998}
+  - component: {fileID: 7777206157140274531}
+  m_Layer: 0
+  m_Name: Cristalls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &6340012354038544998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6276873217789995452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4521929816452466123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7777206157140274531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6276873217789995452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60568b9756926f246a38ac6455f2cfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _water: {fileID: 5080937895469692911}
+  _grid: {fileID: 6885197768050367714}
+  _levelGenerator: {fileID: 826973380645405754}
+  _cristall: {fileID: 5271187443475905365, guid: 7327cc4cc99e32046bb85d5de33e1de9, type: 3}
+  _treesCreator: {fileID: 9161898130285056453}
 --- !u!1 &7167086689059485194
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,5 +579,8 @@ Transform:
   - {fileID: 1716714289536560013}
   - {fileID: 4260776334541295236}
   - {fileID: 5590450905557983686}
+  - {fileID: 4900683069731035849}
+  - {fileID: 2641717297216958779}
+  - {fileID: 6340012354038544998}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

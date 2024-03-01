@@ -4,10 +4,15 @@ using UnityEngine;
 public class Tree : InteractionObject
 {
     [SerializeField] private float _radius;
-    [SerializeField] private List<GameObject> _emptyTunks;
-    [SerializeField] private List<GameObject> _greenTrunks;
+    [SerializeField] private GameObject _emptyTrunk;
+    [SerializeField] private GameObject _greenTrunk;
 
-    public override void ReactToPlayer(Player player)
+    private void Start()
+    {
+        SetGreenModel(WasUsedByPlayer);
+    }
+
+    public override void ReactToScanner(Player player)
     {
         MakeGreen();
     }
@@ -27,18 +32,15 @@ public class Tree : InteractionObject
         if (WasUsedByPlayer == false)
         {
             TurnOnUsed();
-            ChangeModels();
+            SetGreenModel(WasUsedByPlayer);
             UseObjectsAround();
         }
     }
 
-    public void ChangeModels()
+    public void SetGreenModel(bool isGreen)
     {
-        foreach (var tunk in _emptyTunks)
-            tunk.SetActive(false);
-
-        foreach (var tunk in _greenTrunks)
-            tunk.SetActive(true);
+        _emptyTrunk.SetActive(!isGreen);
+        _greenTrunk.SetActive(isGreen);
     }
 
     private void UseObjectsAround()

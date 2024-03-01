@@ -75,7 +75,7 @@ public class CloudScanner : MonoBehaviour
         }
     }
 
-    public void Activate()
+    private void Activate()
     {
         if (_isActivated == false)
         {
@@ -124,32 +124,9 @@ public class CloudScanner : MonoBehaviour
                     _foundInteractionObject?.Invoke();
 
                     if (_reservoir.HaveWater)
-                        interactionObject.ReactToPlayer(_cloud.Player);
+                        interactionObject.ReactToScanner(_cloud.Player);
                 }
             }
-
-            //if (collider.TryGetComponent<Plant>(out var plant))
-            //{
-            //    if (plant.IsGreen == false)
-            //    {
-            //        _foundDryPlant?.Invoke();
-
-            //        if (_reservoir.HaveWater)
-            //            plant.MakeGreen();
-            //    }
-            //}
-
-            //    if (collider.TryGetComponent<Coin>(out var coin))
-            //        coin.TurnOn();
-
-            //    if (collider.TryGetComponent<Volcano>(out var volcano))
-            //    {
-            //        if (_cloud.Player.HaveCristall && volcano.IsFrozen == false)
-            //        {
-            //            volcano.Freeze();
-            //            _cloud.Player.RemoveIceCristall();
-            //        }
-            //    }
         }
     }
 }

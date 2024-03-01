@@ -44,8 +44,8 @@ public class LevelGrid : MonoBehaviour
         _cellCoordinates = new List<Vector3>();
         float cellSize = _edgeOffset * 2;
 
-        for (float i = _startingCoordinate.x; i < _endingCoordinate.x; i += cellSize)
-            for (float j = _startingCoordinate.z; j < _endingCoordinate.z; j += cellSize)
+        for (float i = _startingCoordinate.x + cellSize; i < _endingCoordinate.x - cellSize; i += cellSize)
+            for (float j = _startingCoordinate.z + cellSize; j < _endingCoordinate.z - cellSize; j += cellSize)
                 _cellCoordinates.Add(new Vector3(i, _yAxisValue, j));
     }
 

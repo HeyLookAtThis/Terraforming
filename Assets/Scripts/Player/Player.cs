@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    private List<InteractionObject> _cristalls = new List<InteractionObject>();
+
     private int _coinsCount;
     private int _cristallCount;
     private int _frozenVolcanoCount;
@@ -36,15 +38,28 @@ public class Player : MonoBehaviour
                 newCount = ++_greenTreeCount;
                 break;
 
-            //case Cristall:
-            //    newCount = ++_cristallCount;
-            //    break;
+            case Cristall:
+                AddCristall(interactionObject, ref newCount);
+                break;
 
-            //case Coin:
-            //    newCount = ++_coinsCount;
-            //    break;
+            case Coin:
+                newCount = ++_coinsCount;
+                break;
         }
 
         _countChanged?.Invoke(interactionObject, newCount);
+    }
+
+    public void RemoveCristall()
+    {
+        _cristallCount--;
+        _countChanged?.Invoke(_cristalls[0], _cristallCount);
+        _cristalls.RemoveAt(0);
+    }
+
+    private void AddCristall(InteractionObject interactionObject, ref int newCount)
+    {
+        newCount = ++_cristallCount;
+        _cristalls.Add(interactionObject);
     }
 }

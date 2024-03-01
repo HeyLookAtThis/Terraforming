@@ -16,7 +16,7 @@ public class Grass : InteractionObject
         base.Awake();
     }
 
-    public override void ReactToPlayer(Player player)
+    public override void ReactToScanner(Player player)
     {
         MakeVisible();
     }

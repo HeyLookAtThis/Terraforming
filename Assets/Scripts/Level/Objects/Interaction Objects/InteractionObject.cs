@@ -12,7 +12,7 @@ public abstract class InteractionObject : MonoBehaviour
         TurnOffUsed();
     }
 
-    public abstract void ReactToPlayer(Player player);
+    public abstract void ReactToScanner(Player player);
 
     public abstract void ReactToTree();
 

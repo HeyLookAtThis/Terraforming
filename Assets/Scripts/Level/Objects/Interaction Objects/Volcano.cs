@@ -16,9 +16,9 @@ public class Volcano : InteractionObject
 
     private bool _isFrozenColor => _renderer.material.color == _iceColor;
 
-    public override void ReactToPlayer(Player player)
+    public override void ReactToScanner(Player player)
     {
-        if(WasUsedByPlayer == false)
+        if(WasUsedByPlayer == false && player.HaveCristall)
         {
             TurnOnUsed();
 
@@ -30,6 +30,7 @@ public class Volcano : InteractionObject
             RunCoroutine(_freezer, ActionEnumerator(action, colorChangeTime, _isFrozenColor));
 
             player.UseObject(this);
+            player.RemoveCristall();
         }
     }
 

@@ -3,18 +3,11 @@ using UnityEngine.Events;
 public class CloudReservoir : CloudStatChanger
 {
     private UnityAction _waterIsOver;
-    private UnityAction _filledUp;
 
     public event UnityAction WaterIsOver
     {
         add => _waterIsOver += value;
         remove => _waterIsOver -= value;
-    }
-
-    public event UnityAction FilledUp
-    {
-        add => _filledUp += value;
-        remove => _filledUp -= value;
     }
 
     public bool HaveWater => CurrentValue > LowerValue;
@@ -38,13 +31,5 @@ public class CloudReservoir : CloudStatChanger
             if (Scanner.IsContainsWater() == false)
                 _waterIsOver?.Invoke();
         }
-    }
-
-    protected override void IncreaseCurrentValue()
-    {
-        base.IncreaseCurrentValue();
-
-        if (CurrentValue >= UpperValue)
-            _filledUp?.Invoke();
     }
 }

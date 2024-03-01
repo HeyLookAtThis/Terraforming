@@ -1,72 +1,38 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TreesCreator : ObjectsInstantiator
 {
-    [SerializeField] private List<Tree> _prefabs;
+    [SerializeField] private Tree _prefab;
+
+    private List<Vector3> _positions = new List<Vector3>();
+
+    private UnityAction<IReadOnlyList<Vector3>> _finished;
+
+    public event UnityAction<IReadOnlyList<Vector3>> OnFinished
+    {
+        add => _finished += value;
+        remove => _finished -= value;
+    }
+
+    private IReadOnlyList<Vector3> positions => _positions;
 
     public override void Create(uint currentLevel)
     {
-        int count = (int)currentLevel;
+        int count = (int)currentLevel * 2;
+
 
         while (count > 0)
         {
-            foreach (var tree in _prefabs)
-            {
-                AddInteractionObject(Instantiate(tree, levelGrid.GetRandomCellCoordinate(), Quaternion.identity, this.transform));
-                count--;
-            }
+            Vector3 position = GetAllowedCoordinate();
+            Tree tree = Instantiate(_prefab, position, Quaternion.identity, this.transform);
+            AddInteractionObject(tree);
+            count--;
+
+            if (count <= currentLevel)
+                _positions.Add(position);
         }
+            _finished?.Invoke(positions);
     }
-
-    //public override void Create()
-    //{
-    //    int multiplier = 2;
-    //int count = LevelGenerator.CurrentLevel * multiplier;
-    //int cristallCount = LevelGenerator.CurrentLevel;
-
-    //while (count > 0)
-    //{
-    //    foreach (var tree in _prefabs)
-    //    {
-    //        Vector3 treePosition = GetRandomCoordinate();
-
-    //        _trees.Add(Instantiate(tree, treePosition, Quaternion.identity, Container));
-
-    //        count--;
-
-    //        if (cristallCount > 0)
-    //        {
-    //            float rayHeight = 0.5f;
-    //            Vector3 cristallPosition = _cristallCreator.GetRandomPosition(treePosition);
-
-    //            while (IsEmptyGround(cristallPosition, rayHeight) == false)
-    //                cristallPosition = _cristallCreator.GetRandomPosition(treePosition);
-
-    //            _iceCristalls.Add(_cristallCreator.Create(cristallPosition));
-
-    //            cristallCount--;
-    //        }
-
-    //        if (count == 0)
-    //            break;
-    //    }
-    //}
-    //}
-
-    //public override void SetDefaultState()
-    //{
-    //    if (_trees != null)
-    //    {
-    //        foreach (Tree tree in _trees)
-    //            tree.Destroy();
-
-    //        foreach (Cristall cristall in _iceCristalls)
-    //            cristall.Destroy();
-
-    //        _trees.Clear();
-    //        _iceCristalls.Clear();
-    //    }
-    //}
 }

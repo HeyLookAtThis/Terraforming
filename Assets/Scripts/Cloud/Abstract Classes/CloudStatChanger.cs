@@ -5,9 +5,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Cloud), typeof(CloudScanner))]
 public abstract class CloudStatChanger : MonoBehaviour
 {
-    private Cloud _cloud;
     private CloudScanner _scanner;
-    private Coroutine _valueChanger;
 
     private float _lowerValue;
     private float _upperValue;
@@ -15,6 +13,8 @@ public abstract class CloudStatChanger : MonoBehaviour
     private float _currentValue;
     private float _divisionValue;
     private float _divisionsNumber;
+
+    private float _fillingSpeed;
 
     private UnityAction _changedValue;
 
@@ -28,18 +28,12 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     public float CurrentValue => _currentValue;
 
-    public float UpperValue => _upperValue;
-
-    public float DivisionsNumber => _divisionsNumber;
-
-    public Cloud Cloud => _cloud;
-
     public CloudScanner Scanner => _scanner;
 
     private void Awake()
     {
         _scanner = GetComponent<CloudScanner>();
-        _cloud = GetComponent<Cloud>();
+        _fillingSpeed = 60f;
     }
 
     private void OnEnable()
@@ -56,7 +50,8 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     protected virtual void DecreaseCurrentValue()
     {
-        BeginChangeValue(_currentValue - _divisionValue);
+        _currentValue -= _divisionValue * Time.deltaTime * _fillingSpeed;
+        _changedValue?.Invoke();
 
         if (_currentValue < _lowerValue)
             _currentValue = _lowerValue;
@@ -65,7 +60,10 @@ public abstract class CloudStatChanger : MonoBehaviour
     protected virtual void IncreaseCurrentValue()
     {
         if (_currentValue < _upperValue)
-            BeginChangeValue(_currentValue + _divisionValue);
+        {
+            _currentValue += _divisionValue * Time.deltaTime * _fillingSpeed;
+            _changedValue?.Invoke();
+        }
 
         if (_currentValue > _upperValue)
             _currentValue = _upperValue;
@@ -86,30 +84,5 @@ public abstract class CloudStatChanger : MonoBehaviour
         float levelCoefficient = 100;
 
         return levelCoefficient;
-    }
-
-    private void BeginChangeValue(float targetValue)
-    {
-        if (_valueChanger != null)
-            StopCoroutine(_valueChanger);
-
-        _valueChanger = StartCoroutine(ValueChanger(targetValue));
-    }
-
-    private IEnumerator ValueChanger(float targetValue)
-    {
-        float seconds = 0.2f;
-
-        var waitTime = new WaitForSeconds(seconds);
-
-        while (CurrentValue != targetValue)
-        {
-            _currentValue = Mathf.MoveTowards(_currentValue, targetValue, _divisionValue);
-            _changedValue?.Invoke();
-            yield return waitTime;
-        }
-
-        if (CurrentValue == targetValue)
-            yield break;
     }
 }

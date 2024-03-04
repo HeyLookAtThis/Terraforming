@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(LevelCounter))]
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] private LevelGrid _grid;
-    [SerializeField] private Water _water;
-    [SerializeField] private LevelCounter _levelCounter;
+    private LevelCounter _levelCounter;
 
     private UnityAction<uint> _launched;
 
@@ -13,6 +12,11 @@ public class LevelGenerator : MonoBehaviour
     {
         add => _launched += value;
         remove => _launched -= value;
+    }
+
+    private void Awake()
+    {
+        _levelCounter = GetComponent<LevelCounter>();
     }
 
     private void Start()

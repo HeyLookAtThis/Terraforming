@@ -554,6 +554,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4521929816452466123}
+  - component: {fileID: 1047362826760016286}
+  - component: {fileID: 7701554429122001516}
+  - component: {fileID: 1707159116163996002}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -584,3 +587,47 @@ Transform:
   - {fileID: 6340012354038544998}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1047362826760016286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591277303219213618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2d5d2fbc914dd4c8b344b4d4ac57ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grid: {fileID: 0}
+  _water: {fileID: 5080937895469692911}
+  _levelCounter: {fileID: 0}
+--- !u!114 &7701554429122001516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591277303219213618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7ccc2b41ed10a4a938972afdd7002b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _finishLevelNumber: 5
+  _startLevelNumber: 1
+--- !u!114 &1707159116163996002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591277303219213618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6d5f31f88dad14cb09343a70d779d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _edgeOffset: 2.5
+  _yAxisValue: 1
+  _terrain: {fileID: 1202813967082212056}

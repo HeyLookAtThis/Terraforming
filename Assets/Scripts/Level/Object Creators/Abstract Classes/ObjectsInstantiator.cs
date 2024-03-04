@@ -4,8 +4,9 @@ using UnityEngine;
 public abstract class ObjectsInstantiator : MonoBehaviour
 {
     [SerializeField] private Water _water;
-    [SerializeField] private LevelGrid _grid;
-    [SerializeField] private LevelGenerator _levelGenerator;
+
+    private LevelGrid _grid;
+    private LevelGenerator _levelGenerator;
 
     private List<InteractionObject> _interactionObjects = new List<InteractionObject>();
 
@@ -13,6 +14,11 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     protected IReadOnlyList<InteractionObject> interactionObjects => _interactionObjects;
 
+    protected void Awake()
+    {
+        _levelGenerator = GetComponentInParent<LevelGenerator>();
+        _grid = GetComponentInParent<LevelGrid>();
+    }
 
     protected virtual void OnEnable()
     {

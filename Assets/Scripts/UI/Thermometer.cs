@@ -43,10 +43,10 @@ public class Thermometer : MonoBehaviour
 
     private IEnumerator ValueChanger()
     {
-        float seconds = 0.01f;        
+        float seconds = 0.02f;        
         var waitTime = new WaitForSeconds(seconds);
 
-        float fillingSpeed = 0.1f;
+        float fillingSpeed = 0.5f;
 
         while (_slider.value != _ground.CurrentTemperature)
         {

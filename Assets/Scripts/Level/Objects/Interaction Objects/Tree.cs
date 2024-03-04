@@ -1,11 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Tree : InteractionObject
 {
     [SerializeField] private float _radius;
+    [SerializeField] private AudioClip _sound;
     [SerializeField] private GameObject _emptyTrunk;
     [SerializeField] private GameObject _greenTrunk;
+
+    AudioSource _audioSource;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = _sound;
+    }
 
     private void Start()
     {
@@ -34,6 +45,7 @@ public class Tree : InteractionObject
             TurnOnUsed();
             SetGreenModel(WasUsedByPlayer);
             UseObjectsAround();
+            _audioSource.Play();
         }
     }
 

@@ -79,7 +79,7 @@ public class Loot : InteractionObject
 
     private IEnumerator Destroyer()
     {
-        while(_view.IsPlaying)
+        while(_view.IsSoundPlaying)
             yield return null;
 
         Destroy(gameObject);

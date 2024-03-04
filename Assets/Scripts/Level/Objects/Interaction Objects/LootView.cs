@@ -10,7 +10,7 @@ public class LootView : InteractionObject
 
     public bool IsAllowed => _model.activeSelf;
 
-    public bool IsPlaying => _audioSourse.isPlaying;
+    public bool IsSoundPlaying => _audioSourse.isPlaying;
 
     protected override void Awake()
     {

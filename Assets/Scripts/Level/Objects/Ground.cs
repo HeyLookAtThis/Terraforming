@@ -5,6 +5,7 @@ public class Ground : MonoBehaviour
 {
     private UnityAction _temperatureChanged;
     private UnityAction _temperatureSet;
+    private UnityAction _overheated;
 
     public event UnityAction TemperatureChanged
     {
@@ -16,6 +17,12 @@ public class Ground : MonoBehaviour
     {
         add => _temperatureSet += value;
         remove => _temperatureSet -= value;
+    }
+
+    public event UnityAction Overheated
+    {
+        add => _overheated += value;
+        remove => _overheated -= value;
     }
 
     public float StartingTemperature { get; private set; }
@@ -35,7 +42,14 @@ public class Ground : MonoBehaviour
 
     public void AddTemperature(float temperature)
     {
-        CurrentTemperature += temperature;
-        _temperatureChanged?.Invoke();
+        if(CurrentTemperature < EndingTemperature)
+        {
+            CurrentTemperature += temperature;
+            _temperatureChanged?.Invoke();
+        }
+        else
+        {
+            _overheated?.Invoke();
+        }
     }
 }

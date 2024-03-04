@@ -1,21 +1,23 @@
-using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(VolcanoView))]
 public class Volcano : InteractionObject
 {
     [SerializeField] private float _temperature;
-    [SerializeField] private Color _iceColor;
-    [SerializeField] private MeshRenderer _renderer;
-    [SerializeField] private ParticleSystem _smoke;
-    //[SerializeField] private FreezEffect _freezEffect;
 
     private delegate void DelegateMethod(float time);
 
     private Coroutine _heatGenerator;
-    private Coroutine _freezer;
 
-    private bool _isFrozenColor => _renderer.material.color == _iceColor;
+    private UnityAction _wasFrozen;
+
+    public event UnityAction WasFrozen
+    {
+        add => _wasFrozen += value;
+        remove => _wasFrozen -= value;
+    }
 
     public float Temperature => _temperature;
 
@@ -24,14 +26,6 @@ public class Volcano : InteractionObject
         if(WasUsedByPlayer == false && player.HaveCristall)
         {
             TurnOnUsed();
-
-            //_smoke.Stop();
-            //_freezEffect.Play();
-
-            float colorChangeTime = 0.2f;
-            DelegateMethod action = ChangeColor;
-            RunCoroutine(_freezer, ActionEnumerator(action, colorChangeTime, _isFrozenColor));
-
             player.UseObject(this);
             player.RemoveCristall();
         }
@@ -49,36 +43,31 @@ public class Volcano : InteractionObject
     public void BeginHeatGround(Ground ground)
     {
         float heatGaineTime = 1f;
+        GetComponent<VolcanoView>().PlaySmoke();
         DelegateMethod action = ground.AddTemperature;
-        RunCoroutine(_heatGenerator, ActionEnumerator(action, heatGaineTime, WasUsedByPlayer));
+
+        if (_heatGenerator != null)
+            StopCoroutine(_heatGenerator);
+
+        _heatGenerator = StartCoroutine(ActionEnumerator(action, heatGaineTime));
     }
 
-    private void ChangeColor(float timeAmount)
+    private IEnumerator ActionEnumerator(DelegateMethod action, float time)
     {
-        float colorChangeSpeed = 2f;
+        float heatGaineTime = 1f;
 
-        _renderer.material.DOColor(_iceColor, timeAmount * colorChangeSpeed);
-    }
+        var waitTime = new WaitForSeconds(heatGaineTime);
 
-    private void RunCoroutine(Coroutine coroutine, IEnumerator routine)
-    {
-        if(coroutine != null)
-            StopCoroutine(coroutine);
-
-        coroutine = StartCoroutine(routine);
-    }
-
-    private IEnumerator ActionEnumerator(DelegateMethod action, float time, bool isSucssesCondition)
-    {
-        var waitTime = new WaitForSecondsRealtime(time);
-
-        while(!isSucssesCondition)
+        while(!WasUsedByPlayer)
         {
             action(time);
             yield return waitTime;
         }
 
-        if (isSucssesCondition)
+        if (WasUsedByPlayer)
+        {
+            _wasFrozen?.Invoke();
             yield break;
+        }
     }
 }

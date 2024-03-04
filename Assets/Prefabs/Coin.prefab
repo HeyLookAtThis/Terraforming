@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3197847930743667699}
   - component: {fileID: 5329731786734796032}
   - component: {fileID: 1298951444141565023}
-  - component: {fileID: 5836271478981021551}
+  - component: {fileID: 1429784460557844338}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -95,7 +95,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8e746bda97a9f634f9c225c03bd4bfcb, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -181,19 +181,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5836271478981021551
-MonoBehaviour:
+--- !u!111 &1429784460557844338
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652821745272432623}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c80d7c468f87649830e72014745f0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _model: {fileID: 1652821745272432623}
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: d0c464164e2276843986ff4380c900d0, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: d0c464164e2276843986ff4380c900d0, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3498856514727037368
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +208,7 @@ GameObject:
   - component: {fileID: 2472215625041592128}
   - component: {fileID: 1688088586461823054}
   - component: {fileID: 8255771718386438790}
+  - component: {fileID: 1326367930179084988}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -261,4 +265,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3397a47ce841747a3dbc6a385c4a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chaseSpeed: 4
+  _chaseSpeed: 20
+--- !u!114 &1326367930179084988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3498856514727037368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c80d7c468f87649830e72014745f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sound: {fileID: 8300000, guid: 5aa948679296f2649802b2f562804537, type: 3}
+  _model: {fileID: 1652821745272432623}

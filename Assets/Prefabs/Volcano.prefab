@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecda83479f5f0544803941a5e87bb5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _temperature: 60
   _iceColor: {r: 0, g: 0.19517922, b: 1, a: 0}
   _renderer: {fileID: 1210745815761547026}
   _smoke: {fileID: 0}

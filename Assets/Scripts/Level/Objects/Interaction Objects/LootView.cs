@@ -1,27 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class LootView : InteractionObject
 {
     //[SerializeField] private ParticleSystem _effect;
-    //[SerializeField] private AudioClip _sound;
+    [SerializeField] private AudioClip _sound;
     [SerializeField] private GameObject _model;
 
     private AudioSource _audioSourse;
 
     public bool IsAllowed => _model.activeSelf;
 
+    public bool IsPlaying => _audioSourse.isPlaying;
+
     protected override void Awake()
     {
         base.Awake();
-        _audioSourse = GetComponent<AudioSource>();
+        _audioSourse = GetComponentInChildren<AudioSource>();
 
-        //_audioSourse.clip = _sound;
-        _audioSourse.playOnAwake = false;
-        _audioSourse.loop = false;
-        gameObject.isStatic = false;
+        _audioSourse.clip = _sound;
 
-        _model.SetActive(false);
+        ReturnToDefaultState();
         //_effect.Stop();
     }
 
@@ -37,7 +35,16 @@ public class LootView : InteractionObject
 
     public override void ReturnToDefaultState()
     {
-        _audioSourse?.Play();
+        _audioSourse.playOnAwake = false;
+        _audioSourse.loop = false;
+        gameObject.isStatic = false;
+
+        _model.SetActive(false);
+    }
+
+    public void PlaySound()
+    {
+        _audioSourse.Play();
     }
 
     private void TurnOnVisible()

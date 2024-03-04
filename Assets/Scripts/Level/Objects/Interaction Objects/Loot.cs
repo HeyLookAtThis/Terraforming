@@ -31,7 +31,7 @@ public class Loot : InteractionObject
             {
                 ChaseThePlayer(player.transform.position);
                 AddReward(player);
-                ReturnToDefaultState();
+                _view.PlaySound();
             }
         }
     }
@@ -57,7 +57,7 @@ public class Loot : InteractionObject
 
         if (transform.position == target)
         {
-            _view.ReturnToDefaultState();
+            ReturnToDefaultState();
             yield break;
         }
     }
@@ -74,6 +74,14 @@ public class Loot : InteractionObject
 
     public override void ReturnToDefaultState()
     {
+        StartCoroutine(Destroyer());
+    }
+
+    private IEnumerator Destroyer()
+    {
+        while(_view.IsPlaying)
+            yield return null;
+
         Destroy(gameObject);
     }
 }

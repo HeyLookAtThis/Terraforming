@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Volcano : InteractionObject
 {
+    [SerializeField] private float _temperature;
     [SerializeField] private Color _iceColor;
     [SerializeField] private MeshRenderer _renderer;
     [SerializeField] private ParticleSystem _smoke;
@@ -15,6 +16,8 @@ public class Volcano : InteractionObject
     private Coroutine _freezer;
 
     private bool _isFrozenColor => _renderer.material.color == _iceColor;
+
+    public float Temperature => _temperature;
 
     public override void ReactToScanner(Player player)
     {

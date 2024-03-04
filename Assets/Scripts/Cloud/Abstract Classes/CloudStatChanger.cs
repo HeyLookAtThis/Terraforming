@@ -50,7 +50,7 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     protected virtual void DecreaseCurrentValue()
     {
-        _currentValue -= _divisionValue * Time.deltaTime * _fillingSpeed;
+        _currentValue -= _divisionValue;
         _changedValue?.Invoke();
 
         if (_currentValue < _lowerValue)

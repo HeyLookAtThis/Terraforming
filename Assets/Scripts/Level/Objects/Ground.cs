@@ -1,13 +1,22 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Terrain)/*, typeof(VolcanoCreator)*/)]
 public class Ground : MonoBehaviour
 {
-    //[SerializeField] private LevelCounter _levelCounter;
-    //[SerializeField] private Thermometer _thermometer;
-    //[SerializeField] private LevelStarter _levelStarter;
-    //[SerializeField] private LevelFinisher _levelFinisher;
+    private UnityAction _temperatureChanged;
+    private UnityAction _temperatureSet;
+
+    public event UnityAction TemperatureChanged
+    {
+        add => _temperatureChanged += value;
+        remove => _temperatureChanged -= value;
+    }
+
+    public event UnityAction TemperatureSet
+    {
+        add => _temperatureSet += value;
+        remove => _temperatureSet -= value;
+    }
 
     public float StartingTemperature { get; private set; }
 
@@ -15,41 +24,18 @@ public class Ground : MonoBehaviour
 
     public float CurrentTemperature { get; private set; }
 
-    private float _secondsInMinute => 60;
-
-    private void Awake()
+    public void InitializeTemperature(float volcanoTemperature, uint currentLevel)
     {
         StartingTemperature = 0;
         CurrentTemperature = StartingTemperature;
-    }
+        EndingTemperature = volcanoTemperature * currentLevel;
 
-    //public LevelCounter LevelGenerator => _levelCounter;
-
-    //public LevelStarter LevelStarter => _levelStarter;
-
-    //public LevelFinisher LevelFinisher => _levelFinisher;
-
-    //private void OnEnable()
-    //{
-    //    _levelStarter.Beginning += Initialize;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    _levelStarter.Beginning -= Initialize;
-    //}
-
-    private void Initialize()
-    {
-        StartingTemperature = 0;
-        //EndingTemperature = _secondsInMinute * _levelCounter.TimeForOneVolcano * _levelCounter.CurrentLevel;
-        CurrentTemperature = StartingTemperature;
-        //_thermometer.Initialize(StartingTemperature, EndingTemperature);
+        _temperatureSet?.Invoke();
     }
 
     public void AddTemperature(float temperature)
     {
         CurrentTemperature += temperature;
-        //_thermometer.BeginChangeValue(CurrentTemperature);
+        _temperatureChanged?.Invoke();
     }
 }

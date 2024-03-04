@@ -10,6 +10,7 @@ public class VolcanoesCreator : ObjectsInstantiator
     public override void Create(uint currentLevel)
     {
         int count = (int)currentLevel;
+        _ground.InitializeTemperature(_prefab.Temperature, currentLevel);
 
         while (count > 0)
         {

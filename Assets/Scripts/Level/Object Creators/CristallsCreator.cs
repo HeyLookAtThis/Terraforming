@@ -33,8 +33,8 @@ public class CristallCreator : ObjectsInstantiator
 
     private void SetPositions(IReadOnlyList<Vector3> treePositions)
     {
-        for(int i = 0; i < interactionObjects.Count; i++)
-            interactionObjects[i].transform.position = GetPositionNearTree(treePositions[i]);
+        for(int i = 0; i < activeObjects.Count; i++)
+            activeObjects[i].transform.position = GetPositionNearTree(treePositions[i]);
     }
 
     private Vector3 GetPositionNearTree(Vector3 treePosition)

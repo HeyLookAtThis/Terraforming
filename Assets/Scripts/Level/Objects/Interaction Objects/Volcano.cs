@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(VolcanoView))]
-public class Volcano : InteractionObject
+public class Volcano : ActiveObject
 {
     [SerializeField] private float _temperature;
 

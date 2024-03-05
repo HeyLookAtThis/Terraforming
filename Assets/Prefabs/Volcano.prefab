@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iceColor: {r: 0, g: 0.69433475, b: 1, a: 0}
-  _sound: {fileID: 8300000, guid: 57e1f2f1d21957d4b9c43052a5ae927f, type: 3}
+  _sound: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
   _smokeEffect: {fileID: 3985984371532025252}
   _model: {fileID: 5845890496118529117}
 --- !u!1 &5845890496118529117

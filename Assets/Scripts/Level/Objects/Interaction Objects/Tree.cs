@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Tree : InteractionObject
+public class Tree : ActiveObject
 {
     [SerializeField] private float _radius;
     [SerializeField] private AudioClip _sound;
@@ -60,7 +60,7 @@ public class Tree : InteractionObject
         Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
 
         foreach (var collider in colliders)
-            if (collider.TryGetComponent<InteractionObject>(out InteractionObject interationObject))
+            if (collider.TryGetComponent<ActiveObject>(out ActiveObject interationObject))
                 interationObject.ReactToTree();
     }
 }

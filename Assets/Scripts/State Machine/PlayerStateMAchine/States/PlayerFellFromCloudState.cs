@@ -4,6 +4,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerColliderChecker), typeof(CharacterController), typeof(PlayerMovement))]
 public class PlayerFellFromCloudState : State
 {
+    [SerializeField] private ParticleSystem _follower;
     private float _gravityValue = -9.81f;
     private Vector3 _velosity;
 
@@ -36,12 +37,19 @@ public class PlayerFellFromCloudState : State
         _falling?.Invoke();
     }
 
+    private void OnDisable()
+    {
+        _follower.Stop();
+    }
+
     private void Update()
     {
         if (_playerCollider.IsGrounded && _movement.Direction != Vector3.zero)
             _running?.Invoke(_movement.Speed);
         else
             _running?.Invoke(0);
+
+        PlayFollowerEffect();
     }
 
     private void FixedUpdate()
@@ -59,5 +67,13 @@ public class PlayerFellFromCloudState : State
 
         _velosity.y += _gravityValue * Time.fixedDeltaTime;
         GetComponent<CharacterController>().Move(_velosity * Time.fixedDeltaTime);
+    }
+
+    private void PlayFollowerEffect()
+    {
+        if (_follower.isPlaying)
+            return;
+
+        _follower.Play();
     }
 }

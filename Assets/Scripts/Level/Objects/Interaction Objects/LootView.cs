@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LootView : InteractionObject
+public class LootView : ActiveObject
 {
     //[SerializeField] private ParticleSystem _effect;
     [SerializeField] private AudioClip _sound;

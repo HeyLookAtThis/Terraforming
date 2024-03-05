@@ -8,11 +8,11 @@ public abstract class ObjectsInstantiator : MonoBehaviour
     private LevelGrid _grid;
     private LevelGenerator _levelGenerator;
 
-    private List<InteractionObject> _interactionObjects = new List<InteractionObject>();
+    private List<ActiveObject> _activeObjects = new List<ActiveObject>();
 
     protected LevelGrid levelGrid => _grid;
 
-    protected IReadOnlyList<InteractionObject> interactionObjects => _interactionObjects;
+    protected IReadOnlyList<ActiveObject> activeObjects => _activeObjects;
 
     protected void Awake()
     {
@@ -34,21 +34,21 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     public void ReturnDefaultState()
     {
-        if (_interactionObjects != null)
+        if (_activeObjects != null)
         {
-            foreach (var interactionObject in _interactionObjects)
+            foreach (var activeObject in _activeObjects)
             {
-                interactionObject.ReturnToDefaultState();
+                activeObject.ReturnToDefaultState();
 
-                if (interactionObject.GetType() != typeof(Grass))
-                    _interactionObjects.Remove(interactionObject);
+                if (activeObject.GetType() != typeof(Grass))
+                    _activeObjects.Remove(activeObject);
             }
         }
     }
 
-    protected void AddInteractionObject(InteractionObject interactionObject)
+    protected void AddInteractionObject(ActiveObject activeObject)
     {
-        _interactionObjects.Add(interactionObject);
+        _activeObjects.Add(activeObject);
     }
 
     protected Vector3 GetAllowedCoordinate()

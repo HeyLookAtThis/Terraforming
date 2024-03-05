@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class Loot : InteractionObject
+public class Loot : ActiveObject
 {
     [SerializeField] private float _chaseSpeed;
 

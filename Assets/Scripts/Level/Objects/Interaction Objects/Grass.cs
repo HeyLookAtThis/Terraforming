@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Grass : InteractionObject
+public class Grass : ActiveObject
 {
     [SerializeField] private float _duration;
     [SerializeField] private uint _rateOverTime;

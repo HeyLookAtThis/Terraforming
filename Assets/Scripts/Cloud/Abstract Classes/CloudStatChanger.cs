@@ -30,10 +30,13 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     public CloudScanner Scanner => _scanner;
 
+    public float DivisionsNumber => _divisionsNumber;
+
     private void Awake()
     {
         _scanner = GetComponent<CloudScanner>();
         _fillingSpeed = 60f;
+        _divisionsNumber = 100f;
     }
 
     private void OnEnable()
@@ -74,15 +77,7 @@ public abstract class CloudStatChanger : MonoBehaviour
         _upperValue = upperValueNumber;
         _lowerValue = lowerValueNumber;
 
-        _divisionsNumber = GetDivisionsNumber();
         _divisionValue = (_upperValue - _lowerValue) / _divisionsNumber;
         _currentValue = _upperValue;
-    }
-
-    private float GetDivisionsNumber()
-    {
-        float levelCoefficient = 100;
-
-        return levelCoefficient;
     }
 }

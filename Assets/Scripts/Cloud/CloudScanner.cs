@@ -117,7 +117,7 @@ public class CloudScanner : MonoBehaviour
     {
         foreach (var collider in _colliders)
         {
-            if (collider.TryGetComponent<InteractionObject>(out InteractionObject interactionObject))
+            if (collider.TryGetComponent<ActiveObject>(out ActiveObject interactionObject))
             {
                 if(interactionObject.WasUsedByPlayer == false)
                 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class InteractionObject : MonoBehaviour
+public abstract class ActiveObject : MonoBehaviour
 {
     private bool _wasUsedByPlayer;
 

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -10,12 +9,17 @@ public class Tree : ActiveObject
     [SerializeField] private GameObject _greenTrunk;
 
     AudioSource _audioSource;
+    private ParticleSystem _particleSystem;
 
     protected override void Awake()
     {
         base.Awake();
+
+        _particleSystem = GetComponentInChildren<ParticleSystem>();
         _audioSource = GetComponent<AudioSource>();
+
         _audioSource.clip = _sound;
+        _particleSystem.Stop();
     }
 
     private void Start()
@@ -46,6 +50,7 @@ public class Tree : ActiveObject
             SetGreenModel(WasUsedByPlayer);
             UseObjectsAround();
             _audioSource.Play();
+            _particleSystem.Play();
         }
     }
 

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class LootView : ActiveObject
 {
-    //[SerializeField] private ParticleSystem _effect;
     [SerializeField] private AudioClip _sound;
     [SerializeField] private GameObject _model;
 
     private AudioSource _audioSourse;
+    private ParticleSystem _effect;
 
     public bool IsAllowed => _model.activeSelf;
 
@@ -16,11 +16,12 @@ public class LootView : ActiveObject
     {
         base.Awake();
         _audioSourse = GetComponentInChildren<AudioSource>();
+        _effect = GetComponentInChildren<ParticleSystem>();
 
         _audioSourse.clip = _sound;
 
         ReturnToDefaultState();
-        //_effect.Stop();
+        _effect.Stop();
     }
 
     public override void ReactToScanner(Player player)
@@ -38,6 +39,7 @@ public class LootView : ActiveObject
         _audioSourse.playOnAwake = false;
         _audioSourse.loop = false;
         gameObject.isStatic = false;
+        _effect.Stop();
 
         _model.SetActive(false);
     }
@@ -52,7 +54,7 @@ public class LootView : ActiveObject
         if (!(_model.activeSelf && WasUsedByPlayer))
         {
             _model.SetActive(true);
-            //_effect.Play();
+            _effect.Play();
         }
     }
 }

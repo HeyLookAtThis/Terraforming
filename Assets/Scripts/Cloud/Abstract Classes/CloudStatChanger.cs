@@ -16,13 +16,13 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     private float _fillingSpeed;
 
-    private UnityAction _changedValue;
+    //private UnityAction _changedValue;
 
-    public event UnityAction ChangedValue
-    {
-        add => _changedValue += value;
-        remove => _changedValue -= value;
-    }
+    //public event UnityAction ChangedValue
+    //{
+    //    add => _changedValue += value;
+    //    remove => _changedValue -= value;
+    //}
 
     public float LowerValue => _lowerValue;
 
@@ -54,7 +54,7 @@ public abstract class CloudStatChanger : MonoBehaviour
     protected virtual void DecreaseCurrentValue()
     {
         _currentValue -= _divisionValue;
-        _changedValue?.Invoke();
+        //_changedValue?.Invoke();
 
         if (_currentValue < _lowerValue)
             _currentValue = _lowerValue;
@@ -65,7 +65,7 @@ public abstract class CloudStatChanger : MonoBehaviour
         if (_currentValue < _upperValue)
         {
             _currentValue += _divisionValue * Time.deltaTime * _fillingSpeed;
-            _changedValue?.Invoke();
+            //_changedValue?.Invoke();
         }
 
         if (_currentValue > _upperValue)

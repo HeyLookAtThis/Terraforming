@@ -4,9 +4,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Cloud), typeof(CloudResizer))]
 public class CloudWithWaterState : CloudState
 {
-    private float _lowYPositionIndent;
-    private float _highYPositionIndent;
-
     private CloudResizer _resizer;
     private bool _isInTargetPosition;
 
@@ -21,31 +18,24 @@ public class CloudWithWaterState : CloudState
     private void Awake()
     {
         _resizer = GetComponent<CloudResizer>();
-
-        _lowYPositionIndent = 0.3f;
-        _highYPositionIndent = -0.3f;
-
-        targetPosition = Target.position - positionIndent;
     }
 
-    //private void OnEnable()
-    //{
-    //    positionIndent.y = _lowYPositionIndent;
-    //    _resizer.ChangedValue += SetPositionIndent;   
-    //}
+    private void OnEnable()
+    {
+        _resizer.ChangedValue += SetPositionIndent;
+    }
 
-    //private void OnDisable()
-    //{
-    //    _resizer.ChangedValue -= SetPositionIndent;
-    //}
+    private void OnDisable()
+    {
+        _resizer.ChangedValue -= SetPositionIndent;
+    }
 
     private void Update()
     {
-        targetPosition = Target.position - positionIndent;
-
-        Debug.Log(positionIndent.y);
+        targetPosition = Target.position + positionIndent;
 
         Move(targetPosition);
+
         parentTransform.forward = Target.forward;
         ConfigureIsInTargetPlace();
 
@@ -61,9 +51,8 @@ public class CloudWithWaterState : CloudState
             _isInTargetPosition = false;
     }
 
-    //private void SetPositionIndent()
-    //{
-    //    if (positionIndent.y >= _highYPositionIndent && positionIndent.y <= _lowYPositionIndent)
-    //        positionIndent.y -= (_lowYPositionIndent - _highYPositionIndent) / _resizer.DivisionsNumber;
-    //}
+    private void SetPositionIndent(float difference)
+    {
+        positionIndent.y = 0.7f - difference;
+    }
 }

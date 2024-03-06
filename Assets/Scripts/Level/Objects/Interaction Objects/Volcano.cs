@@ -43,7 +43,7 @@ public class Volcano : ActiveObject
     public void BeginHeatGround(Ground ground)
     {
         float heatGaineTime = 1f;
-        GetComponent<VolcanoView>().PlaySmoke();
+        GetComponent<VolcanoView>().SetStartingEffectsState();
         DelegateMethod action = ground.AddTemperature;
 
         if (_heatGenerator != null)

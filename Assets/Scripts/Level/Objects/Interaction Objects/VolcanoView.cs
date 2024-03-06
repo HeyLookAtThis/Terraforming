@@ -9,7 +9,7 @@ public class VolcanoView : MonoBehaviour
     [SerializeField] private AudioClip _sound;
 
     [SerializeField] private ParticleSystem _smokeEffect;
-    //[SerializeField] private ParticleSystem _freezeEffect;
+    [SerializeField] private ParticleSystem _freezeEffect;
     [SerializeField] private GameObject _model;
     
     private AudioSource _audioSourse;
@@ -33,15 +33,17 @@ public class VolcanoView : MonoBehaviour
         GetComponent<Volcano>().WasFrozen -= Freeze;
     }
 
-    public void PlaySmoke()
+    public void SetStartingEffectsState()
     {
         _smokeEffect.Play();
+        _freezeEffect.Stop();
     }
 
     private void Freeze()
     {
         _audioSourse.Play();
         _smokeEffect.Stop();
+        _freezeEffect.Play();
         RunFreezer();
     }
 
@@ -58,7 +60,7 @@ public class VolcanoView : MonoBehaviour
         float second = 0.2f;
         var waitTime = new WaitForSeconds(second);
 
-        float colorChangeSpeed = 2f;
+        float colorChangeSpeed = 1f;
 
         while (_renderer.material.color != _iceColor)
         {

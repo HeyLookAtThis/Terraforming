@@ -4,6 +4,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Cloud), typeof(CloudResizer))]
 public class CloudWithWaterState : CloudState
 {
+    private const float _CloudSizeCoefficient = 0.7f;
+
     private CloudResizer _resizer;
     private bool _isInTargetPosition;
 
@@ -53,6 +55,6 @@ public class CloudWithWaterState : CloudState
 
     private void SetPositionIndent(float difference)
     {
-        positionIndent.y = 0.7f - difference;
+        positionIndent.y = _CloudSizeCoefficient - difference;
     }
 }

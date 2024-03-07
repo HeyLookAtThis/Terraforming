@@ -25,7 +25,7 @@ public class Loot : ActiveObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_view.IsAllowed && !_view.WasUsedByPlayer)
+        if (_view.IsAllowed && !WasUsedByPlayer)
         {
             if (other.TryGetComponent<Player>(out Player player))
             {
@@ -64,12 +64,12 @@ public class Loot : ActiveObject
 
     public override void ReactToScanner(Player player)
     {
-        _view.ReactToScanner(player);
+        _view.TurnOnVisible();
     }
 
     public override void ReactToTree()
     {
-        _view.ReactToTree();
+        _view.TurnOnVisible();
     }
 
     public override void ReturnToDefaultState()

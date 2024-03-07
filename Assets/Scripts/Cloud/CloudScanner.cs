@@ -31,6 +31,8 @@ public class CloudScanner : MonoBehaviour
         remove => _foundInteractionObject -= value;
     }
 
+    public bool IsActivated => _isActivated;
+
     private void Awake()
     {
         _reservoir = GetComponent<CloudReservoir>();

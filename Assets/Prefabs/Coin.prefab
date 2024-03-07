@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2472215625041592128}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 15.786659, z: 0}
 --- !u!33 &3197847930743667699
 MeshFilter:
   m_ObjectHideFlags: 0

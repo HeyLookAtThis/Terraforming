@@ -10,11 +10,18 @@ public class PlayerSatOnCloudState : State
     private Coroutine _jumper;
 
     private UnityAction _satOnCloud;
+    private UnityAction _jumping;
 
     public event UnityAction SatOnCloud
     {
         add => _satOnCloud += value;
         remove => _satOnCloud -= value;
+    }
+
+    public event UnityAction Jumping
+    {
+        add => _jumping += value;
+        remove => _jumping -= value;
     }
 
     private void OnEnable()
@@ -28,6 +35,8 @@ public class PlayerSatOnCloudState : State
             StopCoroutine(_jumper);
 
         _jumper = StartCoroutine(JumpTaker());
+
+        _jumping?.Invoke();
     }
 
     private IEnumerator JumpTaker()

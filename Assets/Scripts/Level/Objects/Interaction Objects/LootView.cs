@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LootView : ActiveObject
+public class LootView : MonoBehaviour
 {
     [SerializeField] private AudioClip _sound;
     [SerializeField] private GameObject _model;
@@ -12,36 +12,18 @@ public class LootView : ActiveObject
 
     public bool IsSoundPlaying => _audioSourse.isPlaying;
 
-    protected override void Awake()
+    private  void Awake()
     {
-        base.Awake();
         _audioSourse = GetComponentInChildren<AudioSource>();
         _effect = GetComponentInChildren<ParticleSystem>();
 
         _audioSourse.clip = _sound;
 
-        ReturnToDefaultState();
-        _effect.Stop();
-    }
-
-    public override void ReactToScanner(Player player)
-    {
-        TurnOnVisible();
-    }
-
-    public override void ReactToTree()
-    {
-        TurnOnVisible();
-    }
-
-    public override void ReturnToDefaultState()
-    {
         _audioSourse.playOnAwake = false;
         _audioSourse.loop = false;
         gameObject.isStatic = false;
-        _effect.Stop();
 
-        _model.SetActive(false);
+        TurnOffVisible();
     }
 
     public void PlaySound()
@@ -49,12 +31,18 @@ public class LootView : ActiveObject
         _audioSourse.Play();
     }
 
-    private void TurnOnVisible()
+    public void TurnOnVisible()
     {
-        if (!(_model.activeSelf && WasUsedByPlayer))
+        if (!(_model.activeSelf))
         {
             _model.SetActive(true);
             _effect.Play();
         }
+    }
+
+    public void TurnOffVisible()
+    {
+        _effect.Stop();
+        _model.SetActive(false);
     }
 }

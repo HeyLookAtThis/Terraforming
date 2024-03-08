@@ -2,11 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController), typeof(PlayerColliderChecker))]
 public class PlayerSatOnCloudState : State
 {
     [SerializeField] private float _jumpForse;
 
+    private PlayerColliderChecker _colliderChecker;
     private Coroutine _jumper;
 
     private UnityAction _satOnCloud;
@@ -24,9 +25,19 @@ public class PlayerSatOnCloudState : State
         remove => _jumping -= value;
     }
 
+    private void Awake()
+    {
+        _colliderChecker = GetComponent<PlayerColliderChecker>();
+    }
+
     private void OnEnable()
     {
-        TakeJump();
+        _colliderChecker.FoundWater += TakeJump;
+    }
+
+    private void OnDisable()
+    {
+        _colliderChecker.FoundWater -= TakeJump;
     }
 
     private void TakeJump()

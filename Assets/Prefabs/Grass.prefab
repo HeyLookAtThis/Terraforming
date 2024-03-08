@@ -1495,7 +1495,7 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: -10
       maxCurve:
         serializedVersion: 2
@@ -1601,7 +1601,7 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: -10
       maxCurve:
         serializedVersion: 2
@@ -4897,7 +4897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 0.5
-  _rateOverTime: 15
+  _rateOverTime: 10
   _particleSystem: {fileID: 2154439869102093750}
 --- !u!1 &8460828298254557906
 GameObject:

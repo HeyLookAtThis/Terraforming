@@ -32,6 +32,7 @@ public class PlayerFellFromCloudState : State
     {
         _playerCollider = GetComponent<PlayerColliderChecker>();
         _movement = GetComponent<PlayerMovement>();
+        _follower.Stop();
     }
 
     private void OnEnable()

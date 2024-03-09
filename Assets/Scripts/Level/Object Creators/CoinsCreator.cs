@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class CoinsCreator : ObjectsInstantiator
@@ -6,8 +5,9 @@ public class CoinsCreator : ObjectsInstantiator
     [SerializeField] private Coin _coin;
     [SerializeField] private int _amount;
 
-    public override void Create(uint currentLevel)
+    public override void OnCreate(uint currentLevel)
     {
+        base.OnCreate(currentLevel);
         int amount = _amount;
 
         while (amount > 0)
@@ -20,5 +20,7 @@ public class CoinsCreator : ObjectsInstantiator
                 amount--;
             }
         }
+
+        wasCreated = true;
     }
 }

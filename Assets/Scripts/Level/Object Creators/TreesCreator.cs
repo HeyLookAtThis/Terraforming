@@ -18,10 +18,11 @@ public class TreesCreator : ObjectsInstantiator
 
     private IReadOnlyList<Vector3> positions => _positions;
 
-    public override void Create(uint currentLevel)
+    public override void OnCreate(uint currentLevel)
     {
-        int count = (int)currentLevel * 2;
-
+        base.OnCreate(currentLevel);
+        int treeMultiplier = 2;
+        int count = (int)currentLevel * treeMultiplier;
 
         while (count > 0)
         {
@@ -33,6 +34,8 @@ public class TreesCreator : ObjectsInstantiator
             if (count <= currentLevel)
                 _positions.Add(position);
         }
-            _finished?.Invoke(positions);
+
+        _finished?.Invoke(positions);
+        wasCreated = true;
     }
 }

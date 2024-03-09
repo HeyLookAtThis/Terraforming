@@ -1,15 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GrassCreator : ObjectsInstantiator
 {
     [SerializeField] private Grass _grass;
 
-    private bool _isCreated;
-
-    public override void Create(uint currentLevel)
+    public override void OnCreate(uint currentLevel)
     {
-        if (_isCreated)
+        base.OnCreate(currentLevel);
+
+        if (wasCreated)
             return;
 
         float distance = 0.5f;
@@ -29,6 +28,6 @@ public class GrassCreator : ObjectsInstantiator
             }
         }
 
-        _isCreated = true;
+        wasCreated = true;
     }
 }

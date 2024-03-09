@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public abstract class CloudState : State
@@ -22,6 +23,7 @@ public abstract class CloudState : State
 
     protected void Move(Vector3 direction)
     {
-        parentTransform.position = Vector3.MoveTowards(parentTransform.position, direction, speed * Time.deltaTime);
+        //parentTransform.position = Vector3.MoveTowards(parentTransform.position, direction, speed * Time.deltaTime);
+        parentTransform.DOLocalMove(direction, speed * Time.deltaTime);
     }
 }

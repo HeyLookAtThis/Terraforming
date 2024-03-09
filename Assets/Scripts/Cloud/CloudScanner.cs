@@ -47,14 +47,16 @@ public class CloudScanner : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<CloudWithWaterState>().TookPosition += Activate;
-        _reservoir.WaterIsOver += Deactivate;
+        GetComponent<CloudWithWaterState>().TookPosition += OnActivate;
+        _reservoir.WaterIsOver += OnDeactivate;
+        _cloud.Ground.Overheated += OnDeactivate;
     }
 
     private void OnDisable()
     {
-        GetComponent<CloudWithWaterState>().TookPosition -= Activate;
-        _reservoir.WaterIsOver -= Deactivate;
+        GetComponent<CloudWithWaterState>().TookPosition -= OnActivate;
+        _reservoir.WaterIsOver -= OnDeactivate;
+        _cloud.Ground.Overheated += OnDeactivate;
     }
 
     private void Update()
@@ -77,7 +79,7 @@ public class CloudScanner : MonoBehaviour
         }
     }
 
-    private void Activate()
+    private void OnActivate()
     {
         if (_isActivated == false)
         {
@@ -86,7 +88,7 @@ public class CloudScanner : MonoBehaviour
         }
     }
 
-    private void Deactivate()
+    private void OnDeactivate()
     {
         if (_isActivated)
         {

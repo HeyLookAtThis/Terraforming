@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CristallCreator : ObjectsInstantiator
@@ -10,17 +9,18 @@ public class CristallCreator : ObjectsInstantiator
     protected override void OnEnable()
     {
         base.OnEnable();
-        _treesCreator.OnFinished += SetPositions;
+        _treesCreator.OnFinished += OnSetPositions;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        _treesCreator.OnFinished -= SetPositions;
+        _treesCreator.OnFinished -= OnSetPositions;
     }
 
-    public override void Create(uint currentLevel)
+    public override void OnCreate(uint currentLevel)
     {
+        base.OnCreate(currentLevel);
         int count = (int)currentLevel;
 
         while (count > 0)
@@ -29,9 +29,11 @@ public class CristallCreator : ObjectsInstantiator
             AddInteractionObject(cristall);
             count--;
         }
+
+        wasCreated = true;
     }
 
-    private void SetPositions(IReadOnlyList<Vector3> treePositions)
+    private void OnSetPositions(IReadOnlyList<Vector3> treePositions)
     {
         for(int i = 0; i < activeObjects.Count; i++)
             activeObjects[i].transform.position = GetPositionNearTree(treePositions[i]);

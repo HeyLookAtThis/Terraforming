@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class LevelCounter : MonoBehaviour
 {
-    //[SerializeField] private LevelStarter _levelStarter;
     [SerializeField] private uint _finishLevelNumber;
     [SerializeField] private uint _startLevelNumber;
 
@@ -17,16 +16,6 @@ public class LevelCounter : MonoBehaviour
 
         _currentLevel = _startLevelNumber;
     }
-
-    //private void OnEnable()
-    //{
-    //    _levelStarter.Beginning += SetNextLevel;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    _levelStarter.Beginning -= SetNextLevel;
-    //}
 
     public void SetNextLevel()
     {

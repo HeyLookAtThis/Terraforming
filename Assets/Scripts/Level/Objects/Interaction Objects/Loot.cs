@@ -67,11 +67,6 @@ public class Loot : ActiveObject
         _view.TurnOnVisible();
     }
 
-    public override void ReactToTree()
-    {
-        _view.TurnOnVisible();
-    }
-
     public override void ReturnToDefaultState()
     {
         StartCoroutine(Destroyer());

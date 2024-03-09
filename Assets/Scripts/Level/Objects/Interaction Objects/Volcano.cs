@@ -31,10 +31,6 @@ public class Volcano : ActiveObject
         }
     }
 
-    public override void ReactToTree()
-    {
-    }
-
     public override void ReturnToDefaultState()
     {
         Destroy(gameObject);

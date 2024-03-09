@@ -21,11 +21,6 @@ public class Grass : ActiveObject
         MakeVisible();
     }
 
-    public override void ReactToTree()
-    {
-        MakeVisible();
-    }
-
     public override void ReturnToDefaultState()
     {
         _particleSystem.Stop();

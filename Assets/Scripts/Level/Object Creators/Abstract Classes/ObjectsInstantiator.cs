@@ -10,6 +10,8 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     private List<ActiveObject> _activeObjects = new List<ActiveObject>();
 
+    protected bool wasCreated;
+
     protected LevelGrid levelGrid => _grid;
 
     protected IReadOnlyList<ActiveObject> activeObjects => _activeObjects;
@@ -22,27 +24,29 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        _levelGenerator.Launched += Create;
+        _levelGenerator.Launched += OnCreate;
     }
 
     protected virtual void OnDisable()
     {
-        _levelGenerator.Launched -= Create;
+        _levelGenerator.Launched -= OnCreate;
     }
 
-    public abstract void Create(uint currentLevel);
+    public virtual void OnCreate(uint currentLevel)
+    {
+        if (wasCreated)
+            ReturnDefaultState();
+    }
 
     public void ReturnDefaultState()
     {
         if (_activeObjects != null)
         {
             foreach (var activeObject in _activeObjects)
-            {
                 activeObject.ReturnToDefaultState();
 
-                if (activeObject.GetType() != typeof(Grass))
-                    _activeObjects.Remove(activeObject);
-            }
+            if (_activeObjects.GetType() != typeof(List<Grass>))
+                _activeObjects.Clear();
         }
     }
 

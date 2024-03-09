@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
 public class VolcanoesCreator : ObjectsInstantiator
@@ -7,8 +5,9 @@ public class VolcanoesCreator : ObjectsInstantiator
     [SerializeField] private Volcano _prefab;
     [SerializeField] private Ground _ground;
 
-    public override void Create(uint currentLevel)
+    public override void OnCreate(uint currentLevel)
     {
+        base.OnCreate(currentLevel);
         int count = (int)currentLevel;
         _ground.InitializeTemperature(_prefab.Temperature, currentLevel);
 
@@ -19,5 +18,7 @@ public class VolcanoesCreator : ObjectsInstantiator
             AddInteractionObject(volcano);
             count--;
         }
+
+        wasCreated = true;
     }
 }

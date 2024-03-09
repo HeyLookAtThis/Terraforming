@@ -87,6 +87,12 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             input = Vector2.zero;
     }
 
+    protected void ReturnToDefault()
+    {
+        input = Vector2.zero;
+        handle.anchoredPosition = Vector2.zero;
+    }
+
     private void FormatInput()
     {
         if (axisOptions == AxisOptions.Horizontal)

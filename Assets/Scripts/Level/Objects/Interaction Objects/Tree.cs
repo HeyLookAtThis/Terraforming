@@ -29,12 +29,7 @@ public class Tree : ActiveObject
 
     public override void ReactToScanner(Player player)
     {
-        MakeGreen();
-    }
-
-    public override void ReactToTree()
-    {
-        MakeGreen();
+        MakeGreen(player);
     }
 
     public override void ReturnToDefaultState()
@@ -42,13 +37,13 @@ public class Tree : ActiveObject
         Destroy(gameObject);
     }
 
-    private void MakeGreen()
+    private void MakeGreen(Player player)
     {
         if (WasUsedByPlayer == false)
         {
             TurnOnUsed();
             SetGreenModel(WasUsedByPlayer);
-            UseObjectsAround();
+            UseObjectsAround(player);
             _audioSource.Play();
             _particleSystem.Play();
         }
@@ -60,12 +55,12 @@ public class Tree : ActiveObject
         _greenTrunk.SetActive(isGreen);
     }
 
-    private void UseObjectsAround()
+    private void UseObjectsAround(Player player)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
 
         foreach (var collider in colliders)
             if (collider.TryGetComponent<ActiveObject>(out ActiveObject interationObject))
-                interationObject.ReactToTree();
+                interationObject.ReactToScanner(player);
     }
 }

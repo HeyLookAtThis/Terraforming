@@ -14,8 +14,6 @@ public abstract class ActiveObject : MonoBehaviour
 
     public abstract void ReactToScanner(Player player);
 
-    public abstract void ReactToTree();
-
     public abstract void ReturnToDefaultState();
 
     protected void TurnOnUsed()

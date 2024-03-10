@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CloudReservoir))]
-public class CloudRanOutOfWaterTransition : Transition
+public class CloudWaterIsOverTransition : Transition
 {
     private void OnEnable()
     {

@@ -8,13 +8,13 @@ public abstract class ObjectsInstantiator : MonoBehaviour
     private LevelGrid _grid;
     private LevelGenerator _levelGenerator;
 
-    private List<ActiveObject> _activeObjects = new List<ActiveObject>();
+    private List<LevelObject> _activeObjects = new List<LevelObject>();
 
     protected bool wasCreated;
 
     protected LevelGrid levelGrid => _grid;
 
-    protected IReadOnlyList<ActiveObject> activeObjects => _activeObjects;
+    protected IReadOnlyList<LevelObject> activeObjects => _activeObjects;
 
     protected void Awake()
     {
@@ -50,7 +50,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
         }
     }
 
-    protected void AddActiveObject(ActiveObject activeObject)
+    protected void AddActiveObject(LevelObject activeObject)
     {
         _activeObjects.Add(activeObject);
     }

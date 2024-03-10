@@ -1,65 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
+[RequireComponent(typeof(PlayerColliderChecker),typeof(PlayerObjectsCounter),typeof(PlayerMovement))]
 public class Player : MonoBehaviour
 {
-    private List<ActiveObject> _cristalls = new List<ActiveObject>();
+    public PlayerColliderChecker ColliderChecker => GetComponent<PlayerColliderChecker>();
 
-    private int _coinsCount;
-    private int _cristallCount;
-    private int _frozenVolcanoCount;
-    private int _greenTreeCount;
+    public PlayerObjectsCounter Counter => GetComponent<PlayerObjectsCounter>();
 
-    private UnityAction<ActiveObject, int> _countChanged;
+    public PlayerMovement Movement => GetComponent<PlayerMovement>();
 
-    public event UnityAction<ActiveObject, int> ObjectCountChanged
+    public void Destroy()
     {
-        add => _countChanged += value;
-        remove => _countChanged -= value;
+        Destroy(gameObject);
     }
 
-    public int CoinsNumber => _coinsCount;
-
-    public bool HaveCristall => _cristallCount > 0;
-
-    public void UseObject(ActiveObject interactionObject)
+    public void InitializeJoystic(FixedJoystick joystick)
     {
-        int newCount = 0;
-
-        switch(interactionObject)
-        {
-            case Volcano:
-                newCount = ++_frozenVolcanoCount;
-                break;
-
-            case Tree:
-                newCount = ++_greenTreeCount;
-                break;
-
-            case Cristall:
-                AddCristall(interactionObject, ref newCount);
-                break;
-
-            case Coin:
-                newCount = ++_coinsCount;
-                break;
-        }
-
-        _countChanged?.Invoke(interactionObject, newCount);
+        Movement.InitializeJoystic(joystick);
     }
 
-    public void RemoveCristall()
+    public void InitializeReservoir(CloudReservoir reservoir)
     {
-        _cristallCount--;
-        _countChanged?.Invoke(_cristalls[0], _cristallCount);
-        _cristalls.RemoveAt(0);
-    }
-
-    private void AddCristall(ActiveObject interactionObject, ref int newCount)
-    {
-        newCount = ++_cristallCount;
-        _cristalls.Add(interactionObject);
+        GetComponent<PlayerWaterIsOverTransition>().InitializeReservoir(reservoir);
     }
 }

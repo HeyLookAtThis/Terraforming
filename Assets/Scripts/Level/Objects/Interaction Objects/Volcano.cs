@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(VolcanoView))]
-public class Volcano : ActiveObject
+public class Volcano : LevelObject
 {
     [SerializeField] private float _temperature;
 
@@ -21,7 +21,7 @@ public class Volcano : ActiveObject
 
     public float Temperature => _temperature;
 
-    public override void ReactToScanner(Player player)
+    public override void ReactToScanner(PlayerObjectsCounter player)
     {
         if(WasUsedByPlayer == false && player.HaveCristall)
         {

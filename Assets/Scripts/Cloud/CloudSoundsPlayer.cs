@@ -4,14 +4,16 @@ using UnityEngine;
 public class CloudSoundsPlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip _rain;
-    [SerializeField] private CloudScanner _scanner;
 
     private AudioSource _audioSource;
     private Coroutine _rainBegginer;
+    private CloudScanner _scanner;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        _scanner = GetComponentInParent<CloudScanner>();
+
         _audioSource.loop = true;
         _audioSource.playOnAwake = false;
         _audioSource.Stop();

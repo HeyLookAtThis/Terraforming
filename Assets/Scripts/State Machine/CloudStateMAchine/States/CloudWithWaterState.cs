@@ -36,20 +36,23 @@ public class CloudWithWaterState : CloudState
     {
         targetPosition = Target.position + positionIndent;
 
-        Move(targetPosition);
+        Move(targetPosition, TargetSpeed * SpeedBoost);
 
-        parentTransform.forward = Target.forward;
+        transform.forward = Target.forward;
         ConfigureIsInTargetPlace();
 
         if (_isInTargetPosition)
+        {
+            transform.position = targetPosition;
             _tookPosition?.Invoke();
+        }
     }
 
     private void ConfigureIsInTargetPlace()
     {
         float allowedDistance = 0.35f;
 
-        if (Vector3.Distance(targetPosition, parentTransform.position) < allowedDistance)
+        if (Vector3.Distance(targetPosition, transform.position) < allowedDistance)
             _isInTargetPosition = true;
         else
             _isInTargetPosition = false;

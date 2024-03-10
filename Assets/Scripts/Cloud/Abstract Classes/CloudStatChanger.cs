@@ -5,12 +5,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Cloud), typeof(CloudScanner))]
 public abstract class CloudStatChanger : MonoBehaviour
 {
-    [SerializeField] private LevelGenerator _generator;
+    [SerializeField] private float _lowerValue;
+    [SerializeField] private float _upperValue;
 
     private CloudScanner _scanner;
-
-    private float _lowerValue;
-    private float _upperValue;
 
     private float _currentValue;
     private float _divisionValue;
@@ -24,8 +22,6 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     public CloudScanner Scanner => _scanner;
 
-    public float DivisionsNumber => _divisionsNumber;
-
     private void Awake()
     {
         _scanner = GetComponent<CloudScanner>();
@@ -35,14 +31,13 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        _generator.Launched += SetDefaultValue;
+        InitializeValues();
         _scanner.FoundWater += IncreaseCurrentValue;
         _scanner.FoundInteractionObject += DecreaseCurrentValue;
     }
 
     private void OnDisable()
     {
-        _generator.Launched -= SetDefaultValue;
         _scanner.FoundWater -= IncreaseCurrentValue;
         _scanner.FoundInteractionObject -= DecreaseCurrentValue;
     }
@@ -64,17 +59,9 @@ public abstract class CloudStatChanger : MonoBehaviour
             _currentValue = _upperValue;
     }
 
-    protected void InitializeValues(float upperValueNumber, float lowerValueNumber)
+    private void InitializeValues()
     {
-        _upperValue = upperValueNumber;
-        _lowerValue = lowerValueNumber;
-
         _divisionValue = (_upperValue - _lowerValue) / _divisionsNumber;
-        _currentValue = _upperValue;
-    }
-
-    private void SetDefaultValue(uint currentLevel)
-    {
         _currentValue = _upperValue;
     }
 }

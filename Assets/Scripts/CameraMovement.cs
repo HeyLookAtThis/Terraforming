@@ -4,19 +4,19 @@ using UnityEngine;
 public class CameraMotion : MonoBehaviour
 {
     [SerializeField] private Vector3 _interval;
-    [SerializeField] private LevelGenerator _levelGenerator;
-    [SerializeField] private Player _target;
+    [SerializeField] private PlayerInstantiator _playerInstantiator;
 
-    private float _speed = 10;
+    private Player _target;
+    private float _speed = 3;
 
     private void OnEnable()
     {
-        _levelGenerator.Launched += TakeTargetPosition;
+        _playerInstantiator.Created += OnInitialize;
     }
 
     private void OnDisable()
     {
-        _levelGenerator.Launched -= TakeTargetPosition;
+        _playerInstantiator.Created -= OnInitialize;
     }
 
     private void Update()
@@ -24,8 +24,9 @@ public class CameraMotion : MonoBehaviour
         transform.DOMove(_target.transform.position + _interval, _speed * Time.deltaTime);
     }
 
-    private void TakeTargetPosition(uint currentLevel)
+    private void OnInitialize(Player player)
     {
+        _target = player;
         transform.position = _target.transform.position + _interval;
     }
 }

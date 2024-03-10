@@ -3,10 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private FixedJoystick _joystick;
     [SerializeField] private float _speed;
 
     private CharacterController _controller;
+    private FixedJoystick _joystick;
 
     public Vector3 Direction { get; private set; }
 
@@ -21,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Rotate();
+    }
+
+    public void InitializeJoystic(FixedJoystick joystick)
+    {
+        _joystick = joystick;
     }
 
     public void MoveOnVertical(float forse)

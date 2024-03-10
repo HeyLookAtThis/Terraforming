@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2d5d2fbc914dd4c8b344b4d4ac57ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endGamePanel: {fileID: 0}
 --- !u!114 &5956940333303740214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +545,8 @@ GameObject:
   - component: {fileID: 1047362826760016286}
   - component: {fileID: 7701554429122001516}
   - component: {fileID: 1707159116163996002}
+  - component: {fileID: 7507281009466901238}
+  - component: {fileID: 7773772085746071019}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -586,6 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2d5d2fbc914dd4c8b344b4d4ac57ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endGamePanel: {fileID: 0}
 --- !u!114 &7701554429122001516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,3 +619,31 @@ MonoBehaviour:
   _edgeOffset: 2.5
   _yAxisValue: 1
   _terrain: {fileID: 1202813967082212056}
+--- !u!114 &7507281009466901238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591277303219213618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb9c3884a695f947b5b993a634bddc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _water: {fileID: 0}
+  _player: {fileID: 0}
+  _cloud: {fileID: 0}
+--- !u!114 &7773772085746071019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591277303219213618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c4fbc57e14c2140842f713d4f212d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cloud: {fileID: 0}

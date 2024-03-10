@@ -49,14 +49,12 @@ public class CloudScanner : MonoBehaviour
     {
         GetComponent<CloudWithWaterState>().TookPosition += OnActivate;
         _reservoir.WaterIsOver += OnDeactivate;
-        _cloud.Ground.Overheated += OnDeactivate;
     }
 
     private void OnDisable()
     {
         GetComponent<CloudWithWaterState>().TookPosition -= OnActivate;
         _reservoir.WaterIsOver -= OnDeactivate;
-        _cloud.Ground.Overheated += OnDeactivate;
     }
 
     private void Update()
@@ -121,7 +119,7 @@ public class CloudScanner : MonoBehaviour
     {
         foreach (var collider in _colliders)
         {
-            if (collider.TryGetComponent<ActiveObject>(out ActiveObject interactionObject))
+            if (collider.TryGetComponent<LevelObject>(out LevelObject interactionObject))
             {
                 if(interactionObject.WasUsedByPlayer == false)
                 {

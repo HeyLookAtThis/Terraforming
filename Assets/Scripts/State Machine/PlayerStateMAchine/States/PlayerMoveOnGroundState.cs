@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMovement), typeof(PlayerColliderChecker))]
-public class PlayerFellFromCloudState : State
+public class PlayerMoveOnGroundState : State
 {
     [SerializeField] private ParticleSystem _follower;
 

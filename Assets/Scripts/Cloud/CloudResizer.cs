@@ -15,14 +15,6 @@ public class CloudResizer : CloudStatChanger
         remove => _changedValue -= value;
     }
 
-    private void Start()
-    {
-        float upperValue = 1f;
-        float lowerValue = 0.4f;
-
-        InitializeValues(upperValue, lowerValue);
-    }
-
     private void Update()
     {
         if (_nextValue != CurrentValue)

@@ -1,29 +1,22 @@
 using DG.Tweening;
 using UnityEngine;
 
+[RequireComponent(typeof(Cloud))]
 public abstract class CloudState : State
 {
     [SerializeField] private float _speedBoost;
-    [SerializeField] protected Transform parentTransform;
 
     protected Vector3 positionIndent;
     protected Vector3 targetPosition;
 
-    protected float speed;
+    protected float SpeedBoost => _speedBoost;
 
     public float TargetSpeed => GetComponent<Cloud>().PlayerMovement.Speed;
 
-    public Transform Target => GetComponent<Cloud>().PlayerMovement.transform;
+    public Transform Target => GetComponent<Cloud>().Player.transform;
 
-    public override void Enter()
+    protected void Move(Vector3 direction, float speed)
     {
-        base.Enter();
-        speed = TargetSpeed * _speedBoost;
-    }
-
-    protected void Move(Vector3 direction)
-    {
-        //parentTransform.position = Vector3.MoveTowards(parentTransform.position, direction, speed * Time.deltaTime);
-        parentTransform.DOLocalMove(direction, speed * Time.deltaTime);
+        transform.DOMove(direction, speed);
     }
 }

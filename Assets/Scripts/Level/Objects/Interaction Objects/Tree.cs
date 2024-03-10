@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Tree : ActiveObject
+public class Tree : LevelObject
 {
     [SerializeField] private float _radius;
     [SerializeField] private AudioClip _sound;
@@ -27,7 +27,7 @@ public class Tree : ActiveObject
         SetGreenModel(WasUsedByPlayer);
     }
 
-    public override void ReactToScanner(Player player)
+    public override void ReactToScanner(PlayerObjectsCounter player)
     {
         MakeGreen(player);
     }
@@ -37,7 +37,7 @@ public class Tree : ActiveObject
         Destroy(gameObject);
     }
 
-    private void MakeGreen(Player player)
+    private void MakeGreen(PlayerObjectsCounter player)
     {
         if (WasUsedByPlayer == false)
         {
@@ -55,12 +55,12 @@ public class Tree : ActiveObject
         _greenTrunk.SetActive(isGreen);
     }
 
-    private void UseObjectsAround(Player player)
+    private void UseObjectsAround(PlayerObjectsCounter player)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
 
         foreach (var collider in colliders)
-            if (collider.TryGetComponent<ActiveObject>(out ActiveObject interationObject))
+            if (collider.TryGetComponent<LevelObject>(out LevelObject interationObject))
                 interationObject.ReactToScanner(player);
     }
 }

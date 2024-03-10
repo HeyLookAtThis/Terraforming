@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,7 @@ public class LevelGenerator : MonoBehaviour
 
     private UnityAction<uint> _launched;
 
+
     public event UnityAction<uint> Launched
     {
         add => _launched += value;
@@ -19,6 +21,7 @@ public class LevelGenerator : MonoBehaviour
     private void Awake()
     {
         _levelCounter = GetComponent<LevelCounter>();
+        OnLaunch();
     }
 
     private void OnEnable()
@@ -29,11 +32,6 @@ public class LevelGenerator : MonoBehaviour
     private void OnDisable()
     {
         _endGamePanel.RestartAction -= OnLaunch;
-    }
-
-    private void Start()
-    {
-        _launched?.Invoke(_levelCounter.CurrentLevel);
     }
 
     private void OnLaunch()

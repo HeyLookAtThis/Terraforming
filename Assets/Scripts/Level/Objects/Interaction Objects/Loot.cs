@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(SphereCollider))]
-public class Loot : ActiveObject
+public class Loot : LevelObject
 {
     [SerializeField] private float _chaseSpeed;
 
@@ -19,7 +19,7 @@ public class Loot : ActiveObject
         _sphereCollider.isTrigger = true;
     }
 
-    private void AddReward(Player player)
+    private void AddReward(PlayerObjectsCounter player)
     {
         player.UseObject(this);
     }
@@ -28,7 +28,7 @@ public class Loot : ActiveObject
     {
         if (_view.IsAllowed && !WasUsedByPlayer)
         {
-            if (other.TryGetComponent<Player>(out Player player))
+            if (other.TryGetComponent<PlayerObjectsCounter>(out PlayerObjectsCounter player))
             {
                 ChaseThePlayer(player.transform.position);
                 AddReward(player);
@@ -63,7 +63,7 @@ public class Loot : ActiveObject
         }
     }
 
-    public override void ReactToScanner(Player player)
+    public override void ReactToScanner(PlayerObjectsCounter player)
     {
         _view.TurnOnVisible();
     }

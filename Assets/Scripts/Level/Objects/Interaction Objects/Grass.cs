@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Grass : ActiveObject
+public class Grass : LevelObject
 {
     [SerializeField] private float _duration;
     [SerializeField] private uint _rateOverTime;
@@ -16,7 +16,7 @@ public class Grass : ActiveObject
         base.Awake();
     }
 
-    public override void ReactToScanner(Player player)
+    public override void ReactToScanner(PlayerObjectsCounter player)
     {
         MakeVisible();
     }

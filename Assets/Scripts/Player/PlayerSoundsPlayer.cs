@@ -6,7 +6,7 @@ public class PlayerSoundsPlayer : MonoBehaviour
     [SerializeField] private AudioClip _jumpOnCloudSound;
     [SerializeField] private AudioClip[] _stepSounds;
 
-    private PlayerFellFromCloudState _fellFromCloudState;
+    private PlayerMoveOnGroundState _fellFromCloudState;
     private PlayerSatOnCloudState _jumpingState;
     private AudioSource _sourse;
 
@@ -14,7 +14,7 @@ public class PlayerSoundsPlayer : MonoBehaviour
     {
         _sourse = GetComponent<AudioSource>();
 
-        _fellFromCloudState = GetComponentInParent<PlayerFellFromCloudState>();
+        _fellFromCloudState = GetComponentInParent<PlayerMoveOnGroundState>();
         _jumpingState = GetComponentInParent<PlayerSatOnCloudState>();
     }
 

@@ -3,13 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationsController : MonoBehaviour
 {
-    private PlayerFellFromCloudState _playerFellFromCloudState;
+    private PlayerMoveOnGroundState _playerFellFromCloudState;
     private PlayerSatOnCloudState _playerOnCloudState;
     private Animator _animator;
 
     private void Awake()
     {
-        _playerFellFromCloudState = GetComponentInParent<PlayerFellFromCloudState>();
+        _playerFellFromCloudState = GetComponentInParent<PlayerMoveOnGroundState>();
         _playerOnCloudState = GetComponentInParent<PlayerSatOnCloudState>();
         _animator = GetComponent<Animator>();
     }

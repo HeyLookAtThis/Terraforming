@@ -12,14 +12,6 @@ public class CloudReservoir : CloudStatChanger
 
     public bool HaveWater => CurrentValue > LowerValue;
 
-    private void Start()
-    {
-        float upperValue = 1f;
-        float lowerValue = 0f;
-
-        InitializeValues(upperValue, lowerValue);
-    }
-
     protected override void DecreaseCurrentValue()
     {
         if (HaveWater)

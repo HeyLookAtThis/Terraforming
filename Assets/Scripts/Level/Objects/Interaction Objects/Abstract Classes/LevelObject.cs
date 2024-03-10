@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class ActiveObject : MonoBehaviour
+public abstract class LevelObject : MonoBehaviour
 {
     private bool _wasUsedByPlayer;
 
@@ -12,7 +12,7 @@ public abstract class ActiveObject : MonoBehaviour
         TurnOffUsed();
     }
 
-    public abstract void ReactToScanner(Player player);
+    public abstract void ReactToScanner(PlayerObjectsCounter player);
 
     public abstract void ReturnToDefaultState();
 

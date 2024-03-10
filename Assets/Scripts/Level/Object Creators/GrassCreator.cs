@@ -23,7 +23,7 @@ public class GrassCreator : ObjectsInstantiator
                 {
                     Grass grass = Instantiate(_grass, position, Quaternion.identity, this.transform);
                     grass.ReturnToDefaultState();
-                    AddInteractionObject(grass);
+                    AddActiveObject(grass);
                 }
             }
         }

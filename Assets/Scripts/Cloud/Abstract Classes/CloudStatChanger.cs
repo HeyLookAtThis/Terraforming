@@ -5,6 +5,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Cloud), typeof(CloudScanner))]
 public abstract class CloudStatChanger : MonoBehaviour
 {
+    [SerializeField] private LevelGenerator _generator;
+
     private CloudScanner _scanner;
 
     private float _lowerValue;
@@ -33,12 +35,14 @@ public abstract class CloudStatChanger : MonoBehaviour
 
     private void OnEnable()
     {
+        _generator.Launched += SetDefaultValue;
         _scanner.FoundWater += IncreaseCurrentValue;
         _scanner.FoundInteractionObject += DecreaseCurrentValue;
     }
 
     private void OnDisable()
     {
+        _generator.Launched -= SetDefaultValue;
         _scanner.FoundWater -= IncreaseCurrentValue;
         _scanner.FoundInteractionObject -= DecreaseCurrentValue;
     }
@@ -66,6 +70,11 @@ public abstract class CloudStatChanger : MonoBehaviour
         _lowerValue = lowerValueNumber;
 
         _divisionValue = (_upperValue - _lowerValue) / _divisionsNumber;
+        _currentValue = _upperValue;
+    }
+
+    private void SetDefaultValue(uint currentLevel)
+    {
         _currentValue = _upperValue;
     }
 }

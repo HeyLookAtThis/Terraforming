@@ -16,7 +16,7 @@ public class CoinsCreator : ObjectsInstantiator
 
             if (IsEmptyGround(position))
             {
-                AddInteractionObject(Instantiate(_coin, position, Quaternion.identity, this.transform));
+                AddActiveObject(Instantiate(_coin, position, Quaternion.identity, this.transform));
                 amount--;
             }
         }

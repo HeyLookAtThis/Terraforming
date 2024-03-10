@@ -36,6 +36,7 @@ public class Ground : MonoBehaviour
         StartingTemperature = 0;
         CurrentTemperature = StartingTemperature;
         EndingTemperature = volcanoTemperature * currentLevel;
+        Debug.Log("reset");
 
         _temperatureSet?.Invoke();
     }

@@ -28,7 +28,7 @@ public class TreesCreator : ObjectsInstantiator
         {
             Vector3 position = GetAllowedCoordinate();
             Tree tree = Instantiate(_prefab, position, Quaternion.identity, this.transform);
-            AddInteractionObject(tree);
+            AddActiveObject(tree);
             count--;
 
             if (count <= currentLevel)

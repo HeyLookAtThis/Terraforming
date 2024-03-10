@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Loot : ActiveObject
@@ -57,7 +58,7 @@ public class Loot : ActiveObject
 
         if (transform.position == target)
         {
-            ReturnToDefaultState();
+            _view.TurnOffVisible();
             yield break;
         }
     }
@@ -74,7 +75,7 @@ public class Loot : ActiveObject
 
     private IEnumerator Destroyer()
     {
-        while(_view.IsSoundPlaying)
+        while (_view.IsSoundPlaying)
             yield return null;
 
         Destroy(gameObject);

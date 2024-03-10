@@ -16,6 +16,12 @@ public class PlayerColliderChecker : MonoBehaviour
         remove => _foundWater -= value;
     }
 
+    public void TurnOffGrounded()
+    {
+        if (_grounded)
+            _grounded = false;
+    }
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.collider.TryGetComponent<Water>(out Water water))

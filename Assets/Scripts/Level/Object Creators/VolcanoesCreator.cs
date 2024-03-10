@@ -15,7 +15,7 @@ public class VolcanoesCreator : ObjectsInstantiator
         {
             Volcano volcano = Instantiate(_prefab, GetAllowedCoordinate(), Quaternion.identity, this.transform);
             volcano.BeginHeatGround(_ground);
-            AddInteractionObject(volcano);
+            AddActiveObject(volcano);
             count--;
         }
 

@@ -26,7 +26,7 @@ public class CristallCreator : ObjectsInstantiator
         while (count > 0)
         {
             Cristall cristall = Instantiate(_cristall, transform.position, Quaternion.identity, this.transform);
-            AddInteractionObject(cristall);
+            AddActiveObject(cristall);
             count--;
         }
 

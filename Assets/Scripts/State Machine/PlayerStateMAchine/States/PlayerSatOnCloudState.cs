@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(CharacterController), typeof(PlayerColliderChecker))]
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerColliderChecker))]
 public class PlayerSatOnCloudState : State
 {
     [SerializeField] private float _jumpForse;
@@ -40,13 +40,17 @@ public class PlayerSatOnCloudState : State
         _colliderChecker.FoundWater -= TakeJump;
     }
 
+    public void SatOnCloudInvoke()
+    {
+        _satOnCloud?.Invoke();
+    }
+
     private void TakeJump()
     {
         if (_jumper != null)
             StopCoroutine(_jumper);
 
         _jumper = StartCoroutine(JumpTaker());
-
         _jumping?.Invoke();
     }
 
@@ -54,14 +58,13 @@ public class PlayerSatOnCloudState : State
     {
         var waitTime = new WaitForEndOfFrame();
 
-        Vector3 targetHeight = Vector3.up * _jumpForse;
         float heightCounter = 0;
         float jumpTime = 0.3f;
 
         while (heightCounter < jumpTime)
         {
             heightCounter += Time.deltaTime;
-            GetComponent<CharacterController>().Move(targetHeight * Time.deltaTime);
+            GetComponent<PlayerMovement>().MoveOnVertical(_jumpForse * Time.deltaTime);
             yield return waitTime;
         }
 

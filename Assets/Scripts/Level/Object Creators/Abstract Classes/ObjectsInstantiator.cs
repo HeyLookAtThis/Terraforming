@@ -50,7 +50,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
         }
     }
 
-    protected void AddInteractionObject(ActiveObject activeObject)
+    protected void AddActiveObject(ActiveObject activeObject)
     {
         _activeObjects.Add(activeObject);
     }

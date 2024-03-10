@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerColliderChecker), typeof(CharacterController), typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerMovement), typeof(PlayerColliderChecker))]
 public class PlayerFellFromCloudState : State
 {
     [SerializeField] private ParticleSystem _follower;
@@ -10,7 +10,7 @@ public class PlayerFellFromCloudState : State
     private float _gravityValue = -9.81f;
     private Vector3 _velosity;
 
-    private PlayerColliderChecker _playerCollider;
+    private PlayerColliderChecker _playerColliderChecker;
     private PlayerMovement _movement;
 
     private UnityAction<float> _running;
@@ -30,7 +30,7 @@ public class PlayerFellFromCloudState : State
 
     private void Awake()
     {
-        _playerCollider = GetComponent<PlayerColliderChecker>();
+        _playerColliderChecker = GetComponent<PlayerColliderChecker>();
         _movement = GetComponent<PlayerMovement>();
         _follower.Stop();
     }
@@ -48,7 +48,7 @@ public class PlayerFellFromCloudState : State
 
     private void Update()
     {
-        if (_playerCollider.IsGrounded && _movement.Direction != Vector3.zero)
+        if (_playerColliderChecker.IsGrounded && _movement.Direction != Vector3.zero)
             _running?.Invoke(_movement.Speed);
         else
             _running?.Invoke(0);
@@ -61,19 +61,19 @@ public class PlayerFellFromCloudState : State
 
     private void UzeGravity()
     {
-        if (_playerCollider.IsGrounded && _velosity.y < 0)
+        if (_playerColliderChecker.IsGrounded && _velosity.y < 0)
         {
             _velosity.y = 0;
             return;
         }
 
         _velosity.y += _gravityValue * Time.fixedDeltaTime;
-        GetComponent<CharacterController>().Move(_velosity * Time.fixedDeltaTime);
+        _movement.MoveOnVertical(_velosity.y * Time.fixedDeltaTime);
     }
 
     private IEnumerator TrailEffectActivator()
     {
-        while(!_playerCollider.IsGrounded)
+        while(!_playerColliderChecker.IsGrounded)
             yield return null;
 
         _follower.Play();

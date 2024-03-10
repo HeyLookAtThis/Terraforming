@@ -47,7 +47,9 @@ public class CloudWithWaterState : CloudState
 
     private void ConfigureIsInTargetPlace()
     {
-        if(parentTransform.position.x == Target.position.x && parentTransform.position.z == Target.position.z)
+        float allowedDistance = 0.35f;
+
+        if (Vector3.Distance(targetPosition, parentTransform.position) < allowedDistance)
             _isInTargetPosition = true;
         else
             _isInTargetPosition = false;

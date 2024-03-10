@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -269,8 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63ebe3f57877894781bbcacbd63e21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 163108644}
   _interval: {x: 0, y: 8, z: -8}
+  _levelGenerator: {fileID: 1586144487}
+  _target: {fileID: 163108644}
 --- !u!20 &782170588
 Camera:
   m_ObjectHideFlags: 0
@@ -413,6 +414,14 @@ PrefabInstance:
       propertyPath: _firstState
       value: 
       objectReference: {fileID: 967891781}
+    - target: {fileID: 4198049542447527725, guid: 202f79c1cad3935409b53cc41efab334, type: 3}
+      propertyPath: _endGamePanel
+      value: 
+      objectReference: {fileID: 1672825494}
+    - target: {fileID: 4198049542447527725, guid: 202f79c1cad3935409b53cc41efab334, type: 3}
+      propertyPath: _levelGenerator
+      value: 
+      objectReference: {fileID: 1586144487}
     - target: {fileID: 4254490840934093581, guid: 202f79c1cad3935409b53cc41efab334, type: 3}
       propertyPath: _jumpForse
       value: 10
@@ -441,6 +450,10 @@ PrefabInstance:
       propertyPath: _ground
       value: 
       objectReference: {fileID: 1981339934}
+    - target: {fileID: 5188409288353987936, guid: 202f79c1cad3935409b53cc41efab334, type: 3}
+      propertyPath: _endGamePanel
+      value: 
+      objectReference: {fileID: 1672825494}
     - target: {fileID: 5188409288353987936, guid: 202f79c1cad3935409b53cc41efab334, type: 3}
       propertyPath: _levelGenerator
       value: 
@@ -560,6 +573,14 @@ PrefabInstance:
       propertyPath: _firstState
       value: 
       objectReference: {fileID: 1207150199}
+    - target: {fileID: 3173360945620836133, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
+      propertyPath: _endGamePanel
+      value: 
+      objectReference: {fileID: 1672825494}
+    - target: {fileID: 3173360945620836133, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
+      propertyPath: _levelGenerator
+      value: 
+      objectReference: {fileID: 1586144487}
     - target: {fileID: 3259970169634167315, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
       propertyPath: _speedBoost
       value: 4
@@ -596,6 +617,10 @@ PrefabInstance:
       propertyPath: _transition
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4442777896692608075, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
+      propertyPath: _generator
+      value: 
+      objectReference: {fileID: 1586144487}
     - target: {fileID: 5271122389137590004, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
       propertyPath: m_Name
       value: Cloud
@@ -680,6 +705,10 @@ PrefabInstance:
       propertyPath: _targetState
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7542788885590445662, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
+      propertyPath: _generator
+      value: 
+      objectReference: {fileID: 1586144487}
     - target: {fileID: 7764029847855717517, guid: 9ba4c4ba4aa41c142a2433697ac0f02f, type: 3}
       propertyPath: _player
       value: 

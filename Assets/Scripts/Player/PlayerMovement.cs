@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
         Rotate();
     }
 
+    public void MoveOnVertical(float forse)
+    {
+        _controller.Move(Vector3.up * forse);
+    }
+
     private void Move()
     {
         Vector3 direction = Vector3.zero;

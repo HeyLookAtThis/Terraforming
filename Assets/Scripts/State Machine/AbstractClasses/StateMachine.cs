@@ -3,8 +3,19 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     [SerializeField] private State _firstState;
+    [SerializeField] private LevelGenerator _levelGenerator;
 
     private State _currentState;
+
+    private void OnEnable()
+    {
+        _levelGenerator.Launched += SetDefaultState;
+    }
+
+    private void OnDisable()
+    {
+        _levelGenerator.Launched -= SetDefaultState;
+    }
 
     private void Start()
     {
@@ -36,5 +47,10 @@ public class StateMachine : MonoBehaviour
             _currentState.Exit();
 
         Reset(nextState);
+    }
+
+    private void SetDefaultState(uint currentLevel)
+    {
+        Transit(_firstState);
     }
 }

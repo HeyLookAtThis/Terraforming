@@ -45,7 +45,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
             foreach (var activeObject in _activeObjects)
                 activeObject.ReturnToDefaultState();
 
-            if (_activeObjects.GetType() != typeof(List<Grass>))
+            if (_activeObjects[0].GetType() != typeof(Grass))
                 _activeObjects.Clear();
         }
     }

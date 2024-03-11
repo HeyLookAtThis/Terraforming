@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class EndGamePanel : MonoBehaviour
 {
+    [SerializeField] private Button _restartButton;
+
     private UnityAction _restartAction;
 
     public event UnityAction RestartAction
@@ -12,7 +14,17 @@ public class EndGamePanel : MonoBehaviour
         remove => _restartAction -= value;
     }
 
-    public void OnRestartLevel()
+    private void OnEnable()
+    {
+        _restartButton.onClick.AddListener(OnRestartLevel);
+    }
+
+    private void OnDisable()
+    {
+        _restartButton.onClick.RemoveListener(OnRestartLevel);
+    }
+
+    private void OnRestartLevel()
     {
         _restartAction?.Invoke();
     }

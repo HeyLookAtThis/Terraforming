@@ -4,44 +4,55 @@ public class PanelSwitcher : MonoBehaviour
 {
     [SerializeField] private Ground _ground;
 
-    private GamePanel _gamePanel;
-    private EndGamePanel _endGamePanel;
+    private GamePanel _game;
+    private EndGamePanel _endGame;
+    private TitlePanel _title;
 
     private void Awake()
     {
-        _endGamePanel = GetComponentInChildren<EndGamePanel>();
-        _gamePanel = GetComponentInChildren<GamePanel>();
+        _endGame = GetComponentInChildren<EndGamePanel>();
+        _game = GetComponentInChildren<GamePanel>();
+        _title = GetComponentInChildren<TitlePanel>();
     }
 
     private void Start()
     {
-        _gamePanel.gameObject.SetActive(true);
-        _endGamePanel.gameObject.SetActive(false);
+        StartGame();
     }
 
     private void OnEnable()
     {
-        _ground.Overheated += OnFunishGame;
-        _endGamePanel.RestartAction += OnStartLevel;
+        _ground.Overheated += OnFinishGame;
+        _endGame.RestartAction += OnStartLevel;
+        _title.Clicked += OnStartLevel;
     }
 
     private void OnDisable()
     {
-        _ground.Overheated -= OnFunishGame;
-        _endGamePanel.RestartAction -= OnStartLevel;
+        _ground.Overheated -= OnFinishGame;
+        _endGame.RestartAction -= OnStartLevel;
+        _title.Clicked -= OnStartLevel;
     }
 
-    private void OnFunishGame()
+    private void StartGame()
     {
-        _gamePanel.gameObject.SetActive(false);
-        _endGamePanel.gameObject.SetActive(true);
+        _title.gameObject.SetActive(true);
+        _game.gameObject.SetActive(false);
+        _endGame.gameObject.SetActive(false);
+    }
+
+    private void OnFinishGame()
+    {
+        _game.gameObject.SetActive(false);
+        _endGame.gameObject.SetActive(true);
         Time.timeScale = 0f;
     }
 
     private void OnStartLevel()
     {
-        _gamePanel.gameObject.SetActive(true);
-        _endGamePanel.gameObject.SetActive(false);
+        _game.gameObject.SetActive(true);
+        _endGame.gameObject.SetActive(false);
+        _title.gameObject.SetActive(false);
         Time.timeScale = 1f;
     }
 }

@@ -21,7 +21,8 @@ public class CameraMotion : MonoBehaviour
 
     private void Update()
     {
-        transform.DOMove(_target.transform.position + _interval, _speed * Time.deltaTime);
+        if (_target != null)
+            transform.DOMove(_target.transform.position + _interval, _speed * Time.deltaTime);
     }
 
     private void OnInitialize(Player player)

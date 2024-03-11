@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecda83479f5f0544803941a5e87bb5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _temperature: 10
+  _temperature: 120
 --- !u!136 &806659696699813111
 CapsuleCollider:
   m_ObjectHideFlags: 0

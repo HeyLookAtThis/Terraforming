@@ -18,17 +18,17 @@ public abstract class ObjectCountDisplayer : MonoBehaviour
 
     private void OnEnable()
     {
-        _gamePanel.PlayerInstantiator.Created += Subscribe;
+        currentValue = 0;
+        ShowValue();
+
+        if (_gamePanel.PlayerInstantiator.Player != null)
+            _gamePanel.PlayerInstantiator.Player.Counter.ValueChanged += UpdateValue;
     }
 
     private void OnDisable()
     {
-        _gamePanel.PlayerInstantiator.Created += Unsubscribe;
-    }
-
-    private void Start()
-    {
-        ShowValue();
+        if (_gamePanel.PlayerInstantiator.Player != null)
+            _gamePanel.PlayerInstantiator.Player.Counter.ValueChanged -= UpdateValue;
     }
 
     protected virtual void ShowValue()
@@ -43,15 +43,5 @@ public abstract class ObjectCountDisplayer : MonoBehaviour
             currentValue = count;
             ShowValue();
         }
-    }
-
-    private void Subscribe(Player player)
-    {
-        player.Counter.ValueChanged += UpdateValue;
-    }
-
-    private void Unsubscribe(Player player)
-    {
-        player.Counter.ValueChanged -= UpdateValue;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class PlayerInstantiator : MonoBehaviour
 {
     [SerializeField] private Player _player;
+    [SerializeField] private FixedJoystick _joystic;
 
     private LevelGenerator _levelGenerator;
     private Player _createdPlayer;
@@ -17,6 +18,8 @@ public class PlayerInstantiator : MonoBehaviour
         add => _created += value;
         remove => _created -= value;
     }
+
+    public Player Player => _createdPlayer;
 
     private void Awake()
     {
@@ -41,6 +44,7 @@ public class PlayerInstantiator : MonoBehaviour
             _createdPlayer.Destroy();
 
         _createdPlayer = Instantiate(_player, new Vector3(_water.transform.position.x, _jumpHeight, _water.transform.position.z), Quaternion.identity);
+        _createdPlayer.Movement.InitializeJoystic(_joystic);
         _created?.Invoke(_createdPlayer);
     }
 }

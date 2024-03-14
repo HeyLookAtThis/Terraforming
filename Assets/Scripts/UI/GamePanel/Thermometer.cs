@@ -16,24 +16,23 @@ public class Thermometer : MonoBehaviour
 
     private void OnEnable()
     {
-        _ground.TemperatureSet += Initialize;
-        _ground.TemperatureChanged += BeginChangeValue;
+        OnInitialize();
+        _ground.TemperatureChanged += OnBeginChangeValue;
     }
 
     private void OnDisable()
     {
-        _ground.TemperatureSet -= Initialize;
-        _ground.TemperatureChanged -= BeginChangeValue;
+        _ground.TemperatureChanged -= OnBeginChangeValue;
     }
 
-    public void Initialize()
+    private void OnInitialize()
     {
         _slider.minValue = _ground.StartingTemperature;
         _slider.maxValue = _ground.EndingTemperature;
         _slider.value = _ground.StartingTemperature;
     }
 
-    public void BeginChangeValue()
+    private void OnBeginChangeValue()
     {
         if (_valueChanger != null)
             StopCoroutine(_valueChanger);

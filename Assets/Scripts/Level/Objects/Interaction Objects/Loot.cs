@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Loot : LevelObject
@@ -59,25 +58,19 @@ public class Loot : LevelObject
         if (transform.position == target)
         {
             _view.TurnOffVisible();
+            TurnOnUsed();
             yield break;
         }
     }
 
     public override void ReactToScanner(PlayerObjectsCounter player)
     {
-        _view.TurnOnVisible();
+        if (!WasUsedByPlayer)
+            _view.TurnOnVisible();
     }
 
     public override void ReturnToDefaultState()
     {
-        StartCoroutine(Destroyer());
-    }
-
-    private IEnumerator Destroyer()
-    {
-        while (_view.IsSoundPlaying)
-            yield return null;
-
         Destroy(gameObject);
     }
 }

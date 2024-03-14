@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class CloudSoundsPlayer : MonoBehaviour
+public class CloudRainPlayer : MonoBehaviour
 {
-    [SerializeField] private AudioClip _rain;
+    [SerializeField] private AudioClip _audioClip;
+    [SerializeField] private ParticleSystem _particles;
 
     private AudioSource _audioSource;
     private Coroutine _rainBegginer;
@@ -17,6 +18,7 @@ public class CloudSoundsPlayer : MonoBehaviour
         _audioSource.loop = true;
         _audioSource.playOnAwake = false;
         _audioSource.Stop();
+        _particles.Stop();
     }
 
     private void OnEnable()
@@ -46,7 +48,10 @@ public class CloudSoundsPlayer : MonoBehaviour
         float secondsCounter = 0f;
 
         if (!_audioSource.isPlaying)
+        {
             _audioSource.Play();
+            _particles.Play();
+        }
 
         while (secondsCounter < duration)
         {
@@ -57,6 +62,7 @@ public class CloudSoundsPlayer : MonoBehaviour
         if (secondsCounter >= duration || !_scanner.IsActivated)
         {
             _audioSource.Pause();
+            _particles.Stop();
             yield break;
         }
     }

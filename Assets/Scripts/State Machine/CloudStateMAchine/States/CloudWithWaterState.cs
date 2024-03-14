@@ -58,8 +58,8 @@ public class CloudWithWaterState : CloudState
             _isInTargetPosition = false;
     }
 
-    private void SetPositionIndent(float difference)
+    private void SetPositionIndent()
     {
-        positionIndent.y = _CloudSizeCoefficient - difference;
+        positionIndent.y = _CloudSizeCoefficient - _resizer.CurrentValue;
     }
 }

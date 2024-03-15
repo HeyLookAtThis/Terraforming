@@ -1,13 +1,20 @@
 using DG.Tweening;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioListener))]
 public class CameraMotion : MonoBehaviour
 {
     [SerializeField] private Vector3 _interval;
     [SerializeField] private PlayerInstantiator _playerInstantiator;
 
+    private AudioListener _listener;
     private Player _target;
     private float _speed = 3;
+
+    private void Awake()
+    {
+        _listener = GetComponent<AudioListener>();
+    }
 
     private void OnEnable()
     {
@@ -27,6 +34,7 @@ public class CameraMotion : MonoBehaviour
 
     private void OnInitialize(Player player)
     {
+        _listener.enabled = false;
         _target = player;
         transform.position = _target.transform.position + _interval;
     }

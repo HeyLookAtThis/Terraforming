@@ -4,8 +4,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(LevelCounter))]
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] private EndGamePanel _endGamePanel;
+    [SerializeField] private GameOverPanel _gameOverPanel;
     [SerializeField] private TitlePanel _titlePanel;
+    [SerializeField] private WinPanel _winPanel;
 
     private LevelCounter _levelCounter;
 
@@ -24,14 +25,18 @@ public class LevelGenerator : MonoBehaviour
 
     private void OnEnable()
     {
-        _endGamePanel.RestartAction += OnLaunch;
+        _gameOverPanel.RestartAction += OnLaunch;
         _titlePanel.Clicked += OnLaunch;
+        _levelCounter.NumberChanged += OnLaunch;
+        _winPanel.RestartButtonClicked += OnLaunch;
     }
 
     private void OnDisable()
     {
-        _endGamePanel.RestartAction -= OnLaunch;
+        _gameOverPanel.RestartAction -= OnLaunch;
         _titlePanel.Clicked -= OnLaunch;
+        _levelCounter.NumberChanged -= OnLaunch;
+        _winPanel.RestartButtonClicked -= OnLaunch;
     }
 
     private void OnLaunch()

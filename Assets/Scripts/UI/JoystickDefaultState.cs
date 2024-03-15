@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(FixedJoystick))]
 public class JoystickDefaultState : MonoBehaviour
 {
-    [SerializeField] private Ground _ground;
+    [SerializeField] private LevelGenerator _levelGenerator;
 
     private FixedJoystick _fixed;
 
@@ -14,11 +14,11 @@ public class JoystickDefaultState : MonoBehaviour
 
     private void OnEnable()
     {
-        _ground.Overheated += _fixed.OnFotmatInput;
+        _levelGenerator.Launched += _fixed.OnFotmatInput;
     }
 
     private void OnDisable()
     {
-        _ground.Overheated -= _fixed.OnFotmatInput;
+        _levelGenerator.Launched -= _fixed.OnFotmatInput;
     }
 }

@@ -5,9 +5,9 @@ public class VolcanoesCreator : ObjectsInstantiator
     [SerializeField] private Volcano _prefab;
     [SerializeField] private Ground _ground;
 
-    public override void OnCreate(uint currentLevel)
+    public override void OnCreate()
     {
-        base.OnCreate(currentLevel);
+        base.OnCreate();
         int count = (int)currentLevel;
         _ground.InitializeTemperature(_prefab.Temperature, currentLevel);
 

@@ -18,9 +18,9 @@ public class CristallCreator : ObjectsInstantiator
         _treesCreator.OnFinished -= OnSetPositions;
     }
 
-    public override void OnCreate(uint currentLevel)
+    public override void OnCreate()
     {
-        base.OnCreate(currentLevel);
+        base.OnCreate();
         int count = (int)currentLevel;
 
         while (count > 0)

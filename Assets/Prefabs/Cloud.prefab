@@ -5313,7 +5313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transition: {fileID: 1929737296889662731}
-  _speedBoost: 0.8
+  _speedBoost: 0.5
 --- !u!114 &1929737296889662731
 MonoBehaviour:
   m_ObjectHideFlags: 0

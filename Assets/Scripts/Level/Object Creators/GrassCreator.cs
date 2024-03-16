@@ -4,9 +4,9 @@ public class GrassCreator : ObjectsInstantiator
 {
     [SerializeField] private Grass _grass;
 
-    public override void OnCreate(uint currentLevel)
+    public override void OnCreate()
     {
-        base.OnCreate(currentLevel);
+        base.OnCreate();
 
         if (wasCreated)
             return;

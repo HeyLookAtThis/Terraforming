@@ -10,13 +10,15 @@ public class LevelGenerator : MonoBehaviour
 
     private LevelCounter _levelCounter;
 
-    private UnityAction<uint> _launched;
+    private UnityAction _launched;
 
-    public event UnityAction<uint> Launched
+    public event UnityAction Launched
     {
         add => _launched += value;
         remove => _launched -= value;
     }
+
+    public uint CurrentLevel => _levelCounter.CurrentLevel;
 
     private void Awake()
     {
@@ -41,6 +43,6 @@ public class LevelGenerator : MonoBehaviour
 
     private void OnLaunch()
     {
-        _launched?.Invoke(_levelCounter.CurrentLevel);
+        _launched?.Invoke();
     }
 }

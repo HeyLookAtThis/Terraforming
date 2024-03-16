@@ -5,10 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class TitlePanel : MonoBehaviour, IPointerClickHandler
+public class TitlePanel : Panel, IPointerClickHandler
 {
-    private TextMeshProUGUI _textMeshPro;
+    [SerializeField] private AudioClip _sound;
 
+    private TextMeshProUGUI _textMeshPro;
+    private AudioSource _audioSource;
     private bool _isClicked;
 
     private UnityAction _clicked;
@@ -22,10 +24,14 @@ public class TitlePanel : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         _textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
+        _audioSource = GetComponentInChildren<AudioSource>();
+
+        _audioSource.clip = _sound;
     }
 
     private void OnEnable()
     {
+        _audioSource?.Play();
         StartCoroutine(TextBlinker());
     }
 

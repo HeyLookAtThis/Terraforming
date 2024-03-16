@@ -12,6 +12,8 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     protected bool wasCreated;
 
+    protected uint currentLevel => _levelGenerator.CurrentLevel;
+
     protected LevelGrid levelGrid => _grid;
 
     protected IReadOnlyList<LevelObject> activeObjects => _activeObjects;
@@ -32,7 +34,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
         _levelGenerator.Launched -= OnCreate;
     }
 
-    public virtual void OnCreate(uint currentLevel)
+    public virtual void OnCreate()
     {
         if (wasCreated)
             ReturnDefaultState();

@@ -21,4 +21,5 @@ public class JoystickDefaultState : MonoBehaviour
     {
         _levelGenerator.Launched -= _fixed.OnFotmatInput;
     }
+
 }

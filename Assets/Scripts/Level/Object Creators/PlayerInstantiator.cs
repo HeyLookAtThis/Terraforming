@@ -38,7 +38,7 @@ public class PlayerInstantiator : MonoBehaviour
         _levelGenerator.Launched -= OnCreate;
     }
 
-    private void OnCreate(uint currentLevel)
+    private void OnCreate()
     {
         if (_createdPlayer != null)
             _createdPlayer.Destroy();

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class WinPanel : MonoBehaviour
+public class WinPanel : Panel
 {
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _continueButton;

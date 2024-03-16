@@ -5,6 +5,8 @@ public class PanelSwitcher : MonoBehaviour
     [SerializeField] private Ground _ground;
     [SerializeField] private VolcanoesDisplayer _volcanoDisplayer;
 
+    private Panel[] _panels;
+
     private GamePanel _game;
     private GameOverPanel _gameOver;
     private TitlePanel _title;
@@ -16,61 +18,71 @@ public class PanelSwitcher : MonoBehaviour
         _game = GetComponentInChildren<GamePanel>();
         _title = GetComponentInChildren<TitlePanel>();
         _win = GetComponentInChildren<WinPanel>();
+
+        InitializePanels();
     }
 
     private void Start()
     {
-        StartGame();
+        RunTitle();
     }
 
     private void OnEnable()
     {
-        _ground.Overheated += OnLossLevel;
-        _gameOver.RestartAction += OnStartLevel;
-        _title.Clicked += OnStartLevel;
-        _volcanoDisplayer.Fulled += OnWinLevel;
-        _win.RestartButtonClicked += OnStartLevel;
-        _win.ContinueButtonClicked += OnStartLevel;
+        _ground.Overheated += OnRunGameOver;
+        _gameOver.RestartAction += OnRunGame;
+        _title.Clicked += OnRunGame;
+        _volcanoDisplayer.Fulled += OnRunWin;
+        _win.RestartButtonClicked += OnRunGame;
+        _win.ContinueButtonClicked += OnRunGame;
     }
 
     private void OnDisable()
     {
-        _ground.Overheated -= OnLossLevel;
-        _gameOver.RestartAction -= OnStartLevel;
-        _title.Clicked -= OnStartLevel;
-        _volcanoDisplayer.Fulled -= OnWinLevel;
-        _win.RestartButtonClicked -= OnStartLevel;
-        _win.ContinueButtonClicked -= OnStartLevel;
+        _ground.Overheated -= OnRunGameOver;
+        _gameOver.RestartAction -= OnRunGame;
+        _title.Clicked -= OnRunGame;
+        _volcanoDisplayer.Fulled -= OnRunWin;
+        _win.RestartButtonClicked -= OnRunGame;
+        _win.ContinueButtonClicked -= OnRunGame;
     }
 
-    private void StartGame()
+    private void InitializePanels()
     {
-        _title.gameObject.SetActive(true);
-        _game.gameObject.SetActive(false);
-        _gameOver.gameObject.SetActive(false);
-        _win.gameObject.SetActive(false);
+        _panels = new Panel[] { _title, _game, _win, _gameOver };
     }
 
-    private void OnLossLevel()
+    private void RunTitle()
     {
-        _game.gameObject.SetActive(false);
-        _gameOver.gameObject.SetActive(true);
+        Run(_title);
+    }
+
+    private void OnRunGameOver()
+    {
+        Run(_gameOver);
         Time.timeScale = 0f;
     }
 
-    private void OnWinLevel()
+    private void OnRunWin()
     {
-        _game.gameObject.SetActive(false);
-        _win.gameObject.SetActive(true);
+        Run(_win);
         Time.timeScale = 0f;
     }
 
-    private void OnStartLevel()
+    private void OnRunGame()
     {
-        _game.gameObject.SetActive(true);
-        _gameOver.gameObject.SetActive(false);
-        _title.gameObject.SetActive(false);
-        _win.gameObject.SetActive(false);
+        Run(_game);
         Time.timeScale = 1f;
+    }
+
+    private void Run(Panel somePanel)
+    {
+        foreach (var panel in _panels)
+        {
+            if (panel == somePanel)
+                panel.gameObject.SetActive(true);
+            else
+                panel.gameObject.SetActive(false);
+        }
     }
 }

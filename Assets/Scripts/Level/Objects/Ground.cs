@@ -5,6 +5,7 @@ public class Ground : MonoBehaviour
 {
     private UnityAction _temperatureChanged;
     private UnityAction _overheated;
+    private UnityAction _initialezed;
 
     public event UnityAction TemperatureChanged
     {
@@ -18,6 +19,12 @@ public class Ground : MonoBehaviour
         remove => _overheated -= value;
     }
 
+    public event UnityAction Initialezed
+    {
+        add => _initialezed += value;
+        remove => _initialezed -= value;
+    }
+
     public float StartingTemperature { get; private set; }
 
     public float EndingTemperature { get; private set; }
@@ -29,6 +36,7 @@ public class Ground : MonoBehaviour
         StartingTemperature = 0;
         CurrentTemperature = StartingTemperature;
         EndingTemperature = volcanoTemperature * currentLevel;
+        _initialezed?.Invoke();
     }
 
     public void AddTemperature(float temperature)

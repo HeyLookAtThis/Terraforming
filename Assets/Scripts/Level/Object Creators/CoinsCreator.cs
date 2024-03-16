@@ -5,9 +5,9 @@ public class CoinsCreator : ObjectsInstantiator
     [SerializeField] private Coin _coin;
     [SerializeField] private int _amount;
 
-    public override void OnCreate(uint currentLevel)
+    public override void OnCreate()
     {
-        base.OnCreate(currentLevel);
+        base.OnCreate();
         int amount = _amount;
 
         while (amount > 0)

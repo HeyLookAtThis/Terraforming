@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class GameOverPanel : MonoBehaviour
+public class GameOverPanel : Panel
 {
     [SerializeField] private Button _restartButton;
 

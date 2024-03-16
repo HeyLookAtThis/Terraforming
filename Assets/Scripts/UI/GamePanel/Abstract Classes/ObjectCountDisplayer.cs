@@ -6,34 +6,50 @@ public abstract class ObjectCountDisplayer : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI textMeshPro;
     [SerializeField] private LevelObject _activeObject;
 
-    protected int currentValue;
+    private PlayerObjectsCounter _playerObjectsCounter;
+    private PlayerInstantiator _playerInstantiator;
     private GamePanel _gamePanel;
+
+    protected int currentValue;
 
     protected LevelObject activeObject => _activeObject;
 
     private void Awake()
     {
         _gamePanel = GetComponentInParent<GamePanel>();
+        _playerInstantiator = _gamePanel.PlayerInstantiator;
     }
 
     private void OnEnable()
     {
-        currentValue = 0;
-        ShowValue();
-
-        if (_gamePanel.PlayerInstantiator.Player != null)
-            _gamePanel.PlayerInstantiator.Player.Counter.ValueChanged += UpdateValue;
+        _playerInstantiator.Created += OnInitializePlayer;
+        _gamePanel.LevelGenerator.Launched += SetDefaultValue;
     }
 
     private void OnDisable()
     {
-        if (_gamePanel.PlayerInstantiator.Player != null)
-            _gamePanel.PlayerInstantiator.Player.Counter.ValueChanged -= UpdateValue;
+        _playerInstantiator.Created -= OnInitializePlayer;
+        _gamePanel.LevelGenerator.Launched -= SetDefaultValue;
+
+        if (_playerObjectsCounter != null)
+            _playerObjectsCounter.ValueChanged -= UpdateValue;
     }
 
     protected virtual void ShowValue()
     {
         textMeshPro.text = currentValue.ToString();
+    }
+
+    private void SetDefaultValue()
+    {
+        currentValue = 0;
+        ShowValue();
+    }
+
+    private void OnInitializePlayer(Player player)
+    {
+        _playerObjectsCounter = player.Counter;
+        _playerObjectsCounter.ValueChanged += UpdateValue;
     }
 
     private void UpdateValue(LevelObject activeObject, int count)

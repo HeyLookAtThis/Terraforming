@@ -4,22 +4,51 @@ public class PanelSwitcher : MonoBehaviour
 {
     [SerializeField] private Ground _ground;
     [SerializeField] private VolcanoesDisplayer _volcanoDisplayer;
+    [SerializeField] private LoadingBar _loadingBar;
 
     private Panel[] _panels;
 
+    private TitlePanel _title;
+    private MenuPanel _menu;
     private GamePanel _game;
     private GameOverPanel _gameOver;
-    private TitlePanel _title;
     private WinPanel _win;
 
     private void Awake()
     {
-        _gameOver = GetComponentInChildren<GameOverPanel>();
-        _game = GetComponentInChildren<GamePanel>();
         _title = GetComponentInChildren<TitlePanel>();
+        _menu = GetComponentInChildren<MenuPanel>();
+        _game = GetComponentInChildren<GamePanel>();
+        _gameOver = GetComponentInChildren<GameOverPanel>();
         _win = GetComponentInChildren<WinPanel>();
 
-        InitializePanels();
+        _panels = new Panel[] { _title, _menu, _game, _win, _gameOver };
+    }
+
+    private void OnEnable()
+    {
+        _title.Clicked += OnRunMenu;
+        _loadingBar.Finished += OnRunGame;
+
+        _gameOver.RestartAction += OnRunGame;
+        _win.RestartButtonClicked += OnRunGame;
+        _win.ContinueButtonClicked += OnRunGame;
+
+        _volcanoDisplayer.Fulled += OnRunWin;
+        _ground.Overheated += OnRunGameOver;
+    }
+
+    private void OnDisable()
+    {
+        _title.Clicked -= OnRunMenu;
+        _loadingBar.Finished -= OnRunGame;
+
+        _win.ContinueButtonClicked -= OnRunGame;
+        _win.RestartButtonClicked -= OnRunGame;
+        _gameOver.RestartAction -= OnRunGame;
+
+        _volcanoDisplayer.Fulled -= OnRunWin;
+        _ground.Overheated -= OnRunGameOver;
     }
 
     private void Start()
@@ -27,34 +56,14 @@ public class PanelSwitcher : MonoBehaviour
         RunTitle();
     }
 
-    private void OnEnable()
-    {
-        _ground.Overheated += OnRunGameOver;
-        _gameOver.RestartAction += OnRunGame;
-        _title.Clicked += OnRunGame;
-        _volcanoDisplayer.Fulled += OnRunWin;
-        _win.RestartButtonClicked += OnRunGame;
-        _win.ContinueButtonClicked += OnRunGame;
-    }
-
-    private void OnDisable()
-    {
-        _ground.Overheated -= OnRunGameOver;
-        _gameOver.RestartAction -= OnRunGame;
-        _title.Clicked -= OnRunGame;
-        _volcanoDisplayer.Fulled -= OnRunWin;
-        _win.RestartButtonClicked -= OnRunGame;
-        _win.ContinueButtonClicked -= OnRunGame;
-    }
-
-    private void InitializePanels()
-    {
-        _panels = new Panel[] { _title, _game, _win, _gameOver };
-    }
-
     private void RunTitle()
     {
         Run(_title);
+    }
+
+    private void OnRunMenu()
+    {
+        Run(_menu);
     }
 
     private void OnRunGameOver()

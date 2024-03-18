@@ -134,6 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a9dbe716a38304e97f2a363b5ed28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &463590753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3267477896803550146, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+  m_PrefabInstance: {fileID: 1874403907030550196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f09295fbdf9d549a5c903f7d8eed20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &620790112 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4216291535085685092, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
@@ -393,6 +404,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1586144485}
     - target: {fileID: 1047362826760016286, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
+      propertyPath: _menu
+      value: 
+      objectReference: {fileID: 463590753}
+    - target: {fileID: 1047362826760016286, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
       propertyPath: _winPanel
       value: 
       objectReference: {fileID: 1874403907030550199}
@@ -630,6 +645,17 @@ Terrain:
   m_CorrespondingSourceObject: {fileID: 1202813967082212056, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
   m_PrefabInstance: {fileID: 1586144483}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1795656015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7604992021779709692, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+  m_PrefabInstance: {fileID: 1874403907030550196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1812b740efd9b4429c9a7923c67388c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1981339934 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7511620745979757145, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
@@ -1018,6 +1044,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4209220310517610442, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _loadingBar
+      value: 
+      objectReference: {fileID: 1795656015}
+    - target: {fileID: 4209220310517610442, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: _volcanoDIsplayer
       value: 
       objectReference: {fileID: 79682889}
@@ -1153,6 +1183,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5289535967052950185, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289535967052950185, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5297787977861223187, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1208,6 +1246,14 @@ PrefabInstance:
     - target: {fileID: 6956548137989212884, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005058811385858917, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005058811385858917, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7011120676530793621, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: m_AnchoredPosition.x

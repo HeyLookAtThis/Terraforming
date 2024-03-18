@@ -16,6 +16,7 @@ public class Thermometer : MonoBehaviour
 
     private void OnEnable()
     {
+        OnInitialize();
         _ground.Initialezed += OnInitialize;
         _ground.TemperatureChanged += OnBeginChangeValue;
     }

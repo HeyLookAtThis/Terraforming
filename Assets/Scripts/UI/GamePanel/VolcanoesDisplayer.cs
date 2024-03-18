@@ -14,6 +14,18 @@ public class VolcanoesDisplayer : ObjectCountDisplayer
         remove => _fulled -= value;
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        _levelCounter.NumberChanged += ShowValue;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        _levelCounter.NumberChanged -= ShowValue;
+    }
+
     protected override void ShowValue()
     {
         textMeshPro.text = $"{currentValue} / {_levelCounter.CurrentLevel}";
@@ -36,13 +48,11 @@ public class VolcanoesDisplayer : ObjectCountDisplayer
                 Time.timeScale -= Time.deltaTime;
 
             secondsCounter += Time.deltaTime;
-            Debug.Log(secondsCounter);
             yield return waitTime;
         }
 
         if(secondsCounter >= time)
         {
-            Debug.Log("Run");
             _fulled?.Invoke();
             yield break;
         }

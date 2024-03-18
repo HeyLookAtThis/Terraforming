@@ -7,10 +7,7 @@ using UnityEngine.EventSystems;
 
 public class TitlePanel : Panel, IPointerClickHandler
 {
-    [SerializeField] private AudioClip _sound;
-
     private TextMeshProUGUI _textMeshPro;
-    private AudioSource _audioSource;
     private bool _isClicked;
 
     private UnityAction _clicked;
@@ -24,14 +21,10 @@ public class TitlePanel : Panel, IPointerClickHandler
     private void Awake()
     {
         _textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
-        _audioSource = GetComponentInChildren<AudioSource>();
-
-        _audioSource.clip = _sound;
     }
 
     private void OnEnable()
     {
-        _audioSource?.Play();
         StartCoroutine(TextBlinker());
     }
 

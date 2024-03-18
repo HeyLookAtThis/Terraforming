@@ -6,7 +6,6 @@ public abstract class ObjectCountDisplayer : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI textMeshPro;
     [SerializeField] private LevelObject _activeObject;
 
-    private PlayerObjectsCounter _playerObjectsCounter;
     private PlayerInstantiator _playerInstantiator;
     private GamePanel _gamePanel;
 
@@ -20,19 +19,24 @@ public abstract class ObjectCountDisplayer : MonoBehaviour
         _playerInstantiator = _gamePanel.PlayerInstantiator;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        _playerInstantiator.Created += OnInitializePlayer;
-        _gamePanel.LevelGenerator.Launched += SetDefaultValue;
+        _playerInstantiator.Created += OnSubscrubeOnPlayerCounter;
+
+        if (_playerInstantiator.Player != null)
+        {
+            _playerInstantiator.Player.Counter.ValueChanged += UpdateValue;
+        }
+
+        SetDefaultValue();
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
-        _playerInstantiator.Created -= OnInitializePlayer;
-        _gamePanel.LevelGenerator.Launched -= SetDefaultValue;
+        _playerInstantiator.Created -= OnUnsubscribeOnPlayerCounter;
 
-        if (_playerObjectsCounter != null)
-            _playerObjectsCounter.ValueChanged -= UpdateValue;
+        if (_playerInstantiator.Player != null)
+            _playerInstantiator.Player.Counter.ValueChanged -= UpdateValue;
     }
 
     protected virtual void ShowValue()
@@ -40,16 +44,20 @@ public abstract class ObjectCountDisplayer : MonoBehaviour
         textMeshPro.text = currentValue.ToString();
     }
 
+    private void OnSubscrubeOnPlayerCounter(Player player)
+    {
+        player.Counter.ValueChanged += UpdateValue;
+    }
+
+    private void OnUnsubscribeOnPlayerCounter(Player player)
+    {
+        player.Counter.ValueChanged -= UpdateValue;
+    }
+
     private void SetDefaultValue()
     {
         currentValue = 0;
         ShowValue();
-    }
-
-    private void OnInitializePlayer(Player player)
-    {
-        _playerObjectsCounter = player.Counter;
-        _playerObjectsCounter.ValueChanged += UpdateValue;
     }
 
     private void UpdateValue(LevelObject activeObject, int count)

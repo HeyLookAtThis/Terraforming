@@ -46,7 +46,7 @@ public class CloudReservoirScaleDisplayer : MonoBehaviour
     {
         if (_reservoir.CurrentValue > _previousValue)
         {
-            _image.fillAmount += _totalValue / _reservoir.DivisionsNumber;
+            _image.fillAmount += _totalValue / _reservoir.DivisionsNumber * Time.deltaTime * 60f;
             _previousValue = _reservoir.CurrentValue;
         }
         else

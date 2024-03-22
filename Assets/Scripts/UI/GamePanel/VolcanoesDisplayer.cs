@@ -36,7 +36,7 @@ public class VolcanoesDisplayer : ObjectCountDisplayer
 
     private IEnumerator TimeStopper()
     {
-        float time = 1.0f;
+        float time = 0.5f;
         float seconds = 0.1f;
         var waitTime = new WaitForEndOfFrame();
 

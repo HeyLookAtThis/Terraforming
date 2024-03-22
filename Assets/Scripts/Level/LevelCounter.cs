@@ -29,17 +29,17 @@ public class LevelCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        _winPanel.ContinueButtonClicked += SetNextLevel;
+        _winPanel.ContinueButton.AddListener(SetNextLevel);
     }
 
     private void OnDisable()
     {
-        _winPanel.ContinueButtonClicked -= SetNextLevel;
+        _winPanel.ContinueButton.RemoveListener(SetNextLevel);
     }
 
     public void SetNextLevel()
     {
-        if (_currentLevel <= _finishLevelNumber)
+        if (_currentLevel < _finishLevelNumber)
         {
             _currentLevel++;
             _numberChanged?.Invoke();

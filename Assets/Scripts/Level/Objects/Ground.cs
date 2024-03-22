@@ -49,6 +49,7 @@ public class Ground : MonoBehaviour
         else
         {
             _overheated?.Invoke();
+            CurrentTemperature = StartingTemperature;
         }
     }
 }

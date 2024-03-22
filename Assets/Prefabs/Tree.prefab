@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8083098413715127502}
   - component: {fileID: 8695443100583438818}
   - component: {fileID: 6992593130393523405}
+  - component: {fileID: 4296333327014898819}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -71,7 +72,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -80,7 +81,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5.6389847
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -168,9 +169,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 3
-  _sound: {fileID: 8300000, guid: 14b16ff40093aba47bc467e148746cab, type: 3}
   _emptyTrunk: {fileID: 2859441500019578318}
   _greenTrunk: {fileID: 8025915675565018395}
+--- !u!114 &4296333327014898819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180441330619403736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884aa384b3f21c346b76e67a3fae18ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxDistance: 5
+  _sound: {fileID: 8300000, guid: bec1cfb465efc7a41bd5ccbac5b6f2a2, type: 3}
+  _growSound: {fileID: 8300000, guid: ec831c2536d30374dbf768096ce241a9, type: 3}
 --- !u!1001 &2011860052602841317
 PrefabInstance:
   m_ObjectHideFlags: 0

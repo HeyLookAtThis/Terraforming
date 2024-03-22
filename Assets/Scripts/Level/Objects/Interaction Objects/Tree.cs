@@ -1,25 +1,19 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class Tree : LevelObject
 {
     [SerializeField] private float _radius;
-    [SerializeField] private AudioClip _sound;
     [SerializeField] private GameObject _emptyTrunk;
     [SerializeField] private GameObject _greenTrunk;
 
-    AudioSource _audioSource;
-    private ParticleSystem _particleSystem;
+    private UnityAction _madeGreen;
 
-    protected override void Awake()
+    public event UnityAction MadeGreen
     {
-        base.Awake();
-
-        _particleSystem = GetComponentInChildren<ParticleSystem>();
-        _audioSource = GetComponent<AudioSource>();
-
-        _audioSource.clip = _sound;
-        _particleSystem.Stop();
+        add => _madeGreen += value;
+        remove => _madeGreen -= value;
     }
 
     private void Start()
@@ -44,8 +38,7 @@ public class Tree : LevelObject
             TurnOnUsed();
             SetGreenModel(WasUsedByPlayer);
             UseObjectsAround(player);
-            _audioSource.Play();
-            _particleSystem.Play();
+            _madeGreen?.Invoke();
         }
     }
 

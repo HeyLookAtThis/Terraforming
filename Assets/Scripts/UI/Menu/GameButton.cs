@@ -4,12 +4,7 @@ using UnityEngine.UI;
 
 public abstract class GameButton : MonoBehaviour
 {
-    private Button _clickObject;
-
-    private void Awake()
-    {
-        _clickObject = GetComponent<Button>();
-    }
+    [SerializeField] private Button _clickObject;
 
     public void AddListener(UnityAction action)
     {

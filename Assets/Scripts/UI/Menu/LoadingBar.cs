@@ -1,13 +1,13 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class LoadingBar : MonoBehaviour
 {
+    [SerializeField] private LoadingBarData _data;
+
     private Slider _slider;
-    private LoadingBarData _data;
 
     private Coroutine _filler;
     private float _filledTime;
@@ -31,21 +31,21 @@ public class LoadingBar : MonoBehaviour
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-        _data = GetComponentInChildren<LoadingBarData>();
 
         _minValue = 0;
         _filledTime = 3f;
+        SetOnDefaultState();
     }
 
     private void OnEnable()
     {
-        SetOnDefaultState();
+        Run();
     }
 
     public void Run()
     {
-        gameObject.SetActive(true);
         _data.SetRandomFact();
+        _slider.value = _minValue;
 
         if (_filler != null)
             StopCoroutine(_filler);
@@ -58,7 +58,6 @@ public class LoadingBar : MonoBehaviour
         _slider.value = _minValue;
         _slider.maxValue = _filledTime;
     }
-
 
     private IEnumerator ValueAdder()
     {

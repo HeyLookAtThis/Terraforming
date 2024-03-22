@@ -44,11 +44,10 @@ public class CristallCreator : ObjectsInstantiator
         float minDistance = 0.5f;
         float maxDistance = 1f;
 
-        Vector3 randomPosition = new Vector3();
+        Vector3 randomPosition = treePosition;
 
-        randomPosition.y = treePosition.y;
-        randomPosition.x += treePosition.x + Random.Range(minDistance, maxDistance) * GetRandomMultiplier();
-        randomPosition.z += treePosition.z + Random.Range(minDistance, maxDistance) * GetRandomMultiplier();
+        randomPosition.x += Random.Range(minDistance, maxDistance) * GetRandomMultiplier();
+        randomPosition.z += Random.Range(minDistance, maxDistance) * GetRandomMultiplier();
 
         return randomPosition;
     }
@@ -60,7 +59,7 @@ public class CristallCreator : ObjectsInstantiator
 
         float randomValue = Random.Range(positiveMultiplier, negativeMultiplier);
 
-        if (randomValue < 0)
+        if (randomValue <= 0)
             return negativeMultiplier;
 
         return positiveMultiplier;

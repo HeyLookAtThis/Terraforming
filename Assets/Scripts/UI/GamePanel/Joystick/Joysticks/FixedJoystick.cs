@@ -2,7 +2,7 @@
 
 public class FixedJoystick : Joystick
 {
-    public void OnFotmatInput()
+    public void FotmatInput()
     {
         this.ReturnToDefault();
     }

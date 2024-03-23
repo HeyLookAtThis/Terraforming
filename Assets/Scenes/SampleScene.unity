@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -597,6 +597,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf2d5d2fbc914dd4c8b344b4d4ac57ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1586144491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4903885280574194973, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
+  m_PrefabInstance: {fileID: 1586144483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae0299490d319f428103af3ac7510c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1626014492
@@ -1321,6 +1332,10 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6842102010982893811, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _gameplayChecker
+      value: 
+      objectReference: {fileID: 1586144491}
     - target: {fileID: 6876563650472938560, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: _ground
       value: 
@@ -1443,16 +1458,8 @@ PrefabInstance:
     - {fileID: 8123309439668360448, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
     - {fileID: 4790985864465949390, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8692935312070296686, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1874403907030550207}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
---- !u!1 &1874403907030550197 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8692935312070296686, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
-  m_PrefabInstance: {fileID: 1874403907030550196}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1874403907030550199 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3129014743449927971, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
@@ -1469,25 +1476,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8692935312070296674, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
   m_PrefabInstance: {fileID: 1874403907030550196}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874403907030550197}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1874403907030550207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874403907030550197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b98323f928b3fd44a2cdc09571eecf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelGenerator: {fileID: 1586144489}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

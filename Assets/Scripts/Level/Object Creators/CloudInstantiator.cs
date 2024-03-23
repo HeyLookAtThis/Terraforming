@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent (typeof(GameplayChecker))]
 public class CloudInstantiator : MonoBehaviour
 {
     [SerializeField] private Cloud _cloud;
@@ -30,6 +31,6 @@ public class CloudInstantiator : MonoBehaviour
         _createdCloud = Instantiate(_cloud, player.transform.position, Quaternion.identity);
 
         player.InitializeReservoir(_createdCloud.Reservoir);
-        _createdCloud.Initialize(player);
+        _createdCloud.Initialize(player, GetComponent<GameplayChecker>());
     }
 }

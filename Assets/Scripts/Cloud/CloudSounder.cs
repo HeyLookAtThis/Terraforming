@@ -1,14 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-public class CloudRainPlayer : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public abstract class CloudSounder : MonoBehaviour
 {
     [SerializeField] private AudioClip _audioClip;
     [SerializeField] private ParticleSystem _particles;
 
     private AudioSource _audioSource;
-    private Coroutine _rainBegginer;
+    private Coroutine _runner;
     private CloudScanner _scanner;
+
+    protected CloudScanner scanner => _scanner;
 
     private void Awake()
     {
@@ -21,29 +24,19 @@ public class CloudRainPlayer : MonoBehaviour
         _particles.Stop();
     }
 
-    private void OnEnable()
+    protected void Run()
     {
-        _scanner.FoundInteractionObject += StartRain;
-    }
+        if (_runner != null)
+            StopCoroutine(_runner);
 
-    private void OnDisable()
-    {
-        _scanner.FoundInteractionObject -= StartRain;
-    }
-
-    private void StartRain()
-    {
-        if (_rainBegginer != null)
-            StopCoroutine(_rainBegginer);
-
-        _rainBegginer = StartCoroutine(Rain());
+        _runner = StartCoroutine(Rain());
     }
 
     private IEnumerator Rain()
     {
         float duration = 0.3f;
         float seconds = 0.05f;
-        var waitTime = new WaitForSeconds(seconds);
+        var waitTime = new WaitForSecondsRealtime(seconds);
 
         float secondsCounter = 0f;
 

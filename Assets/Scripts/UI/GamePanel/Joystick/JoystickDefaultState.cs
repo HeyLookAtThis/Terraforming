@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(FixedJoystick))]
 public class JoystickDefaultState : MonoBehaviour
 {
-    [SerializeField] private LevelGenerator _levelGenerator;
-
     private FixedJoystick _fixed;
 
     private void Awake()
@@ -14,12 +12,11 @@ public class JoystickDefaultState : MonoBehaviour
 
     private void OnEnable()
     {
-        _levelGenerator.Launched += _fixed.OnFotmatInput;
+        _fixed.FotmatInput();
     }
 
     private void OnDisable()
     {
-        _levelGenerator.Launched -= _fixed.OnFotmatInput;
+        _fixed.FotmatInput();
     }
-
 }

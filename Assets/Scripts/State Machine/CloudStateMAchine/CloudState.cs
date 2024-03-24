@@ -11,7 +11,7 @@ public abstract class CloudState : State
 
     protected float SpeedBoost => _speedBoost;
 
-    public float TargetSpeed => GetComponent<Cloud>().PlayerMovement.Speed;
+    public float TargetSpeed => 3f;
 
     public Transform Target => GetComponent<Cloud>().Player.transform;
 

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class CloudRainSounder : CloudSounder
 {
     private void OnEnable()

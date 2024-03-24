@@ -9,6 +9,7 @@ public abstract class CloudSounder : MonoBehaviour
 
     private AudioSource _audioSource;
     private Coroutine _runner;
+
     private CloudScanner _scanner;
 
     protected CloudScanner scanner => _scanner;
@@ -24,8 +25,10 @@ public abstract class CloudSounder : MonoBehaviour
         _particles.Stop();
     }
 
-    protected void Run()
+    protected virtual void Run()
     {
+        _audioSource.clip = _audioClip;
+
         if (_runner != null)
             StopCoroutine(_runner);
 
@@ -36,9 +39,9 @@ public abstract class CloudSounder : MonoBehaviour
     {
         float duration = 0.3f;
         float seconds = 0.05f;
-        var waitTime = new WaitForSecondsRealtime(seconds);
-
         float secondsCounter = 0f;
+
+        var waitTime = new WaitForSecondsRealtime(seconds);
 
         if (!_audioSource.isPlaying)
         {

@@ -6,8 +6,6 @@ public class Cloud : MonoBehaviour
     private PlayerObjectsCounter _playerObjectCounter;
     private PlayerMovement _playerMovement;
 
-    private GameplayChecker _gameplayChecker;
-
     public PlayerObjectsCounter Player => _playerObjectCounter;
 
     public PlayerMovement PlayerMovement => _playerMovement;
@@ -16,19 +14,15 @@ public class Cloud : MonoBehaviour
 
     public CloudReservoir Reservoir => GetComponent<CloudReservoir>();
 
-    public GameplayChecker GameplayChecker => _gameplayChecker;
-
     public void Destroy()
     {
         Destroy(gameObject);
     }
 
-    public void Initialize(Player player, GameplayChecker gameplayChecker)
+    public void Initialize(Player player)
     {
         _playerColliderChecker = player.ColliderChecker;
         _playerObjectCounter = player.Counter;
         _playerMovement = player.Movement;
-
-        _gameplayChecker = gameplayChecker;
     }
 }

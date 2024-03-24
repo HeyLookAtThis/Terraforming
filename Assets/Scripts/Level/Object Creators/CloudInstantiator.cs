@@ -31,6 +31,6 @@ public class CloudInstantiator : MonoBehaviour
         _createdCloud = Instantiate(_cloud, player.transform.position, Quaternion.identity);
 
         player.InitializeReservoir(_createdCloud.Reservoir);
-        _createdCloud.Initialize(player, GetComponent<GameplayChecker>());
+        _createdCloud.Initialize(player);
     }
 }

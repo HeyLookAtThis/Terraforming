@@ -1,4 +1,5 @@
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -40,6 +41,7 @@ public class CloudScanner : MonoBehaviour
 
         _radius = 1;
         _yPosition = 1;
+        _isActivated = false;
 
         _spherePosition = new Vector3(transform.position.x, _yPosition, transform.position.z);
         _colliders = Physics.OverlapSphere(_spherePosition, _radius);

@@ -10,12 +10,21 @@ public class PlayerObjectsCounter : MonoBehaviour
     private int _cristallCount;
     private int _frozenVolcanoCount;
 
+    private uint _levelNumber;
+
     private UnityAction<LevelObject, int> _countChanged;
+    private UnityAction _allVolcanoesFreezed;
 
     public event UnityAction<LevelObject, int> ValueChanged
     {
         add => _countChanged += value;
         remove => _countChanged -= value;
+    }
+
+    public event UnityAction AllVolcanoesFreezed
+    {
+        add => _allVolcanoesFreezed += value;
+        remove => _allVolcanoesFreezed -= value;
     }
 
     public int CoinsNumber => _coinsCount;
@@ -29,7 +38,7 @@ public class PlayerObjectsCounter : MonoBehaviour
         switch(interactionObject)
         {
             case Volcano:
-                newCount = ++_frozenVolcanoCount;
+                AddVolcanoesCount(ref newCount);
                 break;
 
             case Cristall:
@@ -51,9 +60,22 @@ public class PlayerObjectsCounter : MonoBehaviour
         _cristalls.RemoveAt(0);
     }
 
+    public void SetLevelNumber(uint number)
+    {
+        _levelNumber = number;
+    }
+
     private void AddCristall(LevelObject interactionObject, ref int newCount)
     {
         newCount = ++_cristallCount;
         _cristalls.Add(interactionObject);
+    }
+
+    private void AddVolcanoesCount(ref int count)
+    {
+        count = ++_frozenVolcanoCount;
+
+        if (_levelNumber == _frozenVolcanoCount)
+            _allVolcanoesFreezed?.Invoke();
     }
 }

@@ -45,7 +45,7 @@ public abstract class CloudSounder : MonoBehaviour
 
         if (!_audioSource.isPlaying)
         {
-            _audioSource.Play();
+            _audioSource?.Play();
             _particles.Play();
         }
 
@@ -57,7 +57,7 @@ public abstract class CloudSounder : MonoBehaviour
 
         if (secondsCounter >= duration || !_scanner.IsActivated)
         {
-            _audioSource.Pause();
+            _audioSource?.Pause();
             _particles.Stop();
             yield break;
         }

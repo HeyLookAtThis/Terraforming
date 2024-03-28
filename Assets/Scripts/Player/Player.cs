@@ -14,11 +14,6 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void InitializeJoystic(FixedJoystick joystick)
-    {
-        Movement.InitializeJoystic(joystick);
-    }
-
     public void InitializeReservoir(CloudReservoir reservoir)
     {
         GetComponent<PlayerWaterIsOverTransition>().InitializeReservoir(reservoir);

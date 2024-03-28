@@ -45,6 +45,7 @@ public class PlayerInstantiator : MonoBehaviour
 
         _createdPlayer = Instantiate(_player, new Vector3(_water.transform.position.x, _jumpHeight, _water.transform.position.z), Quaternion.identity);
         _createdPlayer.Movement.InitializeJoystic(_joystic);
+        _createdPlayer.Counter.SetLevelNumber(_levelGenerator.CurrentLevel);
         _created?.Invoke(_createdPlayer);
     }
 }

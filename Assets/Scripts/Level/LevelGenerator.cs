@@ -6,7 +6,7 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private LoadingPanel _loading;
 
-    private LevelCounter _levelCounter;
+    private LevelCounter _counter;
 
     private UnityAction _launched;
 
@@ -16,11 +16,11 @@ public class LevelGenerator : MonoBehaviour
         remove => _launched -= value;
     }
 
-    public uint CurrentLevel => _levelCounter.CurrentLevel;
+    public uint CurrentLevel => _counter.CurrentLevel;
 
     private void Awake()
     {
-        _levelCounter = GetComponent<LevelCounter>();
+        _counter = GetComponent<LevelCounter>();
     }
 
     private void OnEnable()

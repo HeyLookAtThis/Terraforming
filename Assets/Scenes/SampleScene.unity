@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -318,6 +318,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1285539782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1517755341364742705, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+  m_PrefabInstance: {fileID: 1874403907030550196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1461818732 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6925919170756455071, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
@@ -514,6 +525,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1874403907030550199}
     - target: {fileID: 7701554429122001516, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
+      propertyPath: _gameOverPanel
+      value: 
+      objectReference: {fileID: 1672825498}
+    - target: {fileID: 7701554429122001516, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
       propertyPath: _startLevelNumber
       value: 1
       objectReference: {fileID: 0}
@@ -608,6 +623,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fae0299490d319f428103af3ac7510c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1586144494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8209254829932880945, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
+  m_PrefabInstance: {fileID: 1586144483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c27fe73cab1cca458af4b6b4a1f5d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1626014492
@@ -745,6 +771,17 @@ MonoBehaviour:
 --- !u!114 &1882259917 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5382834913708453393, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+  m_PrefabInstance: {fileID: 1874403907030550196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0e5b73ccf2d1b84e9709eb334d487bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1957250064 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1272364976239897621, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
   m_PrefabInstance: {fileID: 1874403907030550196}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1148,6 +1185,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -267.56238
       objectReference: {fileID: 0}
+    - target: {fileID: 3943284595739565378, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _replaceTime
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943284595739565378, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _textMeshPro
+      value: 
+      objectReference: {fileID: 1285539782}
     - target: {fileID: 3996157578109785131, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1164,6 +1209,10 @@ PrefabInstance:
       propertyPath: _loadingBar
       value: 
       objectReference: {fileID: 1795656015}
+    - target: {fileID: 4209220310517610442, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _levelFinisher
+      value: 
+      objectReference: {fileID: 1586144494}
     - target: {fileID: 4209220310517610442, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: _volcanoDIsplayer
       value: 
@@ -1275,6 +1324,10 @@ PrefabInstance:
     - target: {fileID: 4975040305634008873, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237850917171400714, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5238620589345485753, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1424,6 +1477,18 @@ PrefabInstance:
       propertyPath: _data
       value: 
       objectReference: {fileID: 1251929057}
+    - target: {fileID: 7667860621966698748, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _startButton
+      value: 
+      objectReference: {fileID: 1957250064}
+    - target: {fileID: 7667860621966698748, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _instantiator
+      value: 
+      objectReference: {fileID: 1586144486}
+    - target: {fileID: 7667860621966698748, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
+      propertyPath: _levelCounter
+      value: 
+      objectReference: {fileID: 1586144484}
     - target: {fileID: 8453905752786332513, guid: bda38db9c9e22314399b3663c9273e13, type: 3}
       propertyPath: _restartButton
       value: 

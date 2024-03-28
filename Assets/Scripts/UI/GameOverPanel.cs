@@ -4,28 +4,7 @@ using UnityEngine.UI;
 
 public class GameOverPanel : Panel
 {
-    [SerializeField] private Button _restartButton;
+    [SerializeField] private RestartButton _restartButton;
 
-    private UnityAction _restartAction;
-
-    public event UnityAction RestartAction
-    {
-        add => _restartAction += value;
-        remove => _restartAction -= value;
-    }
-
-    private void OnEnable()
-    {
-        _restartButton.onClick.AddListener(OnRestartLevel);
-    }
-
-    private void OnDisable()
-    {
-        _restartButton.onClick.RemoveListener(OnRestartLevel);
-    }
-
-    private void OnRestartLevel()
-    {
-        _restartAction?.Invoke();
-    }
+    public RestartButton RestartButton => _restartButton;
 }

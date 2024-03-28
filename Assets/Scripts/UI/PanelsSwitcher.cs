@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class PanelsSwitcher : MonoBehaviour
 {
     [SerializeField] private Ground _ground;
-    [SerializeField] private VolcanoesDisplayer _volcanoDisplayer;
+    [SerializeField] private LevelFinisher _levelFinisher;
 
     private Panel[] _panels;
 
@@ -43,11 +43,11 @@ public class PanelsSwitcher : MonoBehaviour
 
         _loadingPanel.Bar.Finished += OnRunGame;
 
-        _gameOver.RestartAction += OnRunLoading;
         _win.RestartButton.AddListener(OnRunLoading);
         _win.ContinueButton.AddListener(OnRunLoading);
+        _gameOver.RestartButton.AddListener(OnRunLoading);
 
-        _volcanoDisplayer.Fulled += OnRunWin;
+        _levelFinisher.Run += OnRunWin;
         _ground.Overheated += OnRunGameOver;
     }
 
@@ -61,9 +61,9 @@ public class PanelsSwitcher : MonoBehaviour
 
         _win.RestartButton.RemoveListener(OnRunLoading);
         _win.ContinueButton.RemoveListener(OnRunLoading);
-        _gameOver.RestartAction -= OnRunLoading;
+        _gameOver.RestartButton.RemoveListener(OnRunLoading);
 
-        _volcanoDisplayer.Fulled -= OnRunWin;
+        _levelFinisher.Run -= OnRunWin;
         _ground.Overheated -= OnRunGameOver;
     }
 

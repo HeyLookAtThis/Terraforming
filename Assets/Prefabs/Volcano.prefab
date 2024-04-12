@@ -87,10 +87,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787ed67188d1def4191bc4c46467c1f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _iceColor: {r: 0, g: 0.69433475, b: 1, a: 0}
-  _sound: {fileID: 8300000, guid: b7a210df23bd255428bdf4def67109f2, type: 3}
+  _freezeSound: {fileID: 8300000, guid: b7a210df23bd255428bdf4def67109f2, type: 3}
   _smokeEffect: {fileID: 8031423846867625304}
-  _freezeEffect: {fileID: 5735830396828010005}
   _model: {fileID: 5845890496118529117}
 --- !u!82 &7089759386167662595
 AudioSource:
@@ -201,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxDistance: 5
-  _seaSound: {fileID: 8300000, guid: 48d8dfeb1b8ad4b4b9887c22097a0f90, type: 3}
+  _sound: {fileID: 8300000, guid: 48d8dfeb1b8ad4b4b9887c22097a0f90, type: 3}
 --- !u!1 &5845890496118529117
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,11 +395,6 @@ PrefabInstance:
 --- !u!4 &5572775263909150107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4245537353119870, guid: f21836be3103a614db774ed06733eb75, type: 3}
-  m_PrefabInstance: {fileID: 5573605691294434789}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &5735830396828010005 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198351363957130224, guid: f21836be3103a614db774ed06733eb75, type: 3}
   m_PrefabInstance: {fileID: 5573605691294434789}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8031423846849169104

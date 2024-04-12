@@ -208,6 +208,7 @@ MonoBehaviour:
   _finishLevelNumber: 1
   _startLevelNumber: 5
   _winPanel: {fileID: 0}
+  _gameOverPanel: {fileID: 0}
 --- !u!114 &6885197768050367714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,6 +863,7 @@ MonoBehaviour:
   _finishLevelNumber: 5
   _startLevelNumber: 1
   _winPanel: {fileID: 0}
+  _gameOverPanel: {fileID: 0}
 --- !u!114 &1707159116163996002
 MonoBehaviour:
   m_ObjectHideFlags: 0

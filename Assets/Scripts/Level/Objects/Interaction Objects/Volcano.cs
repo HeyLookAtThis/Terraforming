@@ -52,7 +52,7 @@ public class Volcano : LevelObject
     {
         float heatGaineTime = 1f;
 
-        var waitTime = new WaitForSeconds(heatGaineTime);
+        var waitTime = new WaitForSecondsRealtime(heatGaineTime);
 
         while(!WasUsedByPlayer)
         {

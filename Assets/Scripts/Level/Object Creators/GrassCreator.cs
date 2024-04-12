@@ -21,7 +21,7 @@ public class GrassCreator : ObjectsInstantiator
 
                 if (IsEmptyGround(position))
                 {
-                    Grass grass = Instantiate(_grass, position, Quaternion.identity, this.transform);
+                    Grass grass = Instantiate(_grass, position, GetRandomRotation(), this.transform);
                     grass.ReturnToDefaultState();
                     AddActiveObject(grass);
                 }
@@ -29,5 +29,12 @@ public class GrassCreator : ObjectsInstantiator
         }
 
         wasCreated = true;
+    }
+
+    private Quaternion GetRandomRotation()
+    {
+        Quaternion quaternion = Random.rotation;
+
+        return new Quaternion(Quaternion.identity.x, quaternion.y, Quaternion.identity.z, Quaternion.identity.w);
     }
 }

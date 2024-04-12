@@ -1,26 +1,25 @@
-using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Volcano))]
 public class VolcanoView : MonoBehaviour
 {
-    [SerializeField] private Color _iceColor;
-    [SerializeField] private AudioClip _sound;
+    private const string _CutoffValue = "_CutoffValue";
+
+    [SerializeField] private AudioClip _freezeSound;
 
     [SerializeField] private ParticleSystem _smokeEffect;
-    [SerializeField] private ParticleSystem _freezeEffect;
     [SerializeField] private GameObject _model;
     
     private AudioSource _audioSourse;
-    private MeshRenderer _renderer;
+    private Material _material;
     private Coroutine _freezer;
 
     private void Awake()
     {
         _audioSourse = GetComponentInChildren<AudioSource>();
-        _renderer = GetComponentInChildren<MeshRenderer>();
-        _audioSourse.clip = _sound;
+        _material = GetComponentInChildren<MeshRenderer>().material;
     }
 
     private void OnEnable()
@@ -36,19 +35,19 @@ public class VolcanoView : MonoBehaviour
     public void SetStartingEffectsState()
     {
         _smokeEffect.Play();
-        _freezeEffect.Stop();
     }
 
     private void Freeze()
     {
         _audioSourse.Play();
         _smokeEffect.Stop();
-        _freezeEffect.Play();
         RunFreezer();
     }
 
     private void RunFreezer()
     {
+        _audioSourse.clip = _freezeSound;
+
         if (_freezer != null)
             StopCoroutine(_freezer);
 
@@ -57,18 +56,23 @@ public class VolcanoView : MonoBehaviour
 
     private IEnumerator Freezer()
     {
-        float second = 0.2f;
-        var waitTime = new WaitForSeconds(second);
+        float second = 0.02f;
+        var waitTime = new WaitForSecondsRealtime(second);
 
-        float colorChangeSpeed = 1f;
+        float totalAlphaValue = 1f;
+        float currentAlphaValue = 0;
 
-        while (_renderer.material.color != _iceColor)
+        while (_material.GetFloat(_CutoffValue) < totalAlphaValue)
         {
-            _renderer.material.DOColor(_iceColor, second * colorChangeSpeed);
+            currentAlphaValue += second;
+            _material.SetFloat(_CutoffValue, currentAlphaValue);
             yield return waitTime;
         }
 
-        if (_renderer.material.color == _iceColor)
+        if (_material.GetFloat(_CutoffValue) == totalAlphaValue)
+        {
+            GetComponent<Volcano>().ReturnToDefaultState();
             yield break;
+        }
     }
 }

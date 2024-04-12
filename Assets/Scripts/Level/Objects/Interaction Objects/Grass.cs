@@ -3,17 +3,15 @@ using UnityEngine;
 
 public class Grass : LevelObject
 {
-    [SerializeField] private float _duration;
-    [SerializeField] private uint _rateOverTime;
-    [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private float _growSpeed;
+    [SerializeField] private GameObject _model;
 
-    private Coroutine _growBeginner;
+    private Coroutine _grower;
 
     protected override void Awake()
     {
-        var emission = _particleSystem.emission;
-        emission.rateOverTime = _rateOverTime;
         base.Awake();
+        _model.SetActive(false);
     }
 
     public override void ReactToScanner(PlayerObjectsCounter player)
@@ -23,8 +21,10 @@ public class Grass : LevelObject
 
     public override void ReturnToDefaultState()
     {
-        _particleSystem.Stop();
-        _particleSystem.gameObject.SetActive(false);
+        _model.SetActive(false);
+
+        float zeroHeight = 0;
+        ChangeHeight(zeroHeight);
         TurnOffUsed();
     }
 
@@ -32,7 +32,8 @@ public class Grass : LevelObject
     {
         if (WasUsedByPlayer == false)
         {
-            _particleSystem.gameObject.SetActive(true);
+            _model.SetActive(true);
+
             BeginToGrow();
             TurnOnUsed();
         }
@@ -40,29 +41,37 @@ public class Grass : LevelObject
 
     private void BeginToGrow()
     {
-        if (_growBeginner != null)
-            StopCoroutine(_growBeginner);
+        if (_grower != null)
+            StopCoroutine(_grower);
 
-        _growBeginner = StartCoroutine(GrowBeginner());
+        _grower = StartCoroutine(GrowBeginner());
     }
 
     private IEnumerator GrowBeginner()
     {
         var WaitTime = new WaitForEndOfFrame();
-        float passedTime = 0;
+        float minHeight = 1f;
+        float currentHeight = 0;
+        float height = Random.value + minHeight;
 
-        _particleSystem.Play();
-
-        while (passedTime < _duration)
+        while (currentHeight < height)
         {
-            passedTime += Time.deltaTime;
+            currentHeight += _growSpeed * Time.deltaTime;
+            ChangeHeight(currentHeight);
             yield return WaitTime;
         }
 
-        if (passedTime >= _duration)
+        if (currentHeight >= height)
         {
-            _particleSystem.Pause();
             yield break;
         }
+    }
+
+    private void ChangeHeight(float height)
+    {
+        float horizontalSize = 2f;
+
+        if (height > 0 && height < 1)
+            _model.transform.localScale = new Vector3(horizontalSize, height, horizontalSize);
     }
 }

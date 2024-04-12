@@ -444,6 +444,10 @@ PrefabInstance:
       propertyPath: _grid
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4228611606952066213, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
+      propertyPath: _grass
+      value: 
+      objectReference: {fileID: 8198244917588380582, guid: c136d0b30752b4041a373ce937f3c927, type: 3}
     - target: {fileID: 4521929816452466123, guid: 2f8944a35e92b7642a383754201cee3f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

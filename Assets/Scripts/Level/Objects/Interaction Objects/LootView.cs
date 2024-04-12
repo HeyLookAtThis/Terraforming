@@ -6,7 +6,6 @@ public class LootView : MonoBehaviour
     [SerializeField] private GameObject _model;
 
     private AudioSource _audioSourse;
-    private ParticleSystem _effect;
 
     public bool IsAllowed => _model.activeSelf;
 
@@ -15,7 +14,6 @@ public class LootView : MonoBehaviour
     private  void Awake()
     {
         _audioSourse = GetComponentInChildren<AudioSource>();
-        _effect = GetComponentInChildren<ParticleSystem>();
 
         _audioSourse.clip = _sound;
 
@@ -34,15 +32,11 @@ public class LootView : MonoBehaviour
     public void TurnOnVisible()
     {
         if (!(_model.activeSelf))
-        {
             _model.SetActive(true);
-            _effect.Play();
-        }
     }
 
     public void TurnOffVisible()
     {
-        _effect.Stop();
         _model.SetActive(false);
     }
 }

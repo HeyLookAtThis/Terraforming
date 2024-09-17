@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StateMachineData
@@ -8,6 +6,7 @@ public class StateMachineData
     public Vector2 InpudDirection;
 
     private float _speed;
+    private float _currentTargetRotation;
 
     public float Speed
     {
@@ -18,6 +17,18 @@ public class StateMachineData
                 throw new ArgumentOutOfRangeException(nameof(value));
 
             _speed = value;
+        }
+    }
+
+    public float CurrentTargetRotation
+    {
+        get => _currentTargetRotation;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            _currentTargetRotation = value;
         }
     }
 }

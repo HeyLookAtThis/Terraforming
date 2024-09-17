@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class MovementState : IState
@@ -32,11 +33,30 @@ public abstract class MovementState : IState
 
     public virtual void Update()
     {
-        Controller.Move(Data.Speed * Time.deltaTime * GetConvertedDirection());
+        Vector3 direction = GetConvertedDirection();
+        Controller.Move(Data.Speed * Time.deltaTime * direction);
+        Quaternion targetRotation = Quaternion.Euler(0, GetDirectionAngle(direction), 0);
+        _character.transform.rotation = targetRotation;
+        Debug.Log(targetRotation);
     }
 
     protected bool IsInputDirectionZero() => Data.InpudDirection == Vector2.zero;
 
     private Vector2 ReadInputDirection() => Input.Movement.Move.ReadValue<Vector2>();
     private Vector3 GetConvertedDirection() => new Vector3(Data.InpudDirection.x, 0, Data.InpudDirection.y);
+
+    private float GetDirectionAngle(Vector3 direction)
+    {
+        float directionAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
+        if (directionAngle < 0)
+            directionAngle += 360;
+
+        return directionAngle;
+    }
+
+    private void Rotate()
+    {
+
+    }
 }

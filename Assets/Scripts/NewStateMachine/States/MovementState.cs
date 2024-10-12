@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class MovementState : IState
@@ -33,11 +32,14 @@ public abstract class MovementState : IState
 
     public virtual void Update()
     {
+        if (IsInputDirectionZero())
+            return;
+
         Vector3 direction = GetConvertedDirection();
+        float inputAngleDirection = GetDirectionAngle(direction);
+
         Controller.Move(Data.Speed * Time.deltaTime * direction);
-        Quaternion targetRotation = Quaternion.Euler(0, GetDirectionAngle(direction), 0);
-        _character.transform.rotation = targetRotation;
-        Debug.Log(targetRotation);
+        Rotate(inputAngleDirection);
     }
 
     protected bool IsInputDirectionZero() => Data.InpudDirection == Vector2.zero;
@@ -55,8 +57,28 @@ public abstract class MovementState : IState
         return directionAngle;
     }
 
-    private void Rotate()
+    private void Rotate(float angle)
     {
+        if(angle != Data.CurrentTargetRotation)
+        {
+            Data.CurrentTargetRotation = angle;
+            Data.DampedTargetRotationPassedTime = 0;
+        }
 
+        RotateTowardsTargetRotation();
+    }
+
+    private void RotateTowardsTargetRotation()
+    {
+        float currentYAngle = _character.transform.rotation.eulerAngles.y;
+
+        if (currentYAngle == Data.CurrentTargetRotation)
+            return;
+
+        float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, Data.CurrentTargetRotation, ref Data.DampedTargetRotationCurrentVelocity, Data.TimeToReachTargetRotation - Data.DampedTargetRotationPassedTime);
+        Data.DampedTargetRotationPassedTime += Time.deltaTime;
+
+        Quaternion targetRotation = Quaternion.Euler(0, smoothedYAngle, 0);
+        _character.transform.rotation = targetRotation;
     }
 }

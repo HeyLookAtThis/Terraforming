@@ -16,6 +16,7 @@ public abstract class MovementState : IState
 
     protected PlayerInput Input => _character.Input;
     protected CharacterController Controller => _character.Controller;
+    protected CharacterView CharacterView => _character.View;
 
     public virtual void Enter()
     {

@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class RunningState : MovementState
 {
+    private readonly RunningStateConfig _config;
     public RunningState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher, data, character)
-    {
-    }
+    => _config = character.Config.RunningStateConfig;
 
     public override void Enter()
     {
         base.Enter();
 
-        Data.Speed = 4;
+        Data.Speed = _config.Speed;
+        CharacterView.StartRunning();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        CharacterView.StopRunning();
     }
 
     public override void Update()

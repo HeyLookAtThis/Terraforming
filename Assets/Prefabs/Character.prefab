@@ -777,6 +777,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e5c4755e8e77a4a85fe75b4755ce19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 824d98b3dc4d5984ea662416ca0d30ce, type: 2}
+  _view: {fileID: 7927094652246160782}
 --- !u!1 &6069313873734122088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,8 +1139,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9214097266291227914}
+  - component: {fileID: 7927094652246160782}
+  - component: {fileID: 8696437427912713479}
   m_Layer: 0
-  m_Name: Cosmo_angel
+  m_Name: CharacterView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1161,6 +1165,39 @@ Transform:
   - {fileID: 4725703263502067469}
   m_Father: {fileID: 3599849890825629541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7927094652246160782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400581139011463088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d9538340bcf9b46909bd4c9371ee97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &8696437427912713479
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400581139011463088}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 056daecbe4f329442a6dd83cb3cdbe7a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8415724582393437930
 GameObject:
   m_ObjectHideFlags: 0

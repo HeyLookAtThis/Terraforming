@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class StateMachineData
 {
-    public Vector2 InpudDirection;
+    public Vector2 InputDirection;
 
     private float _speed;
     private float _currentTargetRotation;
-    private float _timeToReachTargetRotation = 0.25f;
+    private float _timeToReachTargetRotation;
     private float _dampedTargetRotationCurrentVelocity;
     private float _dampedTargetRotationPassedTime;
 

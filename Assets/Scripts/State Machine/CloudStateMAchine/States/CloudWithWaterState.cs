@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Cloud), typeof(CloudResizer))]
+[RequireComponent(typeof(OldCloud), typeof(CloudResizer))]
 public class CloudWithWaterState : CloudState
 {
     private const float _CloudSizeCoefficient = 0.7f;

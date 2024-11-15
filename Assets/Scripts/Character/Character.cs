@@ -5,6 +5,7 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private CharacterConfig _config;
     [SerializeField] private CharacterView _view;
+    [SerializeField] private CameraDirectionIndicator _directionIndicator;
 
     private PlayerInput _input;
     private CharacterController _controller;
@@ -14,6 +15,7 @@ public class Character : MonoBehaviour
     public CharacterView View => _view;
     public CharacterConfig Config => _config;
     public CharacterController Controller => _controller;
+    public CameraDirectionIndicator DirectionIndicator => _directionIndicator;
 
     private void Awake()
     {

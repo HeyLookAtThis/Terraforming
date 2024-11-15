@@ -2,27 +2,18 @@ using UnityEngine;
 
 public class Cloud : MonoBehaviour
 {
-    private PlayerColliderChecker _playerColliderChecker;
-    private PlayerObjectsCounter _playerObjectCounter;
-    private PlayerMovement _playerMovement;
+    [SerializeField] private CloudConfig _config;
 
-    public PlayerObjectsCounter Player => _playerObjectCounter;
+    private IMover _mover;
 
-    public PlayerMovement PlayerMovement => _playerMovement;
+    public CloudConfig Config => _config;
 
-    public PlayerColliderChecker PlayerColliderChecker => _playerColliderChecker;
+    private void Update() => _mover.Update(Time.deltaTime);
 
-    public CloudReservoir Reservoir => GetComponent<CloudReservoir>();
-
-    public void Destroy()
+    public void SetMover(IMover mover)
     {
-        Destroy(gameObject);
-    }
-
-    public void Initialize(Player player)
-    {
-        _playerColliderChecker = player.ColliderChecker;
-        _playerObjectCounter = player.Counter;
-        _playerMovement = player.Movement;
+        _mover?.StopMove();
+        _mover = mover;
+        _mover.StartMove();
     }
 }

@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-[RequireComponent(typeof(Cloud))]
+[RequireComponent(typeof(OldCloud))]
 public abstract class CloudState : State
 {
     [SerializeField] private float _speedBoost;
@@ -13,7 +13,7 @@ public abstract class CloudState : State
 
     public float TargetSpeed => 3f;
 
-    public Transform Target => GetComponent<Cloud>().Player.transform;
+    public Transform Target => GetComponent<OldCloud>().Player.transform;
 
     protected void Move(Vector3 direction, float speed)
     {

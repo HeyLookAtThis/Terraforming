@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Cloud), typeof(CloudScanner))]
 public abstract class CloudStatChanger : MonoBehaviour
 {
     [SerializeField] private float _lowerValue;

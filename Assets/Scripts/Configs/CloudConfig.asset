@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d980b0db7d8f7464f98c93f726c867b7, type: 3}
-  m_Name: CharacterConfig
+  m_Script: {fileID: 11500000, guid: 9bc65f82cc46a48449e203c562678684, type: 3}
+  m_Name: CloudConfig
   m_EditorClassIdentifier: 
-  _runningStateConfig:
-    <Speed>k__BackingField: 4
-    <TimeToReachTargetRotation>k__BackingField: 0.15
+  _emptyCloudConfig:
+    <DistanceToTarget>k__BackingField: 1.85
+    <Speed>k__BackingField: 2.85

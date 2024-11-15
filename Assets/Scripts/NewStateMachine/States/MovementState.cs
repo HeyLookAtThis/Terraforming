@@ -28,7 +28,7 @@ public abstract class MovementState : IState
 
     public void HandleInput()
     {
-        Data.InpudDirection = ReadInputDirection();
+        Data.InputDirection = ReadInputDirection();
     }
 
     public virtual void Update()
@@ -43,10 +43,9 @@ public abstract class MovementState : IState
         Rotate(inputAngleDirection);
     }
 
-    protected bool IsInputDirectionZero() => Data.InpudDirection == Vector2.zero;
-
+    protected bool IsInputDirectionZero() => Data.InputDirection == Vector2.zero;
     private Vector2 ReadInputDirection() => Input.Movement.Move.ReadValue<Vector2>();
-    private Vector3 GetConvertedDirection() => new Vector3(Data.InpudDirection.x, 0, Data.InpudDirection.y);
+    private Vector3 GetConvertedDirection() => _character.DirectionIndicator.transform.right * Data.InputDirection.x + _character.DirectionIndicator.transform.forward * Data.InputDirection.y;
 
     private float GetDirectionAngle(Vector3 direction)
     {

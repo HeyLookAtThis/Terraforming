@@ -1,9 +1,7 @@
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Cloud), typeof(CloudReservoir), typeof(CloudWithWaterState))]
 public class CloudScanner : MonoBehaviour
 {
     private float _radius;
@@ -12,7 +10,7 @@ public class CloudScanner : MonoBehaviour
 
     private Collider[] _colliders;
     private CloudReservoir _reservoir;
-    private Cloud _cloud;
+    private OldCloud _cloud;
 
     private Vector3 _spherePosition;
     private Vector3 _nextSpherePosition;
@@ -37,7 +35,7 @@ public class CloudScanner : MonoBehaviour
     private void Awake()
     {
         _reservoir = GetComponent<CloudReservoir>();
-        _cloud = GetComponent<Cloud>();
+        _cloud = GetComponent<OldCloud>();
 
         _radius = 1;
         _yPosition = 1;

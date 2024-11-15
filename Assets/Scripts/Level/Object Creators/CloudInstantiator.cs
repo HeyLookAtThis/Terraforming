@@ -3,10 +3,10 @@ using UnityEngine;
 [RequireComponent (typeof(GameplayChecker))]
 public class CloudInstantiator : MonoBehaviour
 {
-    [SerializeField] private Cloud _cloud;
+    [SerializeField] private OldCloud _cloud;
 
     private PlayerInstantiator _playerInstantiator;
-    private Cloud _createdCloud;
+    private OldCloud _createdCloud;
 
     private void Awake()
     {

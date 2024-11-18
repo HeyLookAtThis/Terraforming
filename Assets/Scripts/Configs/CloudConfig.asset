@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: CloudConfig
   m_EditorClassIdentifier: 
   _emptyCloudConfig:
-    <DistanceToTarget>k__BackingField: 1.85
-    <Speed>k__BackingField: 2.85
+    <MaxDistanceToTarget>k__BackingField: 3
+    <MinDistanceToTarget>k__BackingField: 1.5
+    <Speed>k__BackingField: 1

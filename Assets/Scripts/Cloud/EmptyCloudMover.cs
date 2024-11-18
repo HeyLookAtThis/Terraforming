@@ -24,19 +24,38 @@ public class EmptyCloudMover : IMover
 
     public void Update(float timeDeltaTime)
     {
+        CheckRelocetionNeeds();
+
         if (_isMoving == false)
             return;
 
-        Vector3 targetPosition = _target.position + GetConvertedDistanceToTarget();
-        Move(targetPosition, timeDeltaTime);
+        Move(timeDeltaTime);
     }
 
-    public void Move(Vector3 target, float timeDeltaTime)
+    public void Move(float timeDeltaTime)
     {
-        Vector3 direction = target - _transform.position;
-        float speed = Vector3.Distance(target, _transform.position) * _config.Speed;
-        _transform.Translate(direction.normalized * speed * timeDeltaTime);
+        _transform.Translate(GetDirection() * GetDistanceToTarget() * timeDeltaTime);
     }
 
-    private Vector3 GetConvertedDistanceToTarget() => new Vector3(_config.DistanceToTarget, _config.DistanceToTarget, _config.DistanceToTarget);
+    private void CheckRelocetionNeeds()
+    {
+        if(GetDistanceToTarget() >= _config.MinDistanceToTarget && GetDistanceToTarget() <= _config.MaxDistanceToTarget)
+            StopMove();
+        else
+            StartMove();
+    }
+
+    private Vector3 GetDirection()
+    {
+        Vector3 direction = new Vector3();
+
+        if (GetDistanceToTarget() > _config.MinDistanceToTarget)
+            direction = _target.position - _transform.position;
+        else
+            direction = _transform.position - _target.position;
+
+        return direction.normalized;
+    }
+
+    private float GetDistanceToTarget() => Vector3.Distance(_target.transform.position, _transform.position);
 }

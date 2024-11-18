@@ -2,12 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMovement), typeof(PlayerColliderChecker))]
+[RequireComponent(typeof(PlayerMovement), typeof(CharacterColliderChecker))]
 public class PlayerSatOnCloudState : State
 {
     [SerializeField] private float _jumpForse;
 
-    private PlayerColliderChecker _colliderChecker;
+    private CharacterColliderChecker _colliderChecker;
     private Coroutine _jumper;
 
     private UnityAction _satOnCloud;
@@ -27,7 +27,7 @@ public class PlayerSatOnCloudState : State
 
     private void Awake()
     {
-        _colliderChecker = GetComponent<PlayerColliderChecker>();
+        _colliderChecker = GetComponent<CharacterColliderChecker>();
     }
 
     private void OnEnable()

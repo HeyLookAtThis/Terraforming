@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class OldCloud : MonoBehaviour
 {
-    private PlayerColliderChecker _playerColliderChecker;
+    private CharacterColliderChecker _playerColliderChecker;
     private PlayerObjectsCounter _playerObjectCounter;
     private PlayerMovement _playerMovement;
 
@@ -10,7 +10,7 @@ public class OldCloud : MonoBehaviour
 
     public PlayerMovement PlayerMovement => _playerMovement;
 
-    public PlayerColliderChecker PlayerColliderChecker => _playerColliderChecker;
+    public CharacterColliderChecker PlayerColliderChecker => _playerColliderChecker;
 
     public CloudReservoir Reservoir => GetComponent<CloudReservoir>();
 

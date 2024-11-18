@@ -204,6 +204,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2965984900763020183, guid: 60277715f37008e47b74e692fd933f45, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 1557840480}
+    - target: {fileID: 2965984900763020183, guid: 60277715f37008e47b74e692fd933f45, type: 3}
       propertyPath: _character
       value: 
       objectReference: {fileID: 1481976544}
@@ -656,6 +660,11 @@ MonoBehaviour:
 --- !u!4 &1481976544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 894476933350568808, guid: 7e2051f287ea07d459c4073f98984d67, type: 3}
+  m_PrefabInstance: {fileID: 2044299642}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1557840480 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8331905212981372239, guid: 7e2051f287ea07d459c4073f98984d67, type: 3}
   m_PrefabInstance: {fileID: 2044299642}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1591678014

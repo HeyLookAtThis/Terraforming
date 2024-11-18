@@ -1,4 +1,4 @@
-public class RunningState : MovementState
+public class RunningState : GroundedState
 {
     private readonly RunningStateConfig _config;
 

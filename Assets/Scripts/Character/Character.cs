@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController), typeof(CharacterColliderChecker))]
 public class Character : MonoBehaviour
 {
     [SerializeField] private CharacterConfig _config;
@@ -10,15 +10,18 @@ public class Character : MonoBehaviour
     private PlayerInput _input;
     private CharacterController _controller;
     private CharacterStateMachine _stateMachine;
+    private CharacterColliderChecker _coliderChecker;
 
     public PlayerInput Input => _input;
     public CharacterView View => _view;
     public CharacterConfig Config => _config;
     public CharacterController Controller => _controller;
+    public CharacterColliderChecker PlayerColliderChecker => _coliderChecker;
     public CameraDirectionIndicator DirectionIndicator => _directionIndicator;
 
     private void Awake()
     {
+        _coliderChecker = GetComponent<CharacterColliderChecker>();
         _controller = GetComponent<CharacterController>();
         _input = new();
         _stateMachine = new(this);

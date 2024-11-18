@@ -17,13 +17,16 @@ public abstract class MovementState : IState
     protected PlayerInput Input => _character.Input;
     protected CharacterController Controller => _character.Controller;
     protected CharacterView CharacterView => _character.View;
+    protected Character Character => _character;
 
     public virtual void Enter()
     {
+        AddActionsCallback();
     }
 
     public virtual void Exit()
     {
+        RemoveActionsCallback();
     }
 
     public void HandleInput()
@@ -43,6 +46,8 @@ public abstract class MovementState : IState
         Rotate(inputAngleDirection);
     }
 
+    protected virtual void AddActionsCallback() { }
+    protected virtual void RemoveActionsCallback() { }
     protected bool IsInputDirectionZero() => Data.InputDirection == Vector2.zero;
     private Vector2 ReadInputDirection() => Input.Movement.Move.ReadValue<Vector2>();
     private Vector3 GetConvertedDirection() => _character.DirectionIndicator.transform.right * Data.InputDirection.x + _character.DirectionIndicator.transform.forward * Data.InputDirection.y;

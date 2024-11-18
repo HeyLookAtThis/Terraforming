@@ -1,20 +1,22 @@
 using UnityEngine;
 
-public class WateringCloudMover : IMover
+public class CloudUnderCharacterMover : IMover
 {
     private bool _isMoving;
 
     private Transform _transform;
     private Transform _target;
 
-    public WateringCloudMover(Transform transform, Transform target)
+    private CloudUnderChatacterMoverConfig _config;
+
+    public CloudUnderCharacterMover(Transform transform, Transform target, CloudUnderChatacterMoverConfig config)
     {
         _transform = transform;
         _target = target;
+        _config = config;
     }
 
     public Transform Transform => _transform;
-
     public Transform Target => _target;
 
     public void StartMove() => _isMoving = true;
@@ -27,13 +29,17 @@ public class WateringCloudMover : IMover
             return;
 
         Move(timeDeltaTime);
-        Rotate();
     }
 
     public void Move(float timeDeltaTime)
     {
-        _transform.position = _target.transform.position;
+        _transform.Translate(GetDirection() * _config.Speed * timeDeltaTime);
     }
 
-    private void Rotate() => _transform.forward = _target.transform.forward;
+    private Vector3 GetDirection()
+    {
+        Vector3 direction = _target.position - _transform.position;
+        direction.Normalize();
+        return direction;
+    }
 }

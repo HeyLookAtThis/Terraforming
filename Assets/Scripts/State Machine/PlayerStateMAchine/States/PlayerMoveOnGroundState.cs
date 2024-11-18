@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMovement), typeof(PlayerColliderChecker))]
+[RequireComponent(typeof(PlayerMovement), typeof(CharacterColliderChecker))]
 public class PlayerMoveOnGroundState : State
 {
     [SerializeField] private ParticleSystem _follower;
@@ -10,7 +10,7 @@ public class PlayerMoveOnGroundState : State
     private float _gravityValue = -9.81f;
     private Vector3 _velosity;
 
-    private PlayerColliderChecker _playerColliderChecker;
+    private CharacterColliderChecker _playerColliderChecker;
     private PlayerMovement _movement;
 
     private UnityAction<float> _running;
@@ -30,7 +30,7 @@ public class PlayerMoveOnGroundState : State
 
     private void Awake()
     {
-        _playerColliderChecker = GetComponent<PlayerColliderChecker>();
+        _playerColliderChecker = GetComponent<CharacterColliderChecker>();
         _movement = GetComponent<PlayerMovement>();
         _follower.Stop();
     }

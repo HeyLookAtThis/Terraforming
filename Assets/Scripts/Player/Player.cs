@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerColliderChecker),typeof(PlayerObjectsCounter),typeof(PlayerMovement))]
+[RequireComponent(typeof(CharacterColliderChecker),typeof(PlayerObjectsCounter),typeof(PlayerMovement))]
 public class Player : MonoBehaviour
 {
-    public PlayerColliderChecker ColliderChecker => GetComponent<PlayerColliderChecker>();
+    public CharacterColliderChecker ColliderChecker => GetComponent<CharacterColliderChecker>();
 
     public PlayerObjectsCounter Counter => GetComponent<PlayerObjectsCounter>();
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerColliderChecker : MonoBehaviour
+public class CharacterColliderChecker : MonoBehaviour
 {
     private bool _grounded;
 
@@ -14,12 +14,6 @@ public class PlayerColliderChecker : MonoBehaviour
     {
         add => _foundWater += value;
         remove => _foundWater -= value;
-    }
-
-    public void TurnOffGrounded()
-    {
-        if (_grounded)
-            _grounded = false;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -37,5 +31,7 @@ public class PlayerColliderChecker : MonoBehaviour
 
             _previousCollider = hit.collider;
         }
+
+        Debug.Log(hit.collider);
     }
 }

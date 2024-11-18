@@ -1,4 +1,4 @@
-public class IdilingState : MovementState
+public class IdilingState : GroundedState
 {
     public IdilingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher, data, character)
     {

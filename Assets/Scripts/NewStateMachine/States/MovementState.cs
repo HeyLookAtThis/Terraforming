@@ -22,11 +22,13 @@ public abstract class MovementState : IState
     public virtual void Enter()
     {
         AddActionsCallback();
+        CharacterView.StartMovement();
     }
 
     public virtual void Exit()
     {
         RemoveActionsCallback();
+        CharacterView.StopMovement();
     }
 
     public void HandleInput()
@@ -50,7 +52,12 @@ public abstract class MovementState : IState
     protected virtual void RemoveActionsCallback() { }
     protected bool IsInputDirectionZero() => Data.InputDirection == Vector2.zero;
     private Vector2 ReadInputDirection() => Input.Movement.Move.ReadValue<Vector2>();
-    private Vector3 GetConvertedDirection() => _character.DirectionIndicator.transform.right * Data.InputDirection.x + _character.DirectionIndicator.transform.forward * Data.InputDirection.y;
+    private Vector3 GetConvertedDirection()
+    {
+        Vector3 direction = _character.DirectionIndicator.transform.right * Data.InputDirection.x + _character.DirectionIndicator.transform.forward * Data.InputDirection.y;
+        direction.y = Data.YVelocity;
+        return direction;
+    }
 
     private float GetDirectionAngle(Vector3 direction)
     {

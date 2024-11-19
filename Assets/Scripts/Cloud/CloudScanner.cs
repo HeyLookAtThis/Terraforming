@@ -47,13 +47,13 @@ public class CloudScanner : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<CloudWithWaterState>().TookPosition += OnActivate;
+        //GetComponent<CloudWithWaterState>().TookPosition += OnActivate;
         _reservoir.WaterIsOver += OnDeactivate;
     }
 
     private void OnDisable()
     {
-        GetComponent<CloudWithWaterState>().TookPosition -= OnActivate;
+        //GetComponent<CloudWithWaterState>().TookPosition -= OnActivate;
         _reservoir.WaterIsOver -= OnDeactivate;
     }
 

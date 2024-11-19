@@ -15,3 +15,9 @@ MonoBehaviour:
   _runningStateConfig:
     <Speed>k__BackingField: 4
     <TimeToReachTargetRotation>k__BackingField: 0.15
+  _airborneStateConfig:
+    _jumpingStateConfig:
+      _maxHeight: 4
+      _timeToReachMaxHeight: 1
+    _sitOnCloudConfig:
+      _speed: 0

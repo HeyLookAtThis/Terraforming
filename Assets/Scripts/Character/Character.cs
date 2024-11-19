@@ -16,13 +16,14 @@ public class Character : MonoBehaviour
     public CharacterView View => _view;
     public CharacterConfig Config => _config;
     public CharacterController Controller => _controller;
-    public CharacterColliderChecker PlayerColliderChecker => _coliderChecker;
+    public CharacterColliderChecker ColliderChecker => _coliderChecker;
     public CameraDirectionIndicator DirectionIndicator => _directionIndicator;
 
     private void Awake()
     {
         _coliderChecker = GetComponent<CharacterColliderChecker>();
         _controller = GetComponent<CharacterController>();
+        _view.Initialize();
         _input = new();
         _stateMachine = new(this);
     }

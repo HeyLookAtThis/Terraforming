@@ -16,6 +16,6 @@ public class Player : MonoBehaviour
 
     public void InitializeReservoir(CloudReservoir reservoir)
     {
-        GetComponent<PlayerWaterIsOverTransition>().InitializeReservoir(reservoir);
+        //GetComponent<PlayerWaterIsOverTransition>().InitializeReservoir(reservoir);
     }
 }

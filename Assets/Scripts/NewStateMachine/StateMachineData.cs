@@ -4,8 +4,10 @@ using UnityEngine;
 public class StateMachineData
 {
     public Vector2 InputDirection;
+    public float YVelocity;
 
     private float _speed;
+
     private float _currentTargetRotation;
     private float _timeToReachTargetRotation;
     private float _dampedTargetRotationCurrentVelocity;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Thermometer : MonoBehaviour
 {    
-    [SerializeField] private Ground _ground;
+    [SerializeField] private OldGround _ground;
 
     private Coroutine _valueChanger;
     private Slider _slider;

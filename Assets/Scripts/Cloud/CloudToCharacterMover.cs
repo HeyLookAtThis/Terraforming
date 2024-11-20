@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CloudUnderCharacterMover : IMover
+public class CloudToCharacterMover : IMover
 {
     private bool _isMoving;
 
@@ -9,7 +9,7 @@ public class CloudUnderCharacterMover : IMover
 
     private CloudUnderChatacterMoverConfig _config;
 
-    public CloudUnderCharacterMover(Transform transform, Transform target, CloudUnderChatacterMoverConfig config)
+    public CloudToCharacterMover(Transform transform, Transform target, CloudUnderChatacterMoverConfig config)
     {
         _transform = transform;
         _target = target;

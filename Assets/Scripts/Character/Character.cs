@@ -9,7 +9,6 @@ public class Character : MonoBehaviour
 
     private PlayerInput _input;
     private CharacterController _controller;
-    private CharacterStateMachine _stateMachine;
     private CharacterColliderChecker _coliderChecker;
 
     public PlayerInput Input => _input;
@@ -25,16 +24,9 @@ public class Character : MonoBehaviour
         _controller = GetComponent<CharacterController>();
         _view.Initialize();
         _input = new();
-        _stateMachine = new(this);
     }
 
     private void OnEnable() => _input.Enable();
 
     private void OnDisable() => _input.Disable();
-
-    private void Update()
-    {
-        _stateMachine.HandleInput();
-        _stateMachine.Update();
-    }
 }

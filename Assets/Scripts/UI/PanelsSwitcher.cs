@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class PanelsSwitcher : MonoBehaviour
 {
-    [SerializeField] private Ground _ground;
+    [SerializeField] private OldGround _ground;
     [SerializeField] private LevelFinisher _levelFinisher;
 
     private Panel[] _panels;

@@ -11,7 +11,6 @@ public class GroundedState : MovementState
         _characterColliderChecker.FoundWater += OnFoundWater;
     }
 
-
     protected override void RemoveActionsCallback()
     {
         base.RemoveActionsCallback();

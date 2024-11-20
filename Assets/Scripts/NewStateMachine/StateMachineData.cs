@@ -5,6 +5,8 @@ public class StateMachineData
 {
     public Vector2 InputDirection;
     public float YVelocity;
+    public float ZVelocity;
+    public float XVelocity;
 
     private float _speed;
 

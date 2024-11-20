@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Ground : MonoBehaviour
+public class OldGround : MonoBehaviour
 {
     private UnityAction _temperatureChanged;
     private UnityAction _overheated;

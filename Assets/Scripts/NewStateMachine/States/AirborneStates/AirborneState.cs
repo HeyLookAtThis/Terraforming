@@ -19,13 +19,7 @@ public class AirborneState : MovementState
         CharacterView.StopAirborne();
     }
 
-    public override void Update()
-    {
-        base.Update();
-        Debug.Log(Data.YVelocity);
-    }
-
-    protected void StartUseGravity() => Data.YVelocity -= _baseGravity * Time.deltaTime;
+    protected void UseGravity() => Data.YVelocity -= _baseGravity * Time.deltaTime;
 
     protected void StopUseGravity() => Data.YVelocity = 0;
 }

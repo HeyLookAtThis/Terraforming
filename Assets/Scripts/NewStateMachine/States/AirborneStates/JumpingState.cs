@@ -23,7 +23,7 @@ public class JumpingState : AirborneState
     public override void Update()
     {
         base.Update();
-        StartUseGravity();
+        UseGravity();
 
         if (Data.YVelocity < 0)
             StateSwitcher.SwitchState<SitOnCloudState>();

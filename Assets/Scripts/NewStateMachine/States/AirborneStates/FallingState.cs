@@ -5,6 +5,20 @@ public class FallingState : AirborneState
     public FallingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher, data, character)
     => _characterColliderChecker = character.ColliderChecker;
 
+    protected override void AddActionsCallback()
+    {
+        base.AddActionsCallback();
+        _characterColliderChecker.Grounded += OnGoToGroundedState;
+        _characterColliderChecker.FoundWater += OnGoToJumpingState;
+    }
+
+    protected override void RemoveActionsCallback()
+    {
+        base.RemoveActionsCallback();
+        _characterColliderChecker.Grounded -= OnGoToGroundedState;
+        _characterColliderChecker.FoundWater -= OnGoToJumpingState;
+    }
+
     public override void Enter()
     {
         base.Enter();
@@ -21,14 +35,16 @@ public class FallingState : AirborneState
     public override void Update()
     {
         base.Update();
-        StartUseGravity();
-
-        if (_characterColliderChecker.CheckGrounded())
-        {
-            if (IsInputDirectionZero())
-                StateSwitcher.SwitchState<IdilingState>();
-            else
-                StateSwitcher.SwitchState<RunningState>();
-        }
+        UseGravity();
     }
+
+    private void OnGoToGroundedState()
+    {
+        if (IsInputDirectionZero())
+            StateSwitcher.SwitchState<IdilingState>();
+        else
+            StateSwitcher.SwitchState<RunningState>();
+    }
+
+    private void OnGoToJumpingState() => StateSwitcher.SwitchState<JumpingState>();
 }

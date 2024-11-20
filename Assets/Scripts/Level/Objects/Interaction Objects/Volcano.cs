@@ -36,7 +36,7 @@ public class Volcano : LevelObject
         Destroy(gameObject);
     }
 
-    public void BeginHeatGround(Ground ground)
+    public void BeginHeatGround(OldGround ground)
     {
         float heatGaineTime = 1f;
         GetComponent<VolcanoView>().SetStartingEffectsState();

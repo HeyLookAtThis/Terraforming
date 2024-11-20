@@ -34,27 +34,28 @@ public abstract class MovementState : IState
     public void HandleInput()
     {
         Data.InputDirection = ReadInputDirection();
+        Data.XVelocity = Data.InputDirection.x * Data.Speed;
+        Data.ZVelocity = Data.InputDirection.y * Data.Speed;
     }
 
     public virtual void Update()
     {
-        if (IsInputDirectionZero())
-            return;
+        Vector3 velocity = GetConvertedVelocity();
+        float inputAngleDirection = GetDirectionAngle(velocity);
 
-        Vector3 direction = GetConvertedDirection();
-        float inputAngleDirection = GetDirectionAngle(direction);
+        Controller.Move(velocity * Time.deltaTime);
 
-        Controller.Move(Data.Speed * Time.deltaTime * direction);
-        Rotate(inputAngleDirection);
+        if (IsInputDirectionZero() == false)
+            Rotate(inputAngleDirection);
     }
 
     protected virtual void AddActionsCallback() { }
     protected virtual void RemoveActionsCallback() { }
     protected bool IsInputDirectionZero() => Data.InputDirection == Vector2.zero;
     private Vector2 ReadInputDirection() => Input.Movement.Move.ReadValue<Vector2>();
-    private Vector3 GetConvertedDirection()
+    private Vector3 GetConvertedVelocity()
     {
-        Vector3 direction = _character.DirectionIndicator.transform.right * Data.InputDirection.x + _character.DirectionIndicator.transform.forward * Data.InputDirection.y;
+        Vector3 direction = _character.DirectionIndicator.transform.right * Data.XVelocity + _character.DirectionIndicator.transform.forward * Data.ZVelocity;
         direction.y = Data.YVelocity;
         return direction;
     }

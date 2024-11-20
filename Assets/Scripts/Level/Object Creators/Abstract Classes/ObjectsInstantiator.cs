@@ -82,7 +82,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
         Physics.Raycast(rayPoint, Vector3.down, out RaycastHit hit);
 
         if (hit.collider != null)
-            if (hit.collider.TryGetComponent<Ground>(out Ground ground))
+            if (hit.collider.TryGetComponent<OldGround>(out OldGround ground))
                 return true;
 
         return false;

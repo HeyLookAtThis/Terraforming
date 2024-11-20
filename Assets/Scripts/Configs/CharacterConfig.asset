@@ -18,6 +18,6 @@ MonoBehaviour:
   _airborneStateConfig:
     _jumpingStateConfig:
       _maxHeight: 4
-      _timeToReachMaxHeight: 1
+      _timeToReachMaxHeight: 0.4
     _sitOnCloudConfig:
-      _speed: 0
+      _speed: 5

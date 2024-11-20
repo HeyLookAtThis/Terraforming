@@ -3,7 +3,7 @@ using UnityEngine;
 public class VolcanoesCreator : ObjectsInstantiator
 {
     [SerializeField] private Volcano _prefab;
-    [SerializeField] private Ground _ground;
+    [SerializeField] private OldGround _ground;
 
     public override void OnCreate()
     {

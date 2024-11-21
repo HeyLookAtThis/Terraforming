@@ -18,15 +18,18 @@ public class CharacterStateMachine : IStateSwitcher
             new SitOnCloudState(this, data, character),
             new FallingState(this, data, character)
         };
+
+        SwitchState<SitOnCloudState>();
     }
 
-    public IState SitOnCloudState => _states.FirstOrDefault(state => state is SitOnCloudState);
+    public IStateEntryAction JumpingState => (IStateEntryAction)_states.First(state => state is JumpingState);
+    public IStateEntryAction SitOnCloudState => (IStateEntryAction)_states.First(state => state is SitOnCloudState);
 
     public void SwitchState<T>() where T : IState
     {
         IState state = _states.FirstOrDefault(state => state is T);
 
-        _currentState.Exit();
+        _currentState?.Exit();
         _currentState = state;
         _currentState.Enter();
     }

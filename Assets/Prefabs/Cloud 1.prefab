@@ -5353,7 +5353,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6078800104347044523}
   - component: {fileID: 2979311333979733226}
-  - component: {fileID: 2965984900763020183}
   m_Layer: 0
   m_Name: Cloud 1
   m_TagString: Untagged
@@ -5390,20 +5389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b20bba30099d94992ba5ed00acc1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _wateringTime: 0
   _config: {fileID: 0}
---- !u!114 &2965984900763020183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5271122389137590004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea0b8eb6f3a125499cf6933f4033ab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 0}
 --- !u!1 &8506915822501790640
 GameObject:
   m_ObjectHideFlags: 0

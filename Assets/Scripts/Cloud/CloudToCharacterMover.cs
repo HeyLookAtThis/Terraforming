@@ -31,15 +31,5 @@ public class CloudToCharacterMover : IMover
         Move(timeDeltaTime);
     }
 
-    public void Move(float timeDeltaTime)
-    {
-        _transform.Translate(GetDirection() * _config.Speed * timeDeltaTime);
-    }
-
-    private Vector3 GetDirection()
-    {
-        Vector3 direction = _target.position - _transform.position;
-        direction.Normalize();
-        return direction;
-    }
+    public void Move(float timeDeltaTime) => _transform.position = Vector3.MoveTowards(_transform.position, _target.position, _config.Speed * timeDeltaTime);
 }

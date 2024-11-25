@@ -20,15 +20,6 @@ public class Character : MonoBehaviour
     public CharacterColliderChecker ColliderChecker => _coliderChecker;
     public CameraDirectionIndicator DirectionIndicator => _directionIndicator;
 
-    private void Awake()
-    {
-        _coliderChecker = GetComponent<CharacterColliderChecker>();
-        _controller = GetComponent<CharacterController>();
-        _view.Initialize();
-        _input = new();
-        _stateMachine = new(this);
-    }
-
     private void OnEnable() => _input.Enable();
 
     private void OnDisable() => _input.Disable();
@@ -37,5 +28,14 @@ public class Character : MonoBehaviour
     {
         _stateMachine.HandleInput();
         _stateMachine.Update();
+    }
+
+    public void Initialize()
+    {
+        _coliderChecker = GetComponent<CharacterColliderChecker>();
+        _controller = GetComponent<CharacterController>();
+        _view.Initialize();
+        _input = new PlayerInput();
+        _stateMachine = new CharacterStateMachine(this);
     }
 }

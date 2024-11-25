@@ -10,8 +10,8 @@ public class MovementMediator : MonoBehaviour
 
     private void Awake()
     {
-        _cloud.InitializeMovementSwithcer(_character.transform);
-
+        _cloud.Initialize(_character.transform);
+        _character.Initialize();
         _cloudMovementSwitcher = _cloud.MovementBehaivorSwitcher;
         _characterStateMachine = _character.StateMachine;
     }
@@ -20,21 +20,20 @@ public class MovementMediator : MonoBehaviour
     {
         _characterStateMachine.JumpingState.EntryOnState += OnSetMoveToTarget;
         _characterStateMachine.SitOnCloudState.EntryOnState += OnSetMoveUnderTarget;
-        _cloud.WaterIsOver += OnSetMoveNearTarget;
-        _cloud.WaterIsOver += OnSwitchToFallingState;
+        _cloud.Reservoir.WaterIsOver += OnSetMoveNearTarget;
+        _cloud.Reservoir.WaterIsOver += OnSwitchToFallingState;
     }
 
     private void OnDisable()
     {
         _characterStateMachine.JumpingState.EntryOnState -= OnSetMoveToTarget;
         _characterStateMachine.SitOnCloudState.EntryOnState -= OnSetMoveUnderTarget;
-        _cloud.WaterIsOver -= OnSetMoveNearTarget;
-        _cloud.WaterIsOver -= OnSwitchToFallingState;
+        _cloud.Reservoir.WaterIsOver -= OnSetMoveNearTarget;
+        _cloud.Reservoir.WaterIsOver -= OnSwitchToFallingState;
     }
 
     private void OnSetMoveToTarget() => _cloudMovementSwitcher.SetMover<CloudToCharacterMover>();
     private void OnSetMoveUnderTarget() => _cloudMovementSwitcher.SetMover<WateringCloudMover>();
     private void OnSetMoveNearTarget() => _cloudMovementSwitcher.SetMover<EmptyCloudMover>();
     private void OnSwitchToFallingState() => _characterStateMachine.SwitchState<FallingState>();
-
 }

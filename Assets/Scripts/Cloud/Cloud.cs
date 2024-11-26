@@ -6,20 +6,26 @@ public class Cloud : MonoBehaviour
     [SerializeField] private Terrain _terrain;
 
     private CloudMovementBehaivorSwitcher _movementBehaivorSwitcher;
+
     private GrassPainter _grassPainter;
     private Reservoir _reservoir;
+    private Resizer _resizer;
+    private Scanner _scanner;
+
     private IMover _mover;
 
     public CloudMovementBehaivorSwitcher MovementBehaivorSwitcher => _movementBehaivorSwitcher;
     public Reservoir Reservoir => _reservoir;
+    public Resizer Resizer => _resizer;
     public CloudConfig Config => _config;
+    public Scanner Scanner => _scanner;
 
     private void Update()
     {
         if (_mover is WateringCloudMover)
         {
             _grassPainter.Draw();
-            _reservoir.Update();
+            _scanner.Update();
         }
 
         _mover?.Update(Time.deltaTime);
@@ -35,7 +41,9 @@ public class Cloud : MonoBehaviour
     public void Initialize(Transform target)
     {
         _movementBehaivorSwitcher = new CloudMovementBehaivorSwitcher(this, target);
-        _grassPainter = new GrassPainter(_terrain, this, _config.CloudWateringConfig.Radius);
-        _reservoir = new Reservoir(_config.CloudWateringConfig.WateringTime);
+        _grassPainter = new GrassPainter(_terrain, this);
+        _scanner = new Scanner(this);
+        _reservoir = new Reservoir(this);
+        _resizer = new Resizer(this);
     }
 }

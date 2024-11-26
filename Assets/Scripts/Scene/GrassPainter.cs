@@ -12,9 +12,9 @@ public class GrassPainter
     private float[,,] _groundMap;
     private float[,,] _currentMap;
 
-    public GrassPainter(Terrain terrain, Cloud cloud, int radius)
+    public GrassPainter(Terrain terrain, Cloud cloud)
     {
-        _radius = radius;
+        _radius = cloud.Config.CloudWateringConfig.GrassPainterRadius;
         _terrain = terrain;
         _cloud = cloud;
 
@@ -38,10 +38,11 @@ public class GrassPainter
             {
                 Vector2 currentPosition = new Vector2(x, y);
                 float pixelDistance = Vector2.Distance(currentPosition, convertedCloudPosition);
+                float normalizedValue = ShadedValue - pixelDistance / _radius;
 
                 if (pixelDistance <= _radius)
                     if (map[x, y, GrassLayerIndex] != ShadedValue)
-                        map[x, y, GrassLayerIndex] = ShadedValue;
+                        map[x, y, GrassLayerIndex] += normalizedValue;
             }
         }
 

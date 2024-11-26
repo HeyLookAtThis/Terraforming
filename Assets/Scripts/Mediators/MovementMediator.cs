@@ -22,6 +22,9 @@ public class MovementMediator : MonoBehaviour
         _characterStateMachine.SitOnCloudState.EntryOnState += OnSetMoveUnderTarget;
         _cloud.Reservoir.WaterIsOver += OnSetMoveNearTarget;
         _cloud.Reservoir.WaterIsOver += OnSwitchToFallingState;
+
+        _cloud.Reservoir.AddActionCallback();
+        _cloud.Resizer.AddActionCallback();
     }
 
     private void OnDisable()
@@ -30,6 +33,9 @@ public class MovementMediator : MonoBehaviour
         _characterStateMachine.SitOnCloudState.EntryOnState -= OnSetMoveUnderTarget;
         _cloud.Reservoir.WaterIsOver -= OnSetMoveNearTarget;
         _cloud.Reservoir.WaterIsOver -= OnSwitchToFallingState;
+
+        _cloud.Reservoir.RemoveActionCallback();
+        _cloud.Resizer.RemoveActionCallback();
     }
 
     private void OnSetMoveToTarget() => _cloudMovementSwitcher.SetMover<CloudToCharacterMover>();

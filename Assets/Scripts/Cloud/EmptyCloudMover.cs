@@ -57,5 +57,5 @@ public class EmptyCloudMover : IMover
     private float GetDistanceToTarget() => Vector3.Distance(_target.transform.position, _transform.position);
     private Vector3 GetToTargetDirection() => _target.position/* - _transform.position*/;
     private Vector3 GetFromTargetDirection() => _transform.position - _target.position;
-    private float GetCurrentSpeed(float timeDeltatime) => GetDistanceToTarget() * _config.SpeedMultiplier * timeDeltatime;
+    private float GetCurrentSpeed(float timeDeltatime) => GetDistanceToTarget() * _config.MovementSpeedMultiplier * timeDeltatime;
 }

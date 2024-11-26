@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cloudUnderChatacterMoverConfig:
     <Speed>k__BackingField: 20
+    <MaxSize>k__BackingField: 1
+    <FillingSpeed>k__BackingField: 3
+    <IncreaseSpeed>k__BackingField: 0.5
+    <ScannerRadius>k__BackingField: 1
   _cloudWateringConfig:
-    <Radius>k__BackingField: 10
-    <WateringTime>k__BackingField: 5
+    <GrassPainterRadius>k__BackingField: 10
+    <WateringTime>k__BackingField: 3
+    <MinSize>k__BackingField: 0.3
+    <DecreaseSpeed>k__BackingField: 0.15
   _emptyCloudConfig:
-    <SpeedMultiplier>k__BackingField: 0.75
+    <MovementSpeedMultiplier>k__BackingField: 0.75
     <MaxDistanceToTarget>k__BackingField: 3
     <MinDistanceToTarget>k__BackingField: 1.5

@@ -15,7 +15,7 @@ public class CloudMovementBehaivorSwitcher
         {
             new WateringCloudMover(cloud.transform, target),
             new EmptyCloudMover(cloud.transform, target, cloud.Config.EmptyCloudConfig),
-            new CloudToCharacterMover(cloud.transform,target, cloud.Config.CloudToChatacterMoverConfig)
+            new CloudToCharacterMover(cloud.transform,target, cloud.Config.CloudUnderChatacterConfig)
         };
 
         SetMover<WateringCloudMover>();

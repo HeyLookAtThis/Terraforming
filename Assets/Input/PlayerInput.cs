@@ -149,6 +149,56 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Camera Rotation"",
+            ""id"": ""08f0f769-d1a2-4f26-be5c-1c107a6bd311"",
+            ""actions"": [
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""2d3ca864-b26d-40db-a2c7-ca7be368a54b"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""463d67b9-9ab4-47ba-95f8-c9e6f72545ef"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Modifier"",
+                    ""id"": ""6b138a71-2f93-417e-ba2a-ab0ed9dd2d43"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Binding"",
+                    ""id"": ""8a0922b6-9982-4b31-ae2b-88c09fab4683"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -156,6 +206,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
+        // Camera Rotation
+        m_CameraRotation = asset.FindActionMap("Camera Rotation", throwIfNotFound: true);
+        m_CameraRotation_Rotate = m_CameraRotation.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -259,8 +312,58 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // Camera Rotation
+    private readonly InputActionMap m_CameraRotation;
+    private List<ICameraRotationActions> m_CameraRotationActionsCallbackInterfaces = new List<ICameraRotationActions>();
+    private readonly InputAction m_CameraRotation_Rotate;
+    public struct CameraRotationActions
+    {
+        private @PlayerInput m_Wrapper;
+        public CameraRotationActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Rotate => m_Wrapper.m_CameraRotation_Rotate;
+        public InputActionMap Get() { return m_Wrapper.m_CameraRotation; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraRotationActions set) { return set.Get(); }
+        public void AddCallbacks(ICameraRotationActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CameraRotationActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CameraRotationActionsCallbackInterfaces.Add(instance);
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+        }
+
+        private void UnregisterCallbacks(ICameraRotationActions instance)
+        {
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+        }
+
+        public void RemoveCallbacks(ICameraRotationActions instance)
+        {
+            if (m_Wrapper.m_CameraRotationActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICameraRotationActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CameraRotationActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CameraRotationActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CameraRotationActions @CameraRotation => new CameraRotationActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface ICameraRotationActions
+    {
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

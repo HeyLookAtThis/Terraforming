@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GrassPainter
@@ -12,6 +13,8 @@ public class GrassPainter
     private float[,,] _groundMap;
     private float[,,] _currentMap;
 
+    private bool _isDrawing;
+
     public GrassPainter(Terrain terrain, Cloud cloud)
     {
         _radius = cloud.Config.CloudWateringConfig.GrassPainterRadius;
@@ -19,8 +22,11 @@ public class GrassPainter
         _cloud = cloud;
 
         InitializeGroundMap();
+        InitializeCurrentMap();
         ClearMap();
     }
+
+    public bool IsDrawing => _isDrawing;
 
     private int CoordinatesOrigin => 0;
     private float TransparentValue => 0f;
@@ -28,7 +34,8 @@ public class GrassPainter
 
     public void Draw()
     {
-        float[,,] map = _currentMap;
+        float[,,] map = new float[_currentMap.GetLength(0), _currentMap.GetLength(1), _currentMap.GetLength(2)];
+        Array.Copy(_currentMap, map, _currentMap.Length);
 
         Vector2 convertedCloudPosition = GetConvertedCloudPosition();
 
@@ -41,19 +48,28 @@ public class GrassPainter
                 float normalizedValue = ShadedValue - pixelDistance / _radius;
 
                 if (pixelDistance <= _radius)
-                    if (map[x, y, GrassLayerIndex] != ShadedValue)
+                {
+                    if (map[x, y, GrassLayerIndex] < ShadedValue)
+                    {
+                        _isDrawing = true;
                         map[x, y, GrassLayerIndex] += normalizedValue;
+                    }
+                    else
+                    {
+                        _isDrawing = false;
+                    }
+                }
             }
         }
 
         _terrain.terrainData.SetAlphamaps(CoordinatesOrigin, CoordinatesOrigin, map);
-        _currentMap = map;
+        Array.Copy(map, _currentMap, map.Length);
     }
 
     public void ClearMap()
     {
         _terrain.terrainData.SetAlphamaps(CoordinatesOrigin, CoordinatesOrigin, _groundMap);
-        _currentMap = _groundMap;
+        Array.Copy(_groundMap, _currentMap, _groundMap.Length);
     }
 
     private void InitializeGroundMap()
@@ -64,6 +80,8 @@ public class GrassPainter
             for (int x = 0; x < _terrain.terrainData.alphamapWidth; x++)
                 _groundMap[x, y, GroundLayerIndex] = ShadedValue;
     }
+
+    private void InitializeCurrentMap() => _currentMap = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];
 
     private Vector2 GetConvertedCloudPosition()
     {

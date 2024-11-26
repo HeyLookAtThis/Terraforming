@@ -25,7 +25,9 @@ public class Cloud : MonoBehaviour
         if (_mover is WateringCloudMover)
         {
             _grassPainter.Draw();
-            _scanner.Update();
+
+            if (_grassPainter.IsDrawing)
+                _scanner.Update();
         }
 
         _mover?.Update(Time.deltaTime);

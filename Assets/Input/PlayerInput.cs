@@ -192,7 +192,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""id"": ""8a0922b6-9982-4b31-ae2b-88c09fab4683"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Invert"",
                     ""groups"": """",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,

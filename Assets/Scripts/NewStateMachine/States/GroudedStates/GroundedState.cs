@@ -1,6 +1,6 @@
 public class GroundedState : MovementState
 {
-    private CharacterColliderChecker _characterColliderChecker;
+    private CharacterLayerChecker _characterColliderChecker;
 
     public GroundedState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher, data, character)
     => _characterColliderChecker = character.ColliderChecker;

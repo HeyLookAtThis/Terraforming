@@ -23,6 +23,8 @@ public class Resizer : CloudWaterIndicator
 
     protected override void OnIncreaseValue()
     {
+        base.OnIncreaseValue();
+
         if (_currentSize < _maxSize)
         {
             _currentSize += _increaseSpeed * Time.deltaTime;
@@ -32,6 +34,11 @@ public class Resizer : CloudWaterIndicator
 
     protected override void OnDecreaseValue()
     {
+        base.OnDecreaseValue();
+
+        if (IsWorking == false)
+            return;
+
         if (_currentSize > _minSize)
         {
             _currentSize -= _decreaseSpeed * Time.deltaTime;

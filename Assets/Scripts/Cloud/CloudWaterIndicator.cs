@@ -1,13 +1,18 @@
+using UnityEngine;
+
 public abstract class CloudWaterIndicator
 {
     protected Cloud Cloud;
 
+    private GrassPainter _grassPainter;
     private Scanner _scanner;
+
     private bool _isWorking;
 
     public CloudWaterIndicator(Cloud cloud)
     {
         Cloud = cloud;
+        _grassPainter = cloud.GrassPainter;
         _scanner = cloud.Scanner;
     }
 
@@ -17,17 +22,21 @@ public abstract class CloudWaterIndicator
     {
         _scanner.FoundWater += OnIncreaseValue;
         _scanner.LostWater += OnDecreaseValue;
+
+        _grassPainter.Drawing += SetWorking;
     }
 
     public void RemoveActionCallback()
     {
         _scanner.FoundWater -= OnIncreaseValue;
         _scanner.LostWater -= OnDecreaseValue;
+
+        _grassPainter.Drawing -= SetWorking;
     }
 
-    protected abstract void OnIncreaseValue();
-    protected abstract void OnDecreaseValue();
+    protected virtual void OnIncreaseValue() { }
 
-    protected void StopWorking() => _isWorking = false;
-    protected void StartWorking() => _isWorking = true;
+    protected virtual void OnDecreaseValue() { }
+
+    private void SetWorking(bool isWorking) => _isWorking = isWorking;
 }

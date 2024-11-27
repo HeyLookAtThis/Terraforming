@@ -1,6 +1,6 @@
 public class FallingState : AirborneState
 {
-    private readonly CharacterColliderChecker _characterColliderChecker;
+    private readonly CharacterLayerChecker _characterColliderChecker;
 
     public FallingState(IStateSwitcher stateSwitcher, StateMachineData data, Character character) : base(stateSwitcher, data, character)
     => _characterColliderChecker = character.ColliderChecker;

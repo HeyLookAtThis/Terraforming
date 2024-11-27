@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class CharacterStateMachine : IStateSwitcher
 {
@@ -32,6 +33,8 @@ public class CharacterStateMachine : IStateSwitcher
         _currentState?.Exit();
         _currentState = state;
         _currentState.Enter();
+
+        Debug.Log(state);
     }
 
     public void HandleInput() => _currentState.HandleInput();

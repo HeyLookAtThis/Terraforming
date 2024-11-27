@@ -26,12 +26,19 @@ public class Reservoir : CloudWaterIndicator
 
     protected override void OnIncreaseValue()
     {
+        base.OnIncreaseValue();
+
         if (_currentWateringTime < WateringTime)
             _currentWateringTime += _fillingSpeed * Time.deltaTime;
     }
 
     protected override void OnDecreaseValue()
     {
+        base.OnDecreaseValue();
+
+        if (IsWorking == false)
+            return;
+
         _currentWateringTime -= Time.deltaTime;
 
         if (_currentWateringTime <= 0)

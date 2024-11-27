@@ -15,6 +15,7 @@ public class Cloud : MonoBehaviour
     private IMover _mover;
 
     public CloudMovementBehaivorSwitcher MovementBehaivorSwitcher => _movementBehaivorSwitcher;
+    public GrassPainter GrassPainter => _grassPainter;
     public Reservoir Reservoir => _reservoir;
     public Resizer Resizer => _resizer;
     public CloudConfig Config => _config;
@@ -25,9 +26,7 @@ public class Cloud : MonoBehaviour
         if (_mover is WateringCloudMover)
         {
             _grassPainter.Draw();
-
-            if (_grassPainter.IsDrawing)
-                _scanner.Update();
+            _scanner.Update();
         }
 
         _mover?.Update(Time.deltaTime);

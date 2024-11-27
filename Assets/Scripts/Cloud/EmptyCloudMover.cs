@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EmptyCloudMover : IMover
 {
+    private float _targetYPositionOffset;
     private bool _isMoving;
 
     private Transform _transform;
@@ -14,6 +15,8 @@ public class EmptyCloudMover : IMover
         _transform = transform;
         _target = target;
         _config = config;
+
+        _targetYPositionOffset = 1f;
     }
 
     public Transform Transform => _transform;
@@ -32,7 +35,7 @@ public class EmptyCloudMover : IMover
         Move(timeDeltaTime);
     }
 
-    public void Move(float timeDeltaTime) => _transform.position = Vector3.MoveTowards(_transform.position, _target.position, GetCurrentSpeed(timeDeltaTime));
+    public void Move(float timeDeltaTime) => _transform.position = Vector3.MoveTowards(_transform.position, GetTargetPosition(), GetCurrentSpeed(timeDeltaTime));
 
     private void CheckRelocetionNeeds()
     {
@@ -42,20 +45,7 @@ public class EmptyCloudMover : IMover
             StartMove();
     }
 
-    private Vector3 GetDirection()
-    {
-        Vector3 direction = GetToTargetDirection();
-
-        //if (GetDistanceToTarget() > _config.MinDistanceToTarget)
-        //    direction = GetToTargetDirection();
-        //else
-        //    direction = GetFromTargetDirection();
-
-        return direction.normalized;
-    }
-
     private float GetDistanceToTarget() => Vector3.Distance(_target.transform.position, _transform.position);
-    private Vector3 GetToTargetDirection() => _target.position/* - _transform.position*/;
-    private Vector3 GetFromTargetDirection() => _transform.position - _target.position;
+    private Vector3 GetTargetPosition() => new Vector3(_target.position.x, _target.position.y + _targetYPositionOffset, _target.position.z);
     private float GetCurrentSpeed(float timeDeltatime) => GetDistanceToTarget() * _config.MovementSpeedMultiplier * timeDeltatime;
 }

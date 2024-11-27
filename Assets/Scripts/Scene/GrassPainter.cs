@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GrassPainter
 {
@@ -10,10 +10,11 @@ public class GrassPainter
     private Cloud _cloud;
     private int _radius;
 
-    private float[,,] _groundMap;
-    private float[,,] _currentMap;
+    private float[,,] _map;
 
     private bool _isDrawing;
+
+    private UnityAction<bool> _drawing;
 
     public GrassPainter(Terrain terrain, Cloud cloud)
     {
@@ -21,12 +22,15 @@ public class GrassPainter
         _terrain = terrain;
         _cloud = cloud;
 
-        InitializeGroundMap();
         InitializeCurrentMap();
         ClearMap();
     }
 
-    public bool IsDrawing => _isDrawing;
+    public event UnityAction<bool> Drawing
+    {
+        add => _drawing += value;
+        remove => _drawing -= value;
+    }
 
     private int CoordinatesOrigin => 0;
     private float TransparentValue => 0f;
@@ -34,9 +38,6 @@ public class GrassPainter
 
     public void Draw()
     {
-        float[,,] map = new float[_currentMap.GetLength(0), _currentMap.GetLength(1), _currentMap.GetLength(2)];
-        Array.Copy(_currentMap, map, _currentMap.Length);
-
         Vector2 convertedCloudPosition = GetConvertedCloudPosition();
 
         for (int x = (int)convertedCloudPosition.x - _radius; x < (int)convertedCloudPosition.x + _radius; x++)
@@ -47,12 +48,17 @@ public class GrassPainter
                 float pixelDistance = Vector2.Distance(currentPosition, convertedCloudPosition);
                 float normalizedValue = ShadedValue - pixelDistance / _radius;
 
+                var normX = x * 1.0f / (_terrain.terrainData.alphamapWidth - 1);
+                var normY = y * 1.0f / (_terrain.terrainData.alphamapHeight - 1);
+
+                var angle = _terrain.terrainData.GetSteepness(normX, normY);
+
                 if (pixelDistance <= _radius)
                 {
-                    if (map[x, y, GrassLayerIndex] < ShadedValue)
+                    if (_map[x, y, GrassLayerIndex] < ShadedValue && angle == 0)
                     {
+                        _map[x, y, GrassLayerIndex] += normalizedValue;
                         _isDrawing = true;
-                        map[x, y, GrassLayerIndex] += normalizedValue;
                     }
                     else
                     {
@@ -62,26 +68,18 @@ public class GrassPainter
             }
         }
 
-        _terrain.terrainData.SetAlphamaps(CoordinatesOrigin, CoordinatesOrigin, map);
-        Array.Copy(map, _currentMap, map.Length);
+        _drawing?.Invoke(_isDrawing);
+        _terrain.terrainData.SetAlphamaps(CoordinatesOrigin, CoordinatesOrigin, _map);
     }
 
     public void ClearMap()
     {
-        _terrain.terrainData.SetAlphamaps(CoordinatesOrigin, CoordinatesOrigin, _groundMap);
-        Array.Copy(_groundMap, _currentMap, _groundMap.Length);
-    }
-
-    private void InitializeGroundMap()
-    {
-        _groundMap = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];
-
         for (int y = 0; y < _terrain.terrainData.alphamapHeight; y++)
             for (int x = 0; x < _terrain.terrainData.alphamapWidth; x++)
-                _groundMap[x, y, GroundLayerIndex] = ShadedValue;
+                _map[x, y, GroundLayerIndex] = ShadedValue;
     }
 
-    private void InitializeCurrentMap() => _currentMap = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];
+    private void InitializeCurrentMap() => _map = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];
 
     private Vector2 GetConvertedCloudPosition()
     {

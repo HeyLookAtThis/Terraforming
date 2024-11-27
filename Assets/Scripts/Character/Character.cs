@@ -1,23 +1,23 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController), typeof(CharacterColliderChecker))]
+[RequireComponent(typeof(CharacterController))]
 public class Character : MonoBehaviour
 {
     [SerializeField] private CharacterConfig _config;
     [SerializeField] private CharacterView _view;
     [SerializeField] private CameraDirectionIndicator _directionIndicator;
+    [SerializeField]private CharacterLayerChecker _coliderChecker;
 
     private PlayerInput _input;
     private CharacterController _controller;
     private CharacterStateMachine _stateMachine;
-    private CharacterColliderChecker _coliderChecker;
 
     public PlayerInput Input => _input;
     public CharacterView View => _view;
     public CharacterConfig Config => _config;
     public CharacterController Controller => _controller;
     public CharacterStateMachine StateMachine => _stateMachine;
-    public CharacterColliderChecker ColliderChecker => _coliderChecker;
+    public CharacterLayerChecker ColliderChecker => _coliderChecker;
     public CameraDirectionIndicator DirectionIndicator => _directionIndicator;
 
     private void OnEnable() => _input.Enable();
@@ -32,7 +32,6 @@ public class Character : MonoBehaviour
 
     public void Initialize()
     {
-        _coliderChecker = GetComponent<CharacterColliderChecker>();
         _controller = GetComponent<CharacterController>();
         _view.Initialize();
         _input = new PlayerInput();

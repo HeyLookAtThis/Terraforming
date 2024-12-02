@@ -8,7 +8,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
     private LevelGrid _grid;
     private LevelGenerator _levelGenerator;
 
-    private List<LevelObject> _activeObjects = new List<LevelObject>();
+    private List<InteractiveObject> _activeObjects = new List<InteractiveObject>();
 
     protected bool wasCreated;
 
@@ -16,7 +16,7 @@ public abstract class ObjectsInstantiator : MonoBehaviour
 
     protected LevelGrid levelGrid => _grid;
 
-    protected IReadOnlyList<LevelObject> activeObjects => _activeObjects;
+    protected IReadOnlyList<InteractiveObject> activeObjects => _activeObjects;
 
     protected void Awake()
     {
@@ -47,12 +47,12 @@ public abstract class ObjectsInstantiator : MonoBehaviour
             foreach (var activeObject in _activeObjects)
                 activeObject.ReturnToDefaultState();
 
-            if (_activeObjects[0].GetType() != typeof(Grass))
-                _activeObjects.Clear();
+            //if (_activeObjects[0].GetType() != typeof(Grass))
+            //    _activeObjects.Clear();
         }
     }
 
-    protected void AddActiveObject(LevelObject activeObject)
+    protected void AddActiveObject(InteractiveObject activeObject)
     {
         _activeObjects.Add(activeObject);
     }

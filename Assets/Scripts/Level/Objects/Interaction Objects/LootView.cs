@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class LootView : MonoBehaviour
 {
     [SerializeField] private AudioClip _sound;
@@ -9,17 +10,14 @@ public class LootView : MonoBehaviour
 
     public bool IsAllowed => _model.activeSelf;
 
-    public bool IsSoundPlaying => _audioSourse.isPlaying;
-
-    private  void Awake()
+    private void Awake()
     {
-        _audioSourse = GetComponentInChildren<AudioSource>();
+        _audioSourse = GetComponent<AudioSource>();
 
         _audioSourse.clip = _sound;
 
         _audioSourse.playOnAwake = false;
         _audioSourse.loop = false;
-        gameObject.isStatic = false;
 
         TurnOffVisible();
     }
@@ -31,7 +29,7 @@ public class LootView : MonoBehaviour
 
     public void TurnOnVisible()
     {
-        if (!(_model.activeSelf))
+        if (_model.activeSelf == false)
             _model.SetActive(true);
     }
 

@@ -22,13 +22,13 @@ public class Reservoir : CloudWaterIndicator
         remove => _waterIsOver -= value;
     }
 
-    private float WateringTime => _wateringTime;
+    public bool HaveWater => _wateringTime > 0;
 
     protected override void OnIncreaseValue()
     {
         base.OnIncreaseValue();
 
-        if (_currentWateringTime < WateringTime)
+        if (_currentWateringTime < _wateringTime)
             _currentWateringTime += _fillingSpeed * Time.deltaTime;
     }
 

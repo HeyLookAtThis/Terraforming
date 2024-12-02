@@ -1,57 +1,77 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(SphereCollider))]
-public class Loot : LevelObject
+public class Loot : InteractiveObject
 {
-    [SerializeField] private float _chaseSpeed;
+    [SerializeField] private float _moveToTargetSpeed;
+    [SerializeField] private LootView _view;
 
     private SphereCollider _sphereCollider;
     private Coroutine _playerChaser;
-    private LootView _view;
+
+    private UnityAction<Loot> _foundByPlayer;
+
+    public event UnityAction<Loot> FoundByPlayer
+    {
+        add => _foundByPlayer += value;
+        remove => _foundByPlayer -= value;
+    }
 
     protected override void Awake()
     {
         _sphereCollider = GetComponent<SphereCollider>();
-        _view = GetComponentInChildren<LootView>();
-
         _sphereCollider.isTrigger = true;
     }
 
-    private void AddReward(PlayerObjectsCounter player)
+    public override void ReactToScanner()
     {
-        player.UseObject(this);
+        base.ReactToScanner();
+
+        if (UsedByPlayer == false)
+        {
+            gameObject.isStatic = false;
+            _view.TurnOnVisible();
+        }
+    }
+
+    public override void ReturnToDefaultState() 
+    {
+        base.ReturnToDefaultState();
+        _view.TurnOffVisible();
+        gameObject.isStatic = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_view.IsAllowed && !WasUsedByPlayer)
+        if (_view.IsAllowed && UsedByPlayer == false)
         {
             if (other.TryGetComponent<PlayerObjectsCounter>(out PlayerObjectsCounter player))
             {
-                ChaseThePlayer(player.transform.position);
-                AddReward(player);
+                MoveToCharacter(player.transform.position);                
                 _view.PlaySound();
+                _foundByPlayer?.Invoke(this);
             }
         }
     }
 
-    private void ChaseThePlayer(Vector3 target)
+    private void MoveToCharacter(Vector3 target)
     {
         if (_playerChaser != null)
             StopCoroutine(_playerChaser);
 
-        _playerChaser = StartCoroutine(PlayerChaser(target));
+        _playerChaser = StartCoroutine(ToCharacterMover(target));
     }
 
-    private IEnumerator PlayerChaser(Vector3 target)
+    private IEnumerator ToCharacterMover(Vector3 target)
     {
         float seconds = 0.01f;
         var waitTime = new WaitForSeconds(seconds);
 
         while (transform.position != target)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, seconds * _chaseSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, target, seconds * _moveToTargetSpeed);
             yield return waitTime;
         }
 
@@ -61,16 +81,5 @@ public class Loot : LevelObject
             TurnOnUsed();
             yield break;
         }
-    }
-
-    public override void ReactToScanner(PlayerObjectsCounter player)
-    {
-        if (!WasUsedByPlayer)
-            _view.TurnOnVisible();
-    }
-
-    public override void ReturnToDefaultState()
-    {
-        Destroy(gameObject);
     }
 }

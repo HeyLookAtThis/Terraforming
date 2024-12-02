@@ -5389,8 +5389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b20bba30099d94992ba5ed00acc1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wateringTime: 0
-  _config: {fileID: 0}
+  _config: {fileID: 11400000, guid: c7643ae42b57fed41b41a878533adef0, type: 2}
+  _terrain: {fileID: 0}
 --- !u!1 &8506915822501790640
 GameObject:
   m_ObjectHideFlags: 0

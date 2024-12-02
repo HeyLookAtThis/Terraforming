@@ -34,6 +34,7 @@ public class Scanner
         Vector3 position = new Vector3(_cloud.transform.position.x, 0, _cloud.transform.position.z);
 
         _colliders = Physics.OverlapSphere(position, _sphereRadius);
+        CheckColliders();
 
         if(IsUnderWater())
             _foundWater?.Invoke();
@@ -49,5 +50,21 @@ public class Scanner
             return false;
 
         return true;
+    }
+
+    private void CheckColliders()
+    {
+        foreach (var collider in _colliders)
+        {
+            if (collider.TryGetComponent<InteractiveObject>(out InteractiveObject interactionObject))
+            {
+                if (interactionObject.UsedByPlayer == false)
+                {
+
+                    if (_cloud.Reservoir.HaveWater)
+                        interactionObject.ReactToScanner();
+                }
+            }
+        }
     }
 }

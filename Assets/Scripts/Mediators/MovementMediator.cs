@@ -2,30 +2,11 @@ using UnityEngine;
 
 public class MovementMediator : MonoBehaviour
 {
-    [SerializeField] private Cloud _cloud;
-    [SerializeField] private Character _character;
+    private Cloud _cloud;
+    private Character _character;
 
     private CloudMovementBehaivorSwitcher _cloudMovementSwitcher;
     private CharacterStateMachine _characterStateMachine;
-
-    private void Awake()
-    {
-        _cloud.Initialize(_character.transform);
-        _character.Initialize();
-        _cloudMovementSwitcher = _cloud.MovementBehaivorSwitcher;
-        _characterStateMachine = _character.StateMachine;
-    }
-
-    private void OnEnable()
-    {
-        _characterStateMachine.JumpingState.EntryOnState += OnSetMoveToTarget;
-        _characterStateMachine.SitOnCloudState.EntryOnState += OnSetMoveUnderTarget;
-        _cloud.Reservoir.WaterIsOver += OnSetMoveNearTarget;
-        _cloud.Reservoir.WaterIsOver += OnSwitchToFallingState;
-
-        _cloud.Reservoir.AddActionCallback();
-        _cloud.Resizer.AddActionCallback();
-    }
 
     private void OnDisable()
     {
@@ -36,6 +17,23 @@ public class MovementMediator : MonoBehaviour
 
         _cloud.Reservoir.RemoveActionCallback();
         _cloud.Resizer.RemoveActionCallback();
+    }
+
+    public void Initialize(Character character, Cloud cloud)
+    {
+        _cloud = cloud;
+        _character = character;
+
+        _cloudMovementSwitcher = _cloud.MovementBehaivorSwitcher;
+        _characterStateMachine = _character.StateMachine;
+
+        _characterStateMachine.JumpingState.EntryOnState += OnSetMoveToTarget;
+        _characterStateMachine.SitOnCloudState.EntryOnState += OnSetMoveUnderTarget;
+        _cloud.Reservoir.WaterIsOver += OnSetMoveNearTarget;
+        _cloud.Reservoir.WaterIsOver += OnSwitchToFallingState;
+
+        _cloud.Reservoir.AddActionCallback();
+        _cloud.Resizer.AddActionCallback();
     }
 
     private void OnSetMoveToTarget() => _cloudMovementSwitcher.SetMover<CloudToCharacterMover>();

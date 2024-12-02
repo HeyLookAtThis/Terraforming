@@ -5,6 +5,7 @@ public class GrassPainter
 {
     private const int GroundLayerIndex = 0;
     private const int GrassLayerIndex = 1;
+    private const int UnavaliableLayerIndex = 2;
 
     private Terrain _terrain;
     private Cloud _cloud;
@@ -22,7 +23,7 @@ public class GrassPainter
         _terrain = terrain;
         _cloud = cloud;
 
-        InitializeCurrentMap();
+        InitializeMap();
         ClearMap();
     }
 
@@ -76,10 +77,10 @@ public class GrassPainter
     {
         for (int y = 0; y < _terrain.terrainData.alphamapHeight; y++)
             for (int x = 0; x < _terrain.terrainData.alphamapWidth; x++)
-                _map[x, y, GroundLayerIndex] = ShadedValue;
+                    _map[x, y, GroundLayerIndex] = ShadedValue;
     }
 
-    private void InitializeCurrentMap() => _map = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];
+    private void InitializeMap() => _map = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];
 
     private Vector2 GetConvertedCloudPosition()
     {

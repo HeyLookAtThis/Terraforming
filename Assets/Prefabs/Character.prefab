@@ -813,7 +813,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: 824d98b3dc4d5984ea662416ca0d30ce, type: 2}
   _view: {fileID: 7927094652246160782}
   _directionIndicator: {fileID: 0}
-  _coliderChecker: {fileID: 0}
+  _coliderChecker: {fileID: 7164086848609043713}
 --- !u!1 &6069313873734122088
 GameObject:
   m_ObjectHideFlags: 0

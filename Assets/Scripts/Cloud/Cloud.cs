@@ -1,9 +1,9 @@
 using UnityEngine;
+using Zenject;
 
 public class Cloud : MonoBehaviour
 {
     [SerializeField] private CloudConfig _config;
-    [SerializeField] private Terrain _terrain;
 
     private CloudMovementBehaivorSwitcher _movementBehaivorSwitcher;
 
@@ -39,10 +39,20 @@ public class Cloud : MonoBehaviour
         _mover.StartMove();
     }
 
-    public void Initialize(Transform target)
+    [Inject]
+    private void Construct(ITarget character, Terrain terrain)
+    {
+        _movementBehaivorSwitcher = new CloudMovementBehaivorSwitcher(this, character.Transform);
+        _grassPainter = new GrassPainter(terrain, this);
+        _scanner = new Scanner(this);
+        _reservoir = new Reservoir(this);
+        _resizer = new Resizer(this);
+    }
+
+    public void Initialize(Transform target, Terrain terrain)
     {
         _movementBehaivorSwitcher = new CloudMovementBehaivorSwitcher(this, target);
-        _grassPainter = new GrassPainter(_terrain, this);
+        _grassPainter = new GrassPainter(terrain, this);
         _scanner = new Scanner(this);
         _reservoir = new Reservoir(this);
         _resizer = new Resizer(this);

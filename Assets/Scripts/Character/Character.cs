@@ -1,16 +1,17 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, ITarget
 {
     [SerializeField] private CharacterConfig _config;
     [SerializeField] private CharacterView _view;
-    [SerializeField] private CameraDirectionIndicator _directionIndicator;
-    [SerializeField]private CharacterLayerChecker _coliderChecker;
+    [SerializeField] private CharacterLayerChecker _coliderChecker;
 
     private PlayerInput _input;
     private CharacterController _controller;
     private CharacterStateMachine _stateMachine;
+    private CameraDirectionIndicator _directionIndicator;
 
     public PlayerInput Input => _input;
     public CharacterView View => _view;
@@ -20,7 +21,7 @@ public class Character : MonoBehaviour
     public CharacterLayerChecker ColliderChecker => _coliderChecker;
     public CameraDirectionIndicator DirectionIndicator => _directionIndicator;
 
-    private void OnEnable() => _input.Enable();
+    public Transform Transform => transform;
 
     private void OnDisable() => _input.Disable();
 
@@ -30,11 +31,30 @@ public class Character : MonoBehaviour
         _stateMachine.Update();
     }
 
-    public void Initialize()
+    [Inject]
+    private void Construct(CameraDirectionIndicator directionIndicator)
     {
         _controller = GetComponent<CharacterController>();
+        _directionIndicator = directionIndicator;
+
         _view.Initialize();
+
         _input = new PlayerInput();
+        _input.Enable();
+
+        _stateMachine = new CharacterStateMachine(this);
+    }
+
+    public void Initialize(CameraDirectionIndicator directionIndicator)
+    {
+        _controller = GetComponent<CharacterController>();
+        _directionIndicator = directionIndicator;
+
+        _view.Initialize();
+
+        _input = new PlayerInput();
+        _input.Enable();
+
         _stateMachine = new CharacterStateMachine(this);
     }
 }

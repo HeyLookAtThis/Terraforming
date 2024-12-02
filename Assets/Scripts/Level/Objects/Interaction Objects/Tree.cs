@@ -1,59 +1,38 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-[RequireComponent(typeof(AudioSource))]
-public class Tree : LevelObject
+public class Tree : InteractiveObject
 {
     [SerializeField] private float _radius;
-    [SerializeField] private GameObject _emptyTrunk;
-    [SerializeField] private GameObject _greenTrunk;
+    [SerializeField] private TreeView _view;
 
-    private UnityAction _madeGreen;
-
-    public event UnityAction MadeGreen
+    public override void ReactToScanner()
     {
-        add => _madeGreen += value;
-        remove => _madeGreen -= value;
-    }
-
-    private void Start()
-    {
-        SetGreenModel(WasUsedByPlayer);
-    }
-
-    public override void ReactToScanner(PlayerObjectsCounter player)
-    {
-        MakeGreen(player);
+        base.ReactToScanner();
+        MakeGreen();
     }
 
     public override void ReturnToDefaultState()
     {
+        base.ReturnToDefaultState();
         Destroy(gameObject);
     }
 
-    private void MakeGreen(PlayerObjectsCounter player)
+    private void MakeGreen()
     {
-        if (WasUsedByPlayer == false)
+        if (UsedByPlayer == false)
         {
             TurnOnUsed();
-            SetGreenModel(WasUsedByPlayer);
-            UseObjectsAround(player);
-            _madeGreen?.Invoke();
+            _view.MakeGreen();
+            UseObjectsAround();
         }
     }
 
-    public void SetGreenModel(bool isGreen)
-    {
-        _emptyTrunk.SetActive(!isGreen);
-        _greenTrunk.SetActive(isGreen);
-    }
-
-    private void UseObjectsAround(PlayerObjectsCounter player)
+    private void UseObjectsAround()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
 
         foreach (var collider in colliders)
-            if (collider.TryGetComponent<LevelObject>(out LevelObject interationObject))
-                interationObject.ReactToScanner(player);
+            if (collider.TryGetComponent<InteractiveObject>(out InteractiveObject interationObject))
+                interationObject.ReactToScanner();
     }
 }

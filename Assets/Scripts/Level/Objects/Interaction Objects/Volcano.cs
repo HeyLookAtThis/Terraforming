@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(VolcanoView))]
-public class Volcano : LevelObject
+public class Volcano : InteractiveObject
 {
     [SerializeField] private float _temperature;
 
@@ -21,15 +21,15 @@ public class Volcano : LevelObject
 
     public float Temperature => _temperature;
 
-    public override void ReactToScanner(PlayerObjectsCounter player)
-    {
-        if(WasUsedByPlayer == false && player.HaveCristall)
-        {
-            TurnOnUsed();
-            player.UseObject(this);
-            player.RemoveCristall();
-        }
-    }
+    //public override void ReactToScanner(PlayerObjectsCounter player)
+    //{
+    //    if(UsedByPlayer == false && player.HaveCristall)
+    //    {
+    //        TurnOnUsed();
+    //        player.UseObject(this);
+    //        player.RemoveCristall();
+    //    }
+    //}
 
     public override void ReturnToDefaultState()
     {
@@ -54,13 +54,13 @@ public class Volcano : LevelObject
 
         var waitTime = new WaitForSecondsRealtime(heatGaineTime);
 
-        while(!WasUsedByPlayer)
+        while(!UsedByPlayer)
         {
             action(time);
             yield return waitTime;
         }
 
-        if (WasUsedByPlayer)
+        if (UsedByPlayer)
         {
             _wasFrozen?.Invoke();
             yield break;

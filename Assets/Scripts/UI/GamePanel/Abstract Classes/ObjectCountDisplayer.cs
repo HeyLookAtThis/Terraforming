@@ -4,14 +4,14 @@ using UnityEngine;
 public abstract class ObjectCountDisplayer : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI textMeshPro;
-    [SerializeField] private LevelObject _activeObject;
+    [SerializeField] private InteractiveObject _activeObject;
 
     private PlayerInstantiator _playerInstantiator;
     private GamePanel _gamePanel;
 
     protected int currentValue;
 
-    protected LevelObject activeObject => _activeObject;
+    protected InteractiveObject activeObject => _activeObject;
 
     private void Awake()
     {
@@ -60,7 +60,7 @@ public abstract class ObjectCountDisplayer : MonoBehaviour
         ShowValue();
     }
 
-    private void UpdateValue(LevelObject activeObject, int count)
+    private void UpdateValue(InteractiveObject activeObject, int count)
     {
         if (this.activeObject.GetType() == activeObject.GetType())
         {

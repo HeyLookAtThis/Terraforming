@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class PlayerObjectsCounter : MonoBehaviour
 {
-    private List<LevelObject> _cristalls = new List<LevelObject>();
+    private List<InteractiveObject> _cristalls = new List<InteractiveObject>();
 
     private int _coinsCount;
     private int _cristallCount;
@@ -12,10 +12,10 @@ public class PlayerObjectsCounter : MonoBehaviour
 
     private uint _levelNumber;
 
-    private UnityAction<LevelObject, int> _countChanged;
+    private UnityAction<InteractiveObject, int> _countChanged;
     private UnityAction _allVolcanoesFreezed;
 
-    public event UnityAction<LevelObject, int> ValueChanged
+    public event UnityAction<InteractiveObject, int> ValueChanged
     {
         add => _countChanged += value;
         remove => _countChanged -= value;
@@ -31,7 +31,7 @@ public class PlayerObjectsCounter : MonoBehaviour
 
     public bool HaveCristall => _cristallCount > 0;
 
-    public void UseObject(LevelObject interactionObject)
+    public void UseObject(InteractiveObject interactionObject)
     {
         int newCount = 0;
 
@@ -65,7 +65,7 @@ public class PlayerObjectsCounter : MonoBehaviour
         _levelNumber = number;
     }
 
-    private void AddCristall(LevelObject interactionObject, ref int newCount)
+    private void AddCristall(InteractiveObject interactionObject, ref int newCount)
     {
         newCount = ++_cristallCount;
         _cristalls.Add(interactionObject);

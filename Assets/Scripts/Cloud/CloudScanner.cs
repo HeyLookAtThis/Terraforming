@@ -119,14 +119,16 @@ public class CloudScanner : MonoBehaviour
     {
         foreach (var collider in _colliders)
         {
-            if (collider.TryGetComponent<LevelObject>(out LevelObject interactionObject))
+            if (collider.TryGetComponent<InteractiveObject>(out InteractiveObject interactionObject))
             {
-                if(interactionObject.WasUsedByPlayer == false)
+                if(interactionObject.UsedByPlayer == false)
                 {
                     _foundInteractionObject?.Invoke();
 
                     if (_reservoir.HaveWater)
-                        interactionObject.ReactToScanner(_cloud.Player);
+                    {
+                        //interactionObject.ReactToScanner(_cloud.Player);
+                    }
                 }
             }
         }

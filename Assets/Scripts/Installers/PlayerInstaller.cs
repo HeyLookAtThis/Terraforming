@@ -5,7 +5,7 @@ public class PlayerInstaller : MonoInstaller
 {
     [SerializeField] private CameraDirectionIndicator _cameraDirectionIndicator;
     [SerializeField] private Character _prefab;
-    [SerializeField] private Vector3 _position;
+    [SerializeField] private Transform _spawnPoint;
 
     public override void InstallBindings()
     {
@@ -17,7 +17,7 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindPlayer()
     {
-        Character caracter = Container.InstantiatePrefabForComponent<Character>(_prefab, _position, Quaternion.identity, null);
+        Character caracter = Container.InstantiatePrefabForComponent<Character>(_prefab, _spawnPoint.position, Quaternion.identity, null);
         Container.BindInterfacesAndSelfTo<Character>().FromInstance(caracter).AsSingle();
     }
 }

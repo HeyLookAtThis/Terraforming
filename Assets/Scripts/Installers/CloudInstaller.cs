@@ -3,20 +3,18 @@ using Zenject;
 
 public class CloudInstaller : MonoInstaller
 {
-    [SerializeField] private Terrain _terrain;
     [SerializeField] private Cloud _prefab;
+    [SerializeField] private Transform _spawnPoint;
 
     public override void InstallBindings()
     {
-        BindTerrain();
         BindCloud();
     }
 
-    private void BindTerrain() => Container.Bind<Terrain>().FromInstance(_terrain).AsSingle();
 
     private void BindCloud()
     {
-        Cloud cloud = Container.InstantiatePrefabForComponent<Cloud>(_prefab);
+        Cloud cloud = Container.InstantiatePrefabForComponent<Cloud>(_prefab, _spawnPoint.position, Quaternion.identity, null);
         Container.BindInterfacesAndSelfTo<Cloud>().FromInstance(cloud).AsSingle();
     }
 }

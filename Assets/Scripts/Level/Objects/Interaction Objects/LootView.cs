@@ -22,19 +22,12 @@ public class LootView : MonoBehaviour
         TurnOffVisible();
     }
 
-    public void PlaySound()
-    {
-        _audioSourse.Play();
-    }
-
     public void TurnOnVisible()
     {
         if (_model.activeSelf == false)
             _model.SetActive(true);
     }
 
-    public void TurnOffVisible()
-    {
-        _model.SetActive(false);
-    }
+    public void TurnOffVisible() => _model.SetActive(false);
+    public void PlaySound() => _audioSourse.Play();
 }

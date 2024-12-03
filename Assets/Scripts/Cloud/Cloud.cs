@@ -40,19 +40,10 @@ public class Cloud : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(ITarget character, Terrain terrain)
+    private void Construct(ITarget character, Terrain terrain, LevelBoundariesMarker levelBoundariesMarker)
     {
         _movementBehaivorSwitcher = new CloudMovementBehaivorSwitcher(this, character.Transform);
-        _grassPainter = new GrassPainter(terrain, this);
-        _scanner = new Scanner(this);
-        _reservoir = new Reservoir(this);
-        _resizer = new Resizer(this);
-    }
-
-    public void Initialize(Transform target, Terrain terrain)
-    {
-        _movementBehaivorSwitcher = new CloudMovementBehaivorSwitcher(this, target);
-        _grassPainter = new GrassPainter(terrain, this);
+        _grassPainter = new GrassPainter(terrain, this, levelBoundariesMarker);
         _scanner = new Scanner(this);
         _reservoir = new Reservoir(this);
         _resizer = new Resizer(this);

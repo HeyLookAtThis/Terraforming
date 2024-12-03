@@ -47,7 +47,7 @@ public class Loot : InteractiveObject
     {
         if (_view.IsAllowed && UsedByPlayer == false)
         {
-            if (other.TryGetComponent<PlayerObjectsCounter>(out PlayerObjectsCounter player))
+            if (other.TryGetComponent<Character>(out Character player))
             {
                 MoveToCharacter(player.transform.position);                
                 _view.PlaySound();

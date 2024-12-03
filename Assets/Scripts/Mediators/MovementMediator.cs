@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class MovementMediator : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class MovementMediator : MonoBehaviour
         _cloud.Resizer.RemoveActionCallback();
     }
 
+    [Inject]
     public void Initialize(Character character, Cloud cloud)
     {
         _cloud = cloud;

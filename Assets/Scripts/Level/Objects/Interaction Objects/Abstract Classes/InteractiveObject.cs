@@ -9,7 +9,7 @@ public abstract class InteractiveObject : MonoBehaviour
     protected virtual void Awake()
     {
         gameObject.isStatic = true;
-        TurnOffUsed();
+        _usedByPlayer = false;
     }
 
     public virtual void ReactToScanner() { }
@@ -18,13 +18,13 @@ public abstract class InteractiveObject : MonoBehaviour
 
     protected void TurnOnUsed()
     {
-        if (_usedByPlayer != true)
+        if (_usedByPlayer == false)
             _usedByPlayer = true;
     }
 
     protected void TurnOffUsed()
     {
-        if (_usedByPlayer != false)
+        if (_usedByPlayer == true)
             _usedByPlayer = false;
     }
 }

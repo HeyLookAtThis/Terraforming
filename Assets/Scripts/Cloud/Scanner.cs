@@ -14,7 +14,7 @@ public class Scanner
     public Scanner(Cloud cloud)
     {
         _cloud = cloud;
-        _sphereRadius = _cloud.Config.CloudUnderChatacterConfig.ScannerRadius;
+        _sphereRadius = cloud.Config.CloudUnderChatacterConfig.ScannerRadius;
     }
 
     public event UnityAction FoundWater
@@ -29,9 +29,11 @@ public class Scanner
         remove => _lostWater -= value;
     }
 
+    private float YPosition => 1f;
+
     public void Update()
     {
-        Vector3 position = new Vector3(_cloud.transform.position.x, 0, _cloud.transform.position.z);
+        Vector3 position = new Vector3(_cloud.transform.position.x, YPosition, _cloud.transform.position.z);
 
         _colliders = Physics.OverlapSphere(position, _sphereRadius);
         CheckColliders();
@@ -60,7 +62,6 @@ public class Scanner
             {
                 if (interactionObject.UsedByPlayer == false)
                 {
-
                     if (_cloud.Reservoir.HaveWater)
                         interactionObject.ReactToScanner();
                 }

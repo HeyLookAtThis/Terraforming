@@ -5,8 +5,8 @@ public class GrassPainter
 {
     private const int GroundLayerIndex = 0;
     private const int GrassLayerIndex = 1;
-    private const int UnavaliableLayerIndex = 2;
 
+    private LevelBoundariesMarker _marker;
     private Terrain _terrain;
     private Cloud _cloud;
     private int _radius;
@@ -17,11 +17,12 @@ public class GrassPainter
 
     private UnityAction<bool> _drawing;
 
-    public GrassPainter(Terrain terrain, Cloud cloud)
+    public GrassPainter(Terrain terrain, Cloud cloud, LevelBoundariesMarker marker)
     {
         _radius = cloud.Config.CloudWateringConfig.GrassPainterRadius;
         _terrain = terrain;
         _cloud = cloud;
+        _marker = marker;
 
         InitializeMap();
         ClearMap();
@@ -54,7 +55,7 @@ public class GrassPainter
 
                 var angle = _terrain.terrainData.GetSteepness(normX, normY);
 
-                if (pixelDistance <= _radius)
+                if (pixelDistance <= _radius && _marker.IsIncludedInLevel(new Vector2(_cloud.transform.position.z, _cloud.transform.position.x)))
                 {
                     if (_map[x, y, GrassLayerIndex] < ShadedValue && angle == 0)
                     {

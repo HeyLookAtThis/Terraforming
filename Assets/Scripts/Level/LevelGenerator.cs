@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(LevelCounter))]
+[RequireComponent(typeof(OldLevelCounter))]
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private LoadingPanel _loading;
 
-    private LevelCounter _counter;
+    private OldLevelCounter _counter;
 
     private UnityAction _launched;
 
@@ -20,7 +20,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Awake()
     {
-        _counter = GetComponent<LevelCounter>();
+        _counter = GetComponent<OldLevelCounter>();
     }
 
     private void OnEnable()

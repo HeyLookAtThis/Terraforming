@@ -5,8 +5,12 @@ using Zenject;
 
 public class LevelBuilder : MonoBehaviour, IInitializable
 {
-    private CoinsSpawner _coinSpawner;
+    private LevelConfig _config;
+
     private LevelBoundariesMarker _marker;
+    private LevelCounter _counter;
+
+    private CoinsSpawner _coinSpawner;
 
     private MainFactory _mainFactory;
     private MainSpawner _mainSpawner;
@@ -18,10 +22,11 @@ public class LevelBuilder : MonoBehaviour, IInitializable
     }
 
     [Inject]
-    private void Construnct(Terrain terrain, MainFactoryConfig config, LevelBoundariesMarker levelBoundariesMarker)
+    private void Construnct(Terrain terrain, MainFactoryConfig factoryConfig, LevelConfig levelConfig, LevelBoundariesMarker levelBoundariesMarker, GrassPainter grassPainter)
     {
         _marker = levelBoundariesMarker;
-        _mainFactory = new MainFactory(config);
+        _counter = new LevelCounter(levelConfig.CounterConfig);
+        _mainFactory = new MainFactory(factoryConfig, _counter, grassPainter);
         _mainSpawner = new MainSpawner(_mainFactory, levelBoundariesMarker);
     }
 }

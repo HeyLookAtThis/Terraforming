@@ -13,6 +13,7 @@ public class TreeView : MonoBehaviour
     [SerializeField] private GameObject _greenTrunk;
 
     private AudioSource _source;
+    private Coroutine _soundSwithcer;
 
     private void Awake()
     {
@@ -44,10 +45,18 @@ public class TreeView : MonoBehaviour
         _source.clip = _growSound;
         _source.Play();
 
-        StartCoroutine(SoundSwither());
+        SwitchSound();
     }
 
-    private IEnumerator SoundSwither()
+    private void SwitchSound()
+    {
+        if (_soundSwithcer != null)
+            StopCoroutine(_soundSwithcer);
+
+        _soundSwithcer = StartCoroutine(SoundSwitcher());
+    }
+
+    private IEnumerator SoundSwitcher()
     {
         while (_source.isPlaying)
         {
@@ -57,6 +66,7 @@ public class TreeView : MonoBehaviour
         if(_source.isPlaying == false)
         {
             _source.clip = _soundAround;
+            _source.loop = true;
             _source.spatialBlend = 1;
             _source.minDistance = 0;
             _source.maxDistance = _soundDistance;

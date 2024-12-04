@@ -747,6 +747,7 @@ GameObject:
   - component: {fileID: 894476933350568808}
   - component: {fileID: 1851357681535598701}
   - component: {fileID: 1637914370611293143}
+  - component: {fileID: -8527818103436134444}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -812,8 +813,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 824d98b3dc4d5984ea662416ca0d30ce, type: 2}
   _view: {fileID: 7927094652246160782}
-  _directionIndicator: {fileID: 0}
   _coliderChecker: {fileID: 7164086848609043713}
+--- !u!81 &-8527818103436134444
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5958635174750558881}
+  m_Enabled: 1
 --- !u!1 &6069313873734122088
 GameObject:
   m_ObjectHideFlags: 0

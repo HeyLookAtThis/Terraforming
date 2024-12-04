@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd1cc2ee34aadd2418acee99fc5fea81, type: 3}
-  m_Name: MainFactoryConfig
+  m_Script: {fileID: 11500000, guid: 7fec8be8881ea4444b40aa457d4f37c9, type: 3}
+  m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  _coinFactoryConfig:
-    <Prefab>k__BackingField: {fileID: 6757724802369546430, guid: 5f5e6869adf38dd4db0f416a92c8ec89, type: 3}
-    <Count>k__BackingField: 100
+  _markerConfig:
+    <Offset>k__BackingField: 5
+  _counterConfig:
+    <FirstLevelNumber>k__BackingField: 5
+    <LastLevelNumber>k__BackingField: 5

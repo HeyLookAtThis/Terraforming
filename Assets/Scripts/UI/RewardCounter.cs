@@ -3,7 +3,7 @@ using UnityEngine;
 public class RewardCounter : MonoBehaviour
 {
     [SerializeField] private PlayerInstantiator _instantiator;
-    [SerializeField] private LevelCounter _levelCounter;
+    [SerializeField] private OldLevelCounter _levelCounter;
     [SerializeField] private StartButton _startButton;
 
     private float _realValue;

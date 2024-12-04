@@ -6,17 +6,20 @@ public class CoinsFactory
     private CoinFactoryConfig _config;
     private List<Coin> _coins;
 
-    public CoinsFactory(CoinFactoryConfig config) => _config = config;
+    public CoinsFactory(CoinFactoryConfig config)
+    {
+        _config = config;
+        _coins = new List<Coin>();
+    }
 
     public int Count => _coins.Count;
 
     public void Run()
     {
         int createdCount = 0;
-        _coins = new List<Coin>();
         GameObject storage = new GameObject("CoinStorage");
 
-        while(createdCount < _config.Count)
+        while (createdCount < _config.Count)
         {
             Coin coin = Object.Instantiate(_config.Prefab, storage.transform);
             _coins.Add(coin);

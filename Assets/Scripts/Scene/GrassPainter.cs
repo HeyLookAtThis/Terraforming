@@ -8,8 +8,6 @@ public class GrassPainter
 
     private LevelBoundariesMarker _marker;
     private Terrain _terrain;
-    private Cloud _cloud;
-    private int _radius;
 
     private float[,,] _map;
 
@@ -17,11 +15,9 @@ public class GrassPainter
 
     private UnityAction<bool> _drawing;
 
-    public GrassPainter(Terrain terrain, Cloud cloud, LevelBoundariesMarker marker)
+    public GrassPainter(Terrain terrain, LevelBoundariesMarker marker)
     {
-        _radius = cloud.Config.CloudWateringConfig.GrassPainterRadius;
         _terrain = terrain;
-        _cloud = cloud;
         _marker = marker;
 
         InitializeMap();
@@ -35,27 +31,26 @@ public class GrassPainter
     }
 
     private int CoordinatesOrigin => 0;
-    private float TransparentValue => 0f;
     private float ShadedValue => 1f;
 
-    public void Draw()
+    public void Draw(Vector3 position, int radius)
     {
-        Vector2 convertedCloudPosition = GetConvertedCloudPosition();
+        Vector2 convertedPosition = GetConvertedPosition(position);
 
-        for (int x = (int)convertedCloudPosition.x - _radius; x < (int)convertedCloudPosition.x + _radius; x++)
+        for (int x = (int)convertedPosition.x - radius; x < (int)convertedPosition.x + radius; x++)
         {
-            for (int y = (int)convertedCloudPosition.y - _radius; y < (int)convertedCloudPosition.y + _radius; y++)
+            for (int y = (int)convertedPosition.y - radius; y < (int)convertedPosition.y + radius; y++)
             {
                 Vector2 currentPosition = new Vector2(x, y);
-                float pixelDistance = Vector2.Distance(currentPosition, convertedCloudPosition);
-                float normalizedValue = ShadedValue - pixelDistance / _radius;
+                float pixelDistance = Vector2.Distance(currentPosition, convertedPosition);
+                float normalizedValue = ShadedValue - pixelDistance / radius;
 
                 var normX = x * 1.0f / (_terrain.terrainData.alphamapWidth - 1);
                 var normY = y * 1.0f / (_terrain.terrainData.alphamapHeight - 1);
 
                 var angle = _terrain.terrainData.GetSteepness(normX, normY);
 
-                if (pixelDistance <= _radius && _marker.IsIncludedInLevel(new Vector2(_cloud.transform.position.z, _cloud.transform.position.x)))
+                if (pixelDistance <= radius && _marker.IsIncludedInLevel(new Vector2(position.z, position.x)))
                 {
                     if (_map[x, y, GrassLayerIndex] < ShadedValue && angle == 0)
                     {
@@ -83,11 +78,10 @@ public class GrassPainter
 
     private void InitializeMap() => _map = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];
 
-    private Vector2 GetConvertedCloudPosition()
+    private Vector2 GetConvertedPosition(Vector3 position)
     {
         float convertedCoefficient = 10f;
-        Vector2 convertedPosition = new Vector2(_cloud.transform.position.z, _cloud.transform.position.x) * convertedCoefficient;
-
+        Vector2 convertedPosition = new Vector2(position.z, position.x) * convertedCoefficient;
         return convertedPosition;
     }
 }

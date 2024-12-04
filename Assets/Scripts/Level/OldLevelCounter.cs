@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LevelCounter : MonoBehaviour
+public class OldLevelCounter : MonoBehaviour
 {
     [SerializeField] private uint _finishLevelNumber;
     [SerializeField] private uint _startLevelNumber;

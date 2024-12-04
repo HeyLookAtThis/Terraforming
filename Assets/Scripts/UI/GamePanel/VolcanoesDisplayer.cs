@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class VolcanoesDisplayer : ObjectCountDisplayer
 {
-    [SerializeField] private LevelCounter _levelCounter;
+    [SerializeField] private OldLevelCounter _levelCounter;
 
     protected override void OnEnable()
     {

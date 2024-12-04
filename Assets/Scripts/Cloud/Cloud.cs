@@ -25,7 +25,7 @@ public class Cloud : MonoBehaviour
     {
         if (_mover is WateringCloudMover)
         {
-            _grassPainter.Draw();
+            _grassPainter.Draw(transform.position, _config.CloudWateringConfig.GrassPainterRadius);
             _scanner.Update();
         }
 
@@ -40,10 +40,10 @@ public class Cloud : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(ITarget character, Terrain terrain, LevelBoundariesMarker levelBoundariesMarker)
+    private void Construct(ITarget character, Terrain terrain, LevelBoundariesMarker levelBoundariesMarker, GrassPainter grassPainter)
     {
         _movementBehaivorSwitcher = new CloudMovementBehaivorSwitcher(this, character.Transform);
-        _grassPainter = new GrassPainter(terrain, this, levelBoundariesMarker);
+        _grassPainter = grassPainter;
         _scanner = new Scanner(this);
         _reservoir = new Reservoir(this);
         _resizer = new Resizer(this);

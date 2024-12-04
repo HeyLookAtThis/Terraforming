@@ -6,11 +6,7 @@ public class CloudInstaller : MonoInstaller
     [SerializeField] private Cloud _prefab;
     [SerializeField] private Transform _spawnPoint;
 
-    public override void InstallBindings()
-    {
-        BindCloud();
-    }
-
+    public override void InstallBindings() => BindCloud();
 
     private void BindCloud()
     {

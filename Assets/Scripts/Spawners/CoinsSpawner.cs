@@ -3,23 +3,41 @@ using UnityEngine;
 public class CoinsSpawner
 {
     private CoinsFactory _factory;
-    private LevelBoundariesMarker _marker;
+    private LevelBoundariesMarker _levelMarker;
 
     public CoinsSpawner(CoinsFactory factory, LevelBoundariesMarker marker)
     {
         _factory = factory;
-        _marker = marker;
+        _levelMarker = marker;
     }
 
     public void Run()
     {
-        for(int i=0; i<_factory.Count; i++)
+        for (int i = 0; i < _factory.Count; i++)
         {
             IInteractiveObject coin = _factory.GetCoin(i);
-            coin.Transform.position = GetRandomPosition();
+            coin.Transform.position = GetAllowedRandomPosition();
         }
     }
 
+    private Vector3 GetAllowedRandomPosition()
+    {
+        Vector3 position = GetRandomPosition();
+        bool isSuccess = false;
+
+        while (isSuccess == false)
+        {
+            Physics.Raycast(position + Vector3.up, Vector3.down, out RaycastHit hit);
+
+            if (hit.collider.TryGetComponent<Water>(out Water water))
+                position = GetRandomPosition();
+            else
+                isSuccess = true;
+        }
+
+        return position;
+    }
+
     private Vector3 GetRandomPosition()
-        => new Vector3(Random.Range(_marker.StartingCoordinate.x, _marker.EndingCoordinate.x), _marker.YAxisValue, Random.Range(_marker.StartingCoordinate.z, _marker.EndingCoordinate.z));
+        => new Vector3(Random.Range(_levelMarker.StartingCoordinate.x, _levelMarker.EndingCoordinate.x), _levelMarker.YAxisValue, Random.Range(_levelMarker.StartingCoordinate.z, _levelMarker.EndingCoordinate.z));
 }

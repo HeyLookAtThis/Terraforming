@@ -35,22 +35,9 @@ public class Character : MonoBehaviour, ITarget
     private void Construct(CameraDirectionIndicator directionIndicator)
     {
         _controller = GetComponent<CharacterController>();
-        _directionIndicator = directionIndicator;
-
         _view.Initialize();
 
-        _input = new PlayerInput();
-        _input.Enable();
-
-        _stateMachine = new CharacterStateMachine(this);
-    }
-
-    public void Initialize(CameraDirectionIndicator directionIndicator)
-    {
-        _controller = GetComponent<CharacterController>();
         _directionIndicator = directionIndicator;
-
-        _view.Initialize();
 
         _input = new PlayerInput();
         _input.Enable();

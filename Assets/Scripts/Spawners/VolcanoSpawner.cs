@@ -1,32 +1,24 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeSpawner
+public class VolcanoSpawner
 {
-    private TreeFactory _factory;
-    private LevelBoundariesMarker _marker;
-    private List<IInteractiveObject> _positions;
+    private VolcanoFactory _factory;
+    private LevelBoundariesMarker _levelMarker;
 
-    public TreeSpawner(TreeFactory treeFactory, LevelBoundariesMarker levelMarker)
+    public VolcanoSpawner(VolcanoFactory factory, LevelBoundariesMarker levelMarker)
     {
-        _factory = treeFactory;
-        _marker = levelMarker;
-        _positions = new List<IInteractiveObject>();
+        _factory = factory;
+        _levelMarker = levelMarker;
     }
-
-    public IReadOnlyList<IInteractiveObject> Positions => _positions;
 
     public void Run()
     {
         for (int i = 0; i < _factory.Count; i++)
         {
-            IInteractiveObject tree = _factory.GetTree(i);
-            tree.Transform.position = GetAllowedRandomPosition();
-            _positions.Add(tree);
+            IInteractiveObject coin = _factory.GetVolcano(i);
+            coin.Transform.position = GetAllowedRandomPosition();
         }
     }
-
-    public IInteractiveObject GetTansform(int index) => Positions[index];
 
     private Vector3 GetAllowedRandomPosition()
     {
@@ -44,7 +36,7 @@ public class TreeSpawner
                     position = GetRandomPosition();
                     break;
                 }
-                
+
                 isSuccess = true;
             }
         }
@@ -54,7 +46,7 @@ public class TreeSpawner
 
 
     private Vector3 GetRandomPosition()
-        => new Vector3(Random.Range(_marker.StartingCoordinate.x, _marker.EndingCoordinate.x), _marker.YAxisValue, Random.Range(_marker.StartingCoordinate.z, _marker.EndingCoordinate.z));
+        => new Vector3(Random.Range(_levelMarker.StartingCoordinate.x, _levelMarker.EndingCoordinate.x), _levelMarker.YAxisValue, Random.Range(_levelMarker.StartingCoordinate.z, _levelMarker.EndingCoordinate.z));
 
     private bool IsWater(Collider collider) => collider.TryGetComponent<Water>(out Water water);
     private bool IsTree(Collider collider) => collider.TryGetComponent<Tree>(out Tree tree);

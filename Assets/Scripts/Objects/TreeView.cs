@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Device;
 
 [RequireComponent(typeof(AudioSource))]
 public class TreeView : MonoBehaviour
@@ -59,9 +58,7 @@ public class TreeView : MonoBehaviour
     private IEnumerator SoundSwitcher()
     {
         while (_source.isPlaying)
-        {
             yield return null;
-        }
 
         if(_source.isPlaying == false)
         {

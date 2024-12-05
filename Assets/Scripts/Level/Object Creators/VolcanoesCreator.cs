@@ -9,12 +9,12 @@ public class VolcanoesCreator : ObjectsInstantiator
     {
         base.OnCreate();
         int count = (int)currentLevel;
-        _ground.InitializeTemperature(_prefab.Temperature, currentLevel);
+        //_ground.InitializeTemperature(_prefab.Temperature, currentLevel);
 
         while (count > 0)
         {
             Volcano volcano = Instantiate(_prefab, GetAllowedCoordinate(), Quaternion.identity, this.transform);
-            volcano.BeginHeatGround(_ground);
+            //volcano.BeginHeatGround(_ground);
             AddActiveObject(volcano);
             count--;
         }

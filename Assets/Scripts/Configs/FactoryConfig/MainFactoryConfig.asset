@@ -18,3 +18,7 @@ MonoBehaviour:
   _treeFactoryConfig:
     <Prefab>k__BackingField: {fileID: 5919860239914475761, guid: 8b9b5a6b9bdf44d45bdc6be8e396e615, type: 3}
     <TreesNumberPerLevelMultiplier>k__BackingField: 2
+  _volcanoFactoryConfig:
+    <Prefab>k__BackingField: {fileID: 1246911378323680080, guid: 9201976754f8494449966a9b60c1b669, type: 3}
+  _snowflakeFactoryConfig:
+    <Prefab>k__BackingField: {fileID: 5378641567758216636, guid: 1da090c96bf372a4eb5f22c9e79c2bcb, type: 3}

@@ -3,12 +3,12 @@ using UnityEngine;
 public class CoinsSpawner
 {
     private CoinsFactory _factory;
-    private LevelBoundariesMarker _levelMarker;
+    private LevelBoundariesMarker _marker;
 
     public CoinsSpawner(CoinsFactory factory, LevelBoundariesMarker marker)
     {
         _factory = factory;
-        _levelMarker = marker;
+        _marker = marker;
     }
 
     public void Run()
@@ -39,5 +39,5 @@ public class CoinsSpawner
     }
 
     private Vector3 GetRandomPosition()
-        => new Vector3(Random.Range(_levelMarker.StartingCoordinate.x, _levelMarker.EndingCoordinate.x), _levelMarker.YAxisValue, Random.Range(_levelMarker.StartingCoordinate.z, _levelMarker.EndingCoordinate.z));
+        => new Vector3(Random.Range(_marker.StartingCoordinate.x, _marker.EndingCoordinate.x), _marker.YAxisValue, Random.Range(_marker.StartingCoordinate.z, _marker.EndingCoordinate.z));
 }

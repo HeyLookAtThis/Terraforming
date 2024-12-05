@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CristallCreator : ObjectsInstantiator
 {
-    [SerializeField] private Cristall _cristall;
+    [SerializeField] private Snowflake _cristall;
     [SerializeField] private TreesCreator _treesCreator;
 
     protected override void OnEnable()
@@ -25,7 +25,7 @@ public class CristallCreator : ObjectsInstantiator
 
         while (count > 0)
         {
-            Cristall cristall = Instantiate(_cristall, transform.position, Quaternion.identity, this.transform);
+            Snowflake cristall = Instantiate(_cristall, transform.position, Quaternion.identity, this.transform);
             AddActiveObject(cristall);
             count--;
         }

@@ -41,7 +41,7 @@ public class PlayerObjectsCounter : MonoBehaviour
                 AddVolcanoesCount(ref newCount);
                 break;
 
-            case Cristall:
+            case Snowflake:
                 AddCristall(interactionObject, ref newCount);
                 break;
 

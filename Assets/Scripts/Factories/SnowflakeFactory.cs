@@ -1,33 +1,29 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SnowflakeFactory
 {
     private SnowflakeFactoryConfig _config;
-    private List<Snowflake> _snowflakes;
     private LevelCounter _levelCounter;
+
+    private ObjectsStorage _storage;
 
     public SnowflakeFactory(SnowflakeFactoryConfig config, LevelCounter levelCounter)
     {
         _config = config;
-        _snowflakes = new List<Snowflake>();
         _levelCounter = levelCounter;
+
+        string storageName = "SnowflakeStorage";
+        _storage = new ObjectsStorage(storageName);
     }
 
-    public int Count => _snowflakes.Count;
+    public ObjectsStorage Storage => _storage;
 
     public void Run()
     {
-        int createdCount = 0;
-        GameObject storage = new GameObject("SnowflakeStorage");
-
-        while (createdCount < _levelCounter.CurrentLevel)
+        while (_storage.Count < _levelCounter.CurrentLevel)
         {
-            Snowflake snowflake = Object.Instantiate(_config.Prefab, storage.transform);
-            _snowflakes.Add(snowflake);
-            createdCount++;
+            Snowflake snowflake = Object.Instantiate(_config.Prefab, _storage.Transform);
+            _storage.Add(snowflake);
         }
     }
-
-    public IInteractiveObject GetCoin(int index) => _snowflakes[index];
 }

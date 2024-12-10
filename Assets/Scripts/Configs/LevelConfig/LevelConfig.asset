@@ -17,3 +17,5 @@ MonoBehaviour:
   _counterConfig:
     <FirstLevelNumber>k__BackingField: 5
     <LastLevelNumber>k__BackingField: 5
+  _atmosphereConfig:
+    <TimeToReachMaxTemperature>k__BackingField: 30

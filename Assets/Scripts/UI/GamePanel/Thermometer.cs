@@ -3,59 +3,40 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Thermometer : MonoBehaviour
-{    
-    [SerializeField] private OldGround _ground;
+{
+    [SerializeField] private Slider _slider;
 
     private Coroutine _valueChanger;
-    private Slider _slider;
 
-    private void Awake()
+    public void Initialize(Atmosphere atmosphere)
     {
-        _slider = GetComponent<Slider>();
+        _slider.minValue = atmosphere.MinTemperature;
+        _slider.maxValue = atmosphere.MaxTemperature;
+        _slider.value = atmosphere.MinTemperature;
     }
 
-    private void OnEnable()
-    {
-        OnInitialize();
-        _ground.Initialezed += OnInitialize;
-        _ground.TemperatureChanged += OnBeginChangeValue;
-    }
-
-    private void OnDisable()
-    {
-        _ground.Initialezed -= OnInitialize;
-        _ground.TemperatureChanged -= OnBeginChangeValue;
-    }
-
-    private void OnInitialize()
-    {
-        _slider.minValue = _ground.StartingTemperature;
-        _slider.maxValue = _ground.EndingTemperature;
-        _slider.value = _ground.StartingTemperature;
-    }
-
-    private void OnBeginChangeValue()
+    public void OnBeginChangeValue(float temperature)
     {
         if (_valueChanger != null)
             StopCoroutine(_valueChanger);
 
-        _valueChanger = StartCoroutine(ValueChanger());
+        _valueChanger = StartCoroutine(ValueChanger(temperature));
     }
 
-    private IEnumerator ValueChanger()
+    private IEnumerator ValueChanger(float temperature)
     {
         float seconds = 0.02f;        
         var waitTime = new WaitForSeconds(seconds);
 
         float fillingSpeed = 0.5f;
 
-        while (_slider.value != _ground.CurrentTemperature)
+        while (_slider.value != temperature)
         {
-            _slider.value = Mathf.MoveTowards(_slider.value, _ground.CurrentTemperature, fillingSpeed);
+            _slider.value = Mathf.MoveTowards(_slider.value, temperature, fillingSpeed);
             yield return waitTime;
         }
 
-        if (_slider.value == _ground.CurrentTemperature)
+        if (_slider.value == temperature)
             yield break;
     }
 }

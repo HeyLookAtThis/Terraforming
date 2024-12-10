@@ -18,9 +18,9 @@ public class TreeSpawner
 
     public void Run()
     {
-        for (int i = 0; i < _factory.Count; i++)
+        for (int i = 0; i < _factory.Storage.Count; i++)
         {
-            IInteractiveObject tree = _factory.GetTree(i);
+            IInteractiveObject tree = _factory.Storage.GetObjectTransform(i);
             tree.Transform.position = GetAllowedRandomPosition();
             _positions.Add(tree);
         }

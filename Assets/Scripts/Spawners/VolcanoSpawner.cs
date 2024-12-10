@@ -13,10 +13,10 @@ public class VolcanoSpawner
 
     public void Run()
     {
-        for (int i = 0; i < _factory.Count; i++)
+        for (int i = 0; i < _factory.Storage.Count; i++)
         {
-            IInteractiveObject coin = _factory.GetVolcano(i);
-            coin.Transform.position = GetAllowedRandomPosition();
+            InteractiveObject volcano = _factory.Storage.GetVolcano(i);
+            volcano.transform.position = GetAllowedRandomPosition();
         }
     }
 

@@ -15,10 +15,10 @@ public class SnowflakeSpawner
 
     public void Run()
     {
-        for (int i = 0; i < _factory.Count; i++)
+        for (int i = 0; i < _factory.Storage.Count; i++)
         {
-            IInteractiveObject coin = _factory.GetCoin(i);
-            coin.Transform.position = GetAllowedRandomPosition(i);
+            IInteractiveObject snowflake = _factory.Storage.GetObjectTransform(i);
+            snowflake.Transform.position = GetAllowedRandomPosition(i);
         }
     }
 
@@ -47,7 +47,6 @@ public class SnowflakeSpawner
         Vector2 randomPositionInsideCircle = Random.insideUnitCircle * distance;
         return new Vector3(treePosition.x + randomPositionInsideCircle.x, treePosition.y, treePosition.z + randomPositionInsideCircle.y);
     }
-
 
     private IInteractiveObject GetTree(int treeIndex) => _treeSpawner.GetTansform(treeIndex);
 }

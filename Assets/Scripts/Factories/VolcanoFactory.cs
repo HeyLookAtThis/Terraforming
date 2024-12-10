@@ -1,36 +1,41 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class VolcanoFactory
 {
     private VolcanoFactoryConfig _config;
-    private List<Volcano> _volcanoes;
 
     private LevelCounter _levelCounter;
+    private VolcanoStorage _storage;
+
+    private UnityAction _created;
 
     public VolcanoFactory(VolcanoFactoryConfig config, LevelCounter levelCounter)
     {
         _config = config;
         _levelCounter = levelCounter;
 
-        _volcanoes = new List<Volcano>();
+        string storageName = "VolcanoStorage";
+        _storage = new VolcanoStorage(storageName);
     }
 
-    public int Count => _volcanoes.Count;
+    public VolcanoStorage Storage => _storage;
+
+    public event UnityAction Created
+    {
+        add => _created += value;
+        remove => _created -= value;
+    }
 
     public void Run()
     {
-        int createdCount = 0;
-        GameObject storage = new GameObject("VolcanoStorage");
-
-        while (createdCount < _levelCounter.CurrentLevel)
+        while (_storage.Count < _levelCounter.CurrentLevel)
         {
-            Volcano volcano = Object.Instantiate(_config.Prefab, storage.transform);
+            Volcano volcano = Object.Instantiate(_config.Prefab, _storage.Transform);
             volcano.BeginHeatGround();
-            _volcanoes.Add(volcano);
-            createdCount++;
+            _storage.Add(volcano);
         }
-    }
 
-    public IInteractiveObject GetVolcano(int index) => _volcanoes[index];
+        _created?.Invoke();
+    }
 }

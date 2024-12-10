@@ -12,6 +12,7 @@ public class Character : MonoBehaviour, ITarget
     private CharacterController _controller;
     private CharacterStateMachine _stateMachine;
     private CameraDirectionIndicator _directionIndicator;
+    private CharacterLootCounter _lootCounter;
 
     public PlayerInput Input => _input;
     public CharacterView View => _view;
@@ -20,6 +21,7 @@ public class Character : MonoBehaviour, ITarget
     public CharacterStateMachine StateMachine => _stateMachine;
     public CharacterLayerChecker ColliderChecker => _coliderChecker;
     public CameraDirectionIndicator DirectionIndicator => _directionIndicator;
+    public CharacterLootCounter LootCounter => _lootCounter;
 
     public Transform Transform => transform;
 
@@ -43,5 +45,6 @@ public class Character : MonoBehaviour, ITarget
         _input.Enable();
 
         _stateMachine = new CharacterStateMachine(this);
+        _lootCounter = new CharacterLootCounter();
     }
 }

@@ -1,31 +1,26 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinsFactory
 {
     private CoinFactoryConfig _config;
-    private List<Coin> _coins;
+    private ObjectsStorage _storage;
 
     public CoinsFactory(CoinFactoryConfig config)
     {
         _config = config;
-        _coins = new List<Coin>();
+
+        string storageName = "CoinStorage";
+        _storage = new ObjectsStorage(storageName);
     }
 
-    public int Count => _coins.Count;
+    public ObjectsStorage Storage => _storage;
 
     public void Run()
     {
-        int createdCount = 0;
-        GameObject storage = new GameObject("CoinStorage");
-
-        while (createdCount < _config.Count)
+        while (_storage.Count < _config.Count)
         {
-            Coin coin = Object.Instantiate(_config.Prefab, storage.transform);
-            _coins.Add(coin);
-            createdCount++;
+            Coin coin = Object.Instantiate(_config.Prefab, _storage.Transform);
+            _storage.Add(coin);
         }
     }
-
-    public IInteractiveObject GetCoin(int index) => _coins[index];
 }

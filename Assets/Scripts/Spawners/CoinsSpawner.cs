@@ -13,9 +13,9 @@ public class CoinsSpawner
 
     public void Run()
     {
-        for (int i = 0; i < _factory.Count; i++)
+        for (int i = 0; i < _factory.Storage.Count; i++)
         {
-            IInteractiveObject coin = _factory.GetCoin(i);
+            IInteractiveObject coin = _factory.Storage.GetObjectTransform(i);
             coin.Transform.position = GetAllowedRandomPosition();
         }
     }

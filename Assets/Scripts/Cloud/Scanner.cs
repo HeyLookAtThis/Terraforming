@@ -10,6 +10,7 @@ public class Scanner
 
     private UnityAction _foundWater;
     private UnityAction _lostWater;
+    private UnityAction<Volcano> _foundVolcano;
 
     public Scanner(Cloud cloud)
     {
@@ -27,6 +28,12 @@ public class Scanner
     {
         add => _lostWater += value;
         remove => _lostWater -= value;
+    }
+
+    public event UnityAction<Volcano> FoundVolcano
+    {
+        add => _foundVolcano += value;
+        remove => _foundVolcano -= value;
     }
 
     private float YPosition => 1f;
@@ -63,7 +70,13 @@ public class Scanner
                 if (interactionObject.UsedByPlayer == false)
                 {
                     if (_cloud.Reservoir.HaveWater)
-                        interactionObject.ReactToScanner();
+                    {
+                        if (interactionObject is Volcano == false)
+                            interactionObject.ReactToScanner();
+                        else
+                            _foundVolcano?.Invoke((Volcano)interactionObject);
+                    }
+
                 }
             }
         }

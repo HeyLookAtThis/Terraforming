@@ -34,6 +34,7 @@ public class VolcanoFactory
             Volcano volcano = Object.Instantiate(_config.Prefab, _storage.Transform);
             volcano.BeginHeatGround();
             _storage.Add(volcano);
+            _storage.SubscribeOnVolcano(volcano);
         }
 
         _created?.Invoke();

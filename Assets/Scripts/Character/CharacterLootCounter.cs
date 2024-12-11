@@ -5,28 +5,30 @@ public class CharacterLootCounter
     private int _coinsValue;
     private int _snowflakesValue;
 
-    private UnityAction<int> _coinAdded;
-    private UnityAction<int> _snowflakeAdded;
+    private UnityAction<int> _coinsValueChanged;
+    private UnityAction<int> _snowflakesValueChanged;
 
     public event UnityAction<int> CoinAdded
     {
-        add => _coinAdded += value;
-        remove => _coinAdded -= value;
+        add => _coinsValueChanged += value;
+        remove => _coinsValueChanged -= value;
     }
 
     public event UnityAction<int> SnowflakeAdded
     {
-        add => _snowflakeAdded += value;
-        remove => _snowflakeAdded -= value;
+        add => _snowflakesValueChanged += value;
+        remove => _snowflakesValueChanged -= value;
     }
+
+    public int SnowflakesValue => _snowflakesValue;
 
     public void ResetValues()
     {
         _coinsValue = 0;
-        _coinAdded?.Invoke(_coinsValue);
+        _coinsValueChanged?.Invoke(_coinsValue);
 
         _snowflakesValue = 0;
-        _snowflakeAdded?.Invoke(_snowflakesValue);
+        _snowflakesValueChanged?.Invoke(_snowflakesValue);
     }
 
     public void Add(Loot loot)
@@ -34,24 +36,26 @@ public class CharacterLootCounter
         switch (loot)
         {
             case Coin:
-                AddCoin();
+                AddValue(ref _coinsValue, _coinsValueChanged);
                 break;
 
             case Snowflake:
-                AddSnowflake();
+                AddValue(ref _snowflakesValue, _snowflakesValueChanged);
                 break;
         }
     }
 
-    private void AddCoin()
+    public void RemoveSnowflake() => RemoveValue(ref _snowflakesValue, _snowflakesValueChanged);
+
+    private void AddValue(ref int value, UnityAction<int> valueChanged)
     {
-        _coinsValue++;
-        _coinAdded?.Invoke(_coinsValue);
+        value++;
+        valueChanged?.Invoke(value);
     }
 
-    private void AddSnowflake()
+    private void RemoveValue(ref int value, UnityAction<int> valueChanged)
     {
-        _snowflakesValue++;
-        _snowflakeAdded?.Invoke(_snowflakesValue);
+        value--;
+        valueChanged?.Invoke(value);
     }
 }

@@ -23,6 +23,8 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
         remove => _heating -= value;
     }
 
+    public bool IsFrozen => UsedByPlayer;
+
     public override void ReactToScanner()
     {
         if (UsedByPlayer == false)

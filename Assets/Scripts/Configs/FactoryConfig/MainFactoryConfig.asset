@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinFactoryConfig:
     <Prefab>k__BackingField: {fileID: 6757724802369546430, guid: 5f5e6869adf38dd4db0f416a92c8ec89, type: 3}
-    <Count>k__BackingField: 100
+    <Count>k__BackingField: 200
   _treeFactoryConfig:
     <Prefab>k__BackingField: {fileID: 5919860239914475761, guid: 8b9b5a6b9bdf44d45bdc6be8e396e615, type: 3}
     <TreesNumberPerLevelMultiplier>k__BackingField: 2

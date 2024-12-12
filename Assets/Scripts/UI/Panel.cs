@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public abstract class Panel : MonoBehaviour
+public class Panel : MonoBehaviour
 {
 }

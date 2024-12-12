@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class CloudReservoirScaleDisplayer : MonoBehaviour
 {
-    [SerializeField] private CloudReservoir _reservoir;
+    //[SerializeField] private CloudReservoir _reservoir;
     [SerializeField] private Sprite _picture;
 
     private RectTransform _rectTransform;
@@ -22,12 +22,12 @@ public class CloudReservoirScaleDisplayer : MonoBehaviour
 
     private void OnEnable()
     {
-        _reservoir.ChangedValue += OnChangeValue;
+        //_reservoir.ChangedValue += OnChangeValue;
     }
 
     private void OnDisable()
     {
-        _reservoir.ChangedValue -= OnChangeValue;
+        //_reservoir.ChangedValue -= OnChangeValue;
     }
 
     private void Start()
@@ -44,15 +44,15 @@ public class CloudReservoirScaleDisplayer : MonoBehaviour
 
     private void OnChangeValue()
     {
-        if (_reservoir.CurrentValue > _previousValue)
-        {
-            _image.fillAmount += _totalValue / _reservoir.DivisionsNumber * Time.deltaTime * 60f;
-            _previousValue = _reservoir.CurrentValue;
-        }
-        else
-        {
-            _image.fillAmount -= _totalValue / _reservoir.DivisionsNumber;
-            _previousValue = _reservoir.CurrentValue;
-        }
+        //if (_reservoir.CurrentValue > _previousValue)
+        //{
+        //    _image.fillAmount += _totalValue / _reservoir.DivisionsNumber * Time.deltaTime * 60f;
+        //    _previousValue = _reservoir.CurrentValue;
+        //}
+        //else
+        //{
+        //    _image.fillAmount -= _totalValue / _reservoir.DivisionsNumber;
+        //    _previousValue = _reservoir.CurrentValue;
+        //}
     }
 }

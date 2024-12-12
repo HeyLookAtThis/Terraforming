@@ -34,7 +34,7 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
         }
     }
 
-    public override void ReturnToDefaultState() => gameObject.SetActive(false);
+    public override void ReturnToDefaultState() => Destroy(gameObject);
 
     public void BeginHeatGround()
     {

@@ -39,4 +39,16 @@ public class VolcanoFactory
 
         _created?.Invoke();
     }
+
+    public void Clear()
+    {
+        _storage.UnsubscribeOnVolcanoes();
+
+        for (int i = 0; i < _storage.Count; i++)
+        {
+            Volcano volcano = _storage.GetVolcano(i);
+            _storage.Remove(volcano);
+            volcano.ReturnToDefaultState();
+        }
+    }
 }

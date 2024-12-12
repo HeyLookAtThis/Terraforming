@@ -24,20 +24,18 @@ public class VolcanoSpawner
     {
         Vector3 position = GetRandomPosition();
         bool isSuccess = false;
+        float radius = 3f;
 
         while (isSuccess == false)
         {
-            var colliders = Physics.OverlapBox(position, Vector3.one);
+            var colliders = Physics.OverlapSphere(position, radius);
 
             foreach (var collider in colliders)
             {
                 if (IsWater(collider) || IsTree(collider) || IsVolkano(collider))
-                {
                     position = GetRandomPosition();
-                    break;
-                }
-
-                isSuccess = true;
+                else
+                    isSuccess = true;
             }
         }
 

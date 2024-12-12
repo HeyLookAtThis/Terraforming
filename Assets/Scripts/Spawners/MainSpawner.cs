@@ -20,4 +20,9 @@ public class MainSpawner
         _volcanoSpawner.Run();
         _snowflakeSpawner.Run();
     }
+
+    public void Clear()
+    {
+
+    }
 }

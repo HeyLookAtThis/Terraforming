@@ -15,7 +15,7 @@ MonoBehaviour:
   _markerConfig:
     <Offset>k__BackingField: 5
   _counterConfig:
-    <FirstLevelNumber>k__BackingField: 5
-    <LastLevelNumber>k__BackingField: 5
+    <FirstLevelNumber>k__BackingField: 1
+    <LastLevelNumber>k__BackingField: 7
   _atmosphereConfig:
-    <TimeToReachMaxTemperature>k__BackingField: 30
+    <TimeToReachMaxTemperature>k__BackingField: 60

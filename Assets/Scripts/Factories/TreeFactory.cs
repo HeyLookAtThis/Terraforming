@@ -7,7 +7,7 @@ public class TreeFactory
     private LevelCounter _levelCounter;
     private GrassPainter _grassPainter;
 
-    private ObjectsStorage _storage;
+    private TreesStorage _storage;
 
     public TreeFactory(TreeFactoryConfig config, LevelCounter levelCounter, GrassPainter grassPainter)
     {
@@ -16,10 +16,10 @@ public class TreeFactory
         _grassPainter = grassPainter;
 
         string storageName = "TreesStorage";
-        _storage = new ObjectsStorage(storageName);
+        _storage = new TreesStorage(storageName);
     }
 
-    public ObjectsStorage Storage => _storage;
+    public TreesStorage Storage => _storage;
 
     public void Run()
     {
@@ -30,6 +30,16 @@ public class TreeFactory
             Tree tree = Object.Instantiate(_config.Prefab, _storage.Transform);
             tree.Initialize(_grassPainter);
             _storage.Add(tree);
+        }
+    }
+
+    public void Clear()
+    {
+        for (int i = 0; i < _storage.Count; i++)
+        {
+            Tree tree = _storage.GetTree(i);
+            _storage.Remove(tree);
+            tree.ReturnToDefaultState();
         }
     }
 }

@@ -25,4 +25,11 @@ public class MainFactory
         _volcanoFactory.Run();
         _snowflakeFactory.Run();
     }
+
+    public void Clear()
+    {
+        _coinsFactory.Clear();
+        _treeFactory.Clear();
+        _snowflakeFactory.Clear();
+    }
 }

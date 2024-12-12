@@ -66,7 +66,7 @@ public class VolcanoView : MonoBehaviour
 
         if (_source.isPlaying == false)
         {
-            _volcano.ReturnToDefaultState();
+            _volcano.gameObject.SetActive(false);
             yield break;
         }
     }

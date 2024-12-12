@@ -41,7 +41,8 @@ public class Tree : InteractiveObject
 
         foreach (var collider in colliders)
             if (collider.TryGetComponent<InteractiveObject>(out InteractiveObject interationObject))
-                interationObject.ReactToScanner();
+                if (interationObject is Volcano == false)
+                    interationObject.ReactToScanner();
 
         RunGrassPainter();
     }

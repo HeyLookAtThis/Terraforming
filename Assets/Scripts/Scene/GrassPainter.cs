@@ -32,6 +32,7 @@ public class GrassPainter
 
     private int CoordinatesOrigin => 0;
     private float ShadedValue => 1f;
+    private float Speed => 2f;
 
     public void Draw(Vector3 position, int radius)
     {
@@ -54,7 +55,7 @@ public class GrassPainter
                 {
                     if (_map[x, y, GrassLayerIndex] < ShadedValue && angle == 0)
                     {
-                        _map[x, y, GrassLayerIndex] += normalizedValue;
+                        _map[x, y, GrassLayerIndex] += normalizedValue * Speed;
                         _isDrawing = true;
                     }
                     else

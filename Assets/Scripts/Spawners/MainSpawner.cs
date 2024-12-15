@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class MainSpawner
 {
     private CoinsSpawner _coinsSpawner;
@@ -5,11 +7,11 @@ public class MainSpawner
     private VolcanoSpawner _volcanoSpawner;
     private SnowflakeSpawner _snowflakeSpawner;
 
-    public MainSpawner(MainFactory mainFactory, LevelBoundariesMarker marker)
+    public MainSpawner(MainFactory mainFactory, LevelBoundariesMarker marker, Transform characterSpawnPoint)
     {
         _coinsSpawner = new CoinsSpawner(mainFactory.Coins, marker);
         _treeSpawner = new TreeSpawner(mainFactory.Trees, marker);
-        _volcanoSpawner = new VolcanoSpawner(mainFactory.Volcanoes, marker);
+        _volcanoSpawner = new VolcanoSpawner(mainFactory.Volcanoes, marker, characterSpawnPoint);
         _snowflakeSpawner = new SnowflakeSpawner(mainFactory.Snowflakes, _treeSpawner, marker);
     }
 

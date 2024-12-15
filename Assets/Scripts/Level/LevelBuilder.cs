@@ -3,6 +3,8 @@ using Zenject;
 
 public class LevelBuilder : MonoBehaviour, IInitializable
 {
+    [SerializeField] private Transform _characterSpawnPoint;
+
     private LevelConfig _config;
     private LevelCounter _counter;
 
@@ -27,7 +29,7 @@ public class LevelBuilder : MonoBehaviour, IInitializable
     {
         _counter = new LevelCounter(levelConfig.CounterConfig);
         _mainFactory = new MainFactory(factoryConfig, _counter, grassPainter);
-        _mainSpawner = new MainSpawner(_mainFactory, levelBoundariesMarker);
+        _mainSpawner = new MainSpawner(_mainFactory, levelBoundariesMarker, _characterSpawnPoint);
 
         _atmosphere = new Atmosphere(levelConfig.AtmosphereConfig, _mainFactory.Volcanoes.Storage.Count);
     }

@@ -4,19 +4,22 @@ public class VolcanoSpawner
 {
     private VolcanoFactory _factory;
     private LevelBoundariesMarker _levelMarker;
+    private Transform _characterSpawnPoint;
 
-    public VolcanoSpawner(VolcanoFactory factory, LevelBoundariesMarker levelMarker)
+    public VolcanoSpawner(VolcanoFactory factory, LevelBoundariesMarker levelMarker, Transform characterSpawnPoint)
     {
         _factory = factory;
         _levelMarker = levelMarker;
+        _characterSpawnPoint = characterSpawnPoint;
     }
 
     public void Run()
     {
         for (int i = 0; i < _factory.Storage.Count; i++)
         {
-            InteractiveObject volcano = _factory.Storage.GetVolcano(i);
-            volcano.transform.position = GetAllowedRandomPosition();
+            IInteractiveObject volcano = _factory.Storage.GetObjectTransform(i);
+            volcano.Transform.position = GetAllowedRandomPosition();
+            volcano.Transform.LookAt(_characterSpawnPoint);
         }
     }
 

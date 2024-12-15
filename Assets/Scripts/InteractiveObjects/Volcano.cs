@@ -48,13 +48,13 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
     {
         var waitTime = new WaitForEndOfFrame();
 
-        while(UsedByPlayer == false)
+        while(IsFrozen == false)
         {
             _heating?.Invoke(Time.deltaTime);
             yield return waitTime;
         }
 
-        if (UsedByPlayer)
+        if (IsFrozen)
         {
             _wasFrozen?.Invoke();
             yield break;

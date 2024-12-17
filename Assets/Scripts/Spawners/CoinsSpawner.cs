@@ -1,15 +1,10 @@
 using UnityEngine;
 
-public class CoinsSpawner
+public class CoinsSpawner : Spawner
 {
     private CoinsFactory _factory;
-    private LevelBoundariesMarker _marker;
 
-    public CoinsSpawner(CoinsFactory factory, LevelBoundariesMarker marker)
-    {
-        _factory = factory;
-        _marker = marker;
-    }
+    public CoinsSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, CoinsFactory factory) : base(levelBorders, levelCounter) => _factory = factory;
 
     public void Run()
     {
@@ -22,22 +17,19 @@ public class CoinsSpawner
 
     private Vector3 GetAllowedRandomPosition()
     {
-        Vector3 position = GetRandomPosition();
+        Vector3 position = GetRandomPosition(LevelBorders.Radius);
         bool isSuccess = false;
 
         while (isSuccess == false)
         {
             Physics.Raycast(position + Vector3.up, Vector3.down, out RaycastHit hit);
 
-            if (hit.collider.TryGetComponent<Water>(out Water water))
-                position = GetRandomPosition();
+            if (IsWater(hit.collider))
+                position = GetRandomPosition(LevelBorders.Radius);
             else
                 isSuccess = true;
         }
 
         return position;
     }
-
-    private Vector3 GetRandomPosition()
-        => new Vector3(Random.Range(_marker.StartingCoordinate.x, _marker.EndingCoordinate.x), _marker.YAxisValue, Random.Range(_marker.StartingCoordinate.z, _marker.EndingCoordinate.z));
 }

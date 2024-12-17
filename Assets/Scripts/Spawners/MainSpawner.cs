@@ -7,20 +7,20 @@ public class MainSpawner
     private VolcanoSpawner _volcanoSpawner;
     private SnowflakeSpawner _snowflakeSpawner;
 
-    public MainSpawner(MainFactory mainFactory, LevelBoundariesMarker marker, Transform characterSpawnPoint)
+    public MainSpawner(MainFactory mainFactory, LevelBordersMarker marker, LevelCounter levelCounter)
     {
-        _coinsSpawner = new CoinsSpawner(mainFactory.Coins, marker);
-        _treeSpawner = new TreeSpawner(mainFactory.Trees, marker);
-        _volcanoSpawner = new VolcanoSpawner(mainFactory.Volcanoes, marker, characterSpawnPoint);
+        _coinsSpawner = new CoinsSpawner(marker, levelCounter, mainFactory.Coins);
+        _treeSpawner = new TreeSpawner(marker, levelCounter, mainFactory.Trees);
+        _volcanoSpawner = new VolcanoSpawner(marker, levelCounter, mainFactory.Volcanoes);
         _snowflakeSpawner = new SnowflakeSpawner(mainFactory.Snowflakes, _treeSpawner, marker);
     }
 
     public void Run()
     {
-        _coinsSpawner.Run();
-        _treeSpawner.Run();
         _volcanoSpawner.Run();
+        _treeSpawner.Run();
         _snowflakeSpawner.Run();
+        _coinsSpawner.Run();
     }
 
     public void Clear()

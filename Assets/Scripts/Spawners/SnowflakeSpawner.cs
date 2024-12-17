@@ -4,9 +4,9 @@ public class SnowflakeSpawner
 {
     private SnowflakeFactory _factory;
     private TreeSpawner _treeSpawner;
-    private LevelBoundariesMarker _marker;
+    private LevelBordersMarker _marker;
 
-    public SnowflakeSpawner(SnowflakeFactory factory, TreeSpawner treeSpawner, LevelBoundariesMarker marker)
+    public SnowflakeSpawner(SnowflakeFactory factory, TreeSpawner treeSpawner, LevelBordersMarker marker)
     {
         _factory = factory;
         _treeSpawner = treeSpawner;

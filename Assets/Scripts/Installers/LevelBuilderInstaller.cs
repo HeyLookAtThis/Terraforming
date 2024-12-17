@@ -20,7 +20,7 @@ public class LevelBuilderInstaller : MonoInstaller
 
     private void BindGrassPainter() => Container.Bind<GrassPainter>().AsSingle();
     private void BindTerrain() => Container.Bind<Terrain>().FromInstance(_terrain).AsSingle();
-    private void BindLevelBoundariesMarker() => Container.Bind<LevelBoundariesMarker>().AsSingle();
+    private void BindLevelBoundariesMarker() => Container.Bind<LevelBordersMarker>().AsSingle();
     private void BindFactoryConfig() => Container.Bind<MainFactoryConfig>().FromInstance(_factoryConfig).AsSingle();
     private void BindLevelConfig() => Container.Bind<LevelConfig>().FromInstance(_levelConfig).AsSingle();
     private void BindLevelBuilder() => Container.BindInterfacesAndSelfTo<LevelBuilder>().FromInstance(_levelBuilder).AsSingle();

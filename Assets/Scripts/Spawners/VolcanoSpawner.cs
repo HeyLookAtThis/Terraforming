@@ -1,17 +1,11 @@
+using System.Linq;
 using UnityEngine;
 
-public class VolcanoSpawner
+public class VolcanoSpawner : Spawner
 {
     private VolcanoFactory _factory;
-    private LevelBoundariesMarker _levelMarker;
-    private Transform _characterSpawnPoint;
 
-    public VolcanoSpawner(VolcanoFactory factory, LevelBoundariesMarker levelMarker, Transform characterSpawnPoint)
-    {
-        _factory = factory;
-        _levelMarker = levelMarker;
-        _characterSpawnPoint = characterSpawnPoint;
-    }
+    public VolcanoSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, VolcanoFactory factory) : base(levelBorders, levelCounter) => _factory = factory;
 
     public void Run()
     {
@@ -19,13 +13,15 @@ public class VolcanoSpawner
         {
             IInteractiveObject volcano = _factory.Storage.GetObjectTransform(i);
             volcano.Transform.position = GetAllowedRandomPosition();
-            volcano.Transform.LookAt(_characterSpawnPoint);
+            volcano.Transform.LookAt(LevelBorders.Center);
         }
     }
 
     private Vector3 GetAllowedRandomPosition()
     {
-        Vector3 position = GetRandomPosition();
+        float convertOuterRadius = LevelCounter.CurrentLevel + 10;
+        Vector3 position = GetRandomPosition(convertOuterRadius);
+
         bool isSuccess = false;
         float radius = 3f;
 
@@ -33,23 +29,14 @@ public class VolcanoSpawner
         {
             var colliders = Physics.OverlapSphere(position, radius);
 
-            foreach (var collider in colliders)
-            {
-                if (IsWater(collider) || IsTree(collider) || IsVolkano(collider))
-                    position = GetRandomPosition();
-                else
-                    isSuccess = true;
-            }
+            var collider = colliders.FirstOrDefault(collider => IsWater(collider) || IsTree(collider) || IsVolkano(collider));
+
+            if (collider == null)
+                isSuccess = true;
+            else
+                position = GetRandomPosition(convertOuterRadius);
         }
 
         return position;
     }
-
-
-    private Vector3 GetRandomPosition()
-        => new Vector3(Random.Range(_levelMarker.StartingCoordinate.x, _levelMarker.EndingCoordinate.x), _levelMarker.YAxisValue, Random.Range(_levelMarker.StartingCoordinate.z, _levelMarker.EndingCoordinate.z));
-
-    private bool IsWater(Collider collider) => collider.TryGetComponent<Water>(out Water water);
-    private bool IsTree(Collider collider) => collider.TryGetComponent<Tree>(out Tree tree);
-    private bool IsVolkano(Collider collider) => collider.TryGetComponent<Volcano>(out Volcano volcano);
 }

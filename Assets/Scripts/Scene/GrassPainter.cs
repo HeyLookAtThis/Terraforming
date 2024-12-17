@@ -6,7 +6,7 @@ public class GrassPainter
     private const int GroundLayerIndex = 0;
     private const int GrassLayerIndex = 1;
 
-    private LevelBoundariesMarker _marker;
+    private LevelBordersMarker _marker;
     private Terrain _terrain;
 
     private float[,,] _map;
@@ -15,7 +15,7 @@ public class GrassPainter
 
     private UnityAction<bool> _drawing;
 
-    public GrassPainter(Terrain terrain, LevelBoundariesMarker marker)
+    public GrassPainter(Terrain terrain, LevelBordersMarker marker)
     {
         _terrain = terrain;
         _marker = marker;

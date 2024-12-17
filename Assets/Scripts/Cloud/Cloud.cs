@@ -40,7 +40,7 @@ public class Cloud : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(ITarget character, Terrain terrain, LevelBoundariesMarker levelBoundariesMarker, GrassPainter grassPainter)
+    private void Construct(ITarget character, Terrain terrain, LevelBordersMarker levelBoundariesMarker, GrassPainter grassPainter)
     {
         _movementBehaivorSwitcher = new CloudMovementBehaivorSwitcher(this, character.Transform);
         _grassPainter = grassPainter;

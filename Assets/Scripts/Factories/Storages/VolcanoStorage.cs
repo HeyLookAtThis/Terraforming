@@ -1,9 +1,10 @@
 using System;
 using UnityEngine.Events;
 
-public class VolcanoStorage : ObjectsStorage
+public class VolcanoStorage : ObjectsStorage, IDisposable
 {
-    private UnityAction _frozenVolcanoesValueChanged;
+    private UnityAction _frozenVolcanoesChanged;
+    private UnityAction _allVolcanoesFrozen;
 
     public VolcanoStorage(string storageName) : base(storageName)
     {
@@ -11,8 +12,19 @@ public class VolcanoStorage : ObjectsStorage
 
     public event UnityAction FrozenVolcanoesValueChanged
     {
-        add => _frozenVolcanoesValueChanged += value;
-        remove => _frozenVolcanoesValueChanged -= value;
+        add => _frozenVolcanoesChanged += value;
+        remove => _frozenVolcanoesChanged -= value;
+    }
+
+    public event UnityAction AllVolcanoesFrozen
+    {
+        add => _allVolcanoesFrozen += value;
+        remove => _allVolcanoesFrozen -= value;
+    }
+
+    public void Dispose()
+    {
+        UnsubscribeOnVolcanoes();
     }
 
     public Volcano GetVolcano(int index) => (Volcano)InteractiveObjects[index];
@@ -36,5 +48,11 @@ public class VolcanoStorage : ObjectsStorage
             GetVolcano(i).WasFrozen -= OnFrozen;
     }
 
-    private void OnFrozen() => _frozenVolcanoesValueChanged?.Invoke();
+    private void OnFrozen()
+    {
+        _frozenVolcanoesChanged?.Invoke();
+
+        if(this.Count == GetFrozenCount())
+            _allVolcanoesFrozen?.Invoke();
+    }
 }

@@ -14,9 +14,13 @@ public class CoinsFactory
     }
 
     public ObjectsStorage Storage => _storage;
+    private bool Created => _storage.Count == _config.Count;
 
     public void Run()
     {
+        if (Created)
+            return;
+
         while (_storage.Count < _config.Count)
         {
             Coin coin = Object.Instantiate(_config.Prefab, _storage.Transform);

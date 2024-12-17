@@ -15,4 +15,15 @@ public class LevelCounter
     }
 
     public int CurrentLevel => _currentLevel;
+
+    public void SetNextLevel()
+    {
+        if(_currentLevel < _lastLevel)
+            _currentLevel++;
+    }
+
+    public void SetFirstLevelLevel()
+    {
+        _currentLevel = _firstLevel;
+    }
 }

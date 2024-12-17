@@ -1,8 +1,10 @@
 using UnityEngine;
 using Zenject;
 
-public class LevelBuilder : MonoBehaviour, IInitializable
+public class LevelBuilder : MonoBehaviour
 {
+    [SerializeField] private Transform _spawnPoint;
+
     private LevelConfig _config;
     private LevelCounter _counter;
 
@@ -10,25 +12,47 @@ public class LevelBuilder : MonoBehaviour, IInitializable
     private MainSpawner _mainSpawner;
 
     private Atmosphere _atmosphere;
+    private GrassPainter _grassPainter;
+
+    private Character _character;
+    private Cloud _cloud;
 
     public MainFactory MainFactory => _mainFactory;
     public Atmosphere Atmosphere => _atmosphere;
+    public LevelCounter Counter => _counter;
 
-    public void Initialize()
+    [Inject]
+    private void Construnct(Terrain terrain, MainFactoryConfig factoryConfig, LevelConfig levelConfig, LevelBordersMarker levelBoundariesMarker, GrassPainter grassPainter, Character character, Cloud cloud)
+    {
+        _config = levelConfig;
+        _counter = new LevelCounter(_config.CounterConfig);
+        _grassPainter = grassPainter;
+
+        _mainFactory = new MainFactory(factoryConfig, _counter, _grassPainter);
+        _mainSpawner = new MainSpawner(_mainFactory, levelBoundariesMarker, _counter);
+
+        _atmosphere = new Atmosphere(_config.AtmosphereConfig, _mainFactory.Volcanoes.Storage.Count);
+
+        _character = character;
+        _cloud = cloud;
+    }
+
+    public void Run()
     {
         _mainFactory.Run();
         _mainSpawner.Run();
     }
 
-    public void Clear() => _mainFactory.Clear();
-
-    [Inject]
-    private void Construnct(Terrain terrain, MainFactoryConfig factoryConfig, LevelConfig levelConfig, LevelBordersMarker levelBoundariesMarker, GrassPainter grassPainter)
+    public void Clear()
     {
-        _counter = new LevelCounter(levelConfig.CounterConfig);
-        _mainFactory = new MainFactory(factoryConfig, _counter, grassPainter);
-        _mainSpawner = new MainSpawner(_mainFactory, levelBoundariesMarker, _counter);
+        _mainFactory.Clear();
+        _grassPainter.ClearMap();
+        SetPlayerPosition();
+    }
 
-        _atmosphere = new Atmosphere(levelConfig.AtmosphereConfig, _mainFactory.Volcanoes.Storage.Count);
+    private void SetPlayerPosition()
+    {
+        _character.Transform.position = _spawnPoint.position;
+        _cloud.transform.position = _spawnPoint.position;
     }
 }

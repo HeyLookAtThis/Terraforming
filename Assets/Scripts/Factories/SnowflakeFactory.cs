@@ -16,7 +16,7 @@ public class SnowflakeFactory
         _storage = new SnowflakeStorage(storageName);
     }
 
-    public ObjectsStorage Storage => _storage;
+    public SnowflakeStorage Storage => _storage;
 
     public void Run()
     {

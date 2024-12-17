@@ -19,15 +19,16 @@ public class VolcanoSpawner : Spawner
 
     private Vector3 GetAllowedRandomPosition()
     {
-        float convertOuterRadius = LevelCounter.CurrentLevel + 10;
+        float distancePerLevel = 2.8f;
+        float convertOuterRadius = LevelBorders.WaterRadius + LevelCounter.CurrentLevel * distancePerLevel;
         Vector3 position = GetRandomPosition(convertOuterRadius);
 
         bool isSuccess = false;
-        float radius = 3f;
+        float radius = 2.5f;
 
         while (isSuccess == false)
         {
-            var colliders = Physics.OverlapSphere(position, radius);
+            var colliders = Physics.OverlapCapsule(position, position + Vector3.up * radius, radius);
 
             var collider = colliders.FirstOrDefault(collider => IsWater(collider) || IsTree(collider) || IsVolkano(collider));
 

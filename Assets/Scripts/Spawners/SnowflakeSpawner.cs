@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class SnowflakeSpawner
 {
-    private SnowflakeFactory _factory;
+    private SnowflakeStorage _storage;
     private TreeSpawner _treeSpawner;
     private LevelBordersMarker _marker;
 
-    public SnowflakeSpawner(SnowflakeFactory factory, TreeSpawner treeSpawner, LevelBordersMarker marker)
+    public SnowflakeSpawner(SnowflakeStorage storage, TreeSpawner treeSpawner, LevelBordersMarker marker)
     {
-        _factory = factory;
+        _storage = storage;
         _treeSpawner = treeSpawner;
         _marker = marker;
     }
 
     public void Run()
     {
-        for (int i = 0; i < _factory.Storage.Count; i++)
+        for (int i = 0; i < _storage.Count; i++)
         {
-            IInteractiveObject snowflake = _factory.Storage.GetObjectTransform(i);
+            IInteractiveObject snowflake = _storage.GetObjectTransform(i);
             snowflake.Transform.position = GetAllowedRandomPosition(i);
         }
     }

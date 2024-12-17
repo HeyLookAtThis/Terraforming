@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class LevelBuilderInstaller : MonoInstaller
+public class LevelInstaller : MonoInstaller
 {
     [SerializeField] private Terrain _terrain;
     [SerializeField] private MainFactoryConfig _factoryConfig;

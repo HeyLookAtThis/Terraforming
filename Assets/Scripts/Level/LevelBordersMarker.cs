@@ -12,6 +12,7 @@ public class LevelBordersMarker
     }
 
     public float GroundHeight => 1f;
+    public float WaterRadius => 5f;
     public Vector3 Center => _center;
     public float Radius => _radius;
 

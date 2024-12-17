@@ -12,7 +12,7 @@ public class MainSpawner
         _coinsSpawner = new CoinsSpawner(marker, levelCounter, mainFactory.Coins);
         _treeSpawner = new TreeSpawner(marker, levelCounter, mainFactory.Trees);
         _volcanoSpawner = new VolcanoSpawner(marker, levelCounter, mainFactory.Volcanoes);
-        _snowflakeSpawner = new SnowflakeSpawner(mainFactory.Snowflakes, _treeSpawner, marker);
+        _snowflakeSpawner = new SnowflakeSpawner(mainFactory.Snowflakes.Storage, _treeSpawner, marker);
     }
 
     public void Run()

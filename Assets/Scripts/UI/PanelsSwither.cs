@@ -5,12 +5,14 @@ public class PanelsSwither : MonoBehaviour
     [SerializeField] private Panel _gamePanel;
     [SerializeField] private Panel _winPanel;
     [SerializeField] private Panel _losingPanel;
+    [SerializeField] private Panel _loadingPanel;
+    [SerializeField] private Panel _previewPanel;
 
     private Panel[] _panels;
 
     private void Awake()
     {
-        _panels = new Panel[] { _gamePanel, _winPanel, _losingPanel };
+        _panels = new Panel[] { _gamePanel, _winPanel, _losingPanel, _loadingPanel, _previewPanel };
     }
 
     public void OnTurnOnGamePanel()

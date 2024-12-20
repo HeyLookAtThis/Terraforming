@@ -10,6 +10,7 @@ public class Atmosphere
 
     private UnityAction _reachedMaxTemperature;
     private UnityAction<float> _temperatureChanged;
+    private UnityAction _maxTemperatureChanged;
 
     public Atmosphere(AtmosphereConfig config, int volcanoesCount)
     {
@@ -29,11 +30,20 @@ public class Atmosphere
         remove => _temperatureChanged -= value;
     }
 
-    public float CurrentTemperature => _currentTemperature;
+    public event UnityAction MaxTemperatureChanged
+    {
+        add => _maxTemperatureChanged += value;
+        remove => _maxTemperatureChanged -= value;
+    }
+    
     public float MaxTemperature => _maxTemperature;
     public float MinTemperature => _minTemperature;
 
-    public void InitializeMaxTemperature(int volcanoesCount) => _maxTemperature = _config.TimeToReachMaxTemperature * volcanoesCount;
+    public void OnIncreaseMaxTemperature()
+    {
+        _maxTemperature += _config.TimeToReachMaxTemperature;
+        _maxTemperatureChanged?.Invoke();
+    }
 
     public void IncreaseTemperature(float temperature)
     {
@@ -44,5 +54,9 @@ public class Atmosphere
             _reachedMaxTemperature?.Invoke();
     }
 
-    public void ResetTemperature() => _currentTemperature = _minTemperature;
+    public void ResetTemperature()
+    {
+        _currentTemperature = _minTemperature;
+        _maxTemperature = _currentTemperature;
+    }
 }

@@ -8,7 +8,7 @@ public class VolcanoFactory
     private LevelCounter _levelCounter;
     private VolcanoStorage _storage;
 
-    private UnityAction _created;
+    private UnityAction _addedVolcano;
 
     public VolcanoFactory(VolcanoFactoryConfig config, LevelCounter levelCounter)
     {
@@ -21,10 +21,10 @@ public class VolcanoFactory
 
     public VolcanoStorage Storage => _storage;
 
-    public event UnityAction Created
+    public event UnityAction AddedVolcano
     {
-        add => _created += value;
-        remove => _created -= value;
+        add => _addedVolcano += value;
+        remove => _addedVolcano -= value;
     }
 
     public void Run()
@@ -35,17 +35,12 @@ public class VolcanoFactory
             volcano.BeginHeatGround();
             _storage.Add(volcano);
             _storage.SubscribeOnVolcano(volcano);
+            _addedVolcano?.Invoke();
         }
-
-        _created?.Invoke();
     }
 
     public void Clear()
     {
-        for (int i = 0; i < _storage.Count; i++)
-        {
-            Volcano volcano = _storage.GetVolcano(i);
-            volcano.ReturnToDefaultState();
-        }
+        _storage.Clear();
     }
 }

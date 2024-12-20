@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -21,6 +22,16 @@ public class LevelBuilder : MonoBehaviour
     public Atmosphere Atmosphere => _atmosphere;
     public LevelCounter Counter => _counter;
 
+    private void OnEnable()
+    {
+        MainFactory.Volcanoes.AddedVolcano += _atmosphere.OnIncreaseMaxTemperature;
+    }
+
+    private void OnDisable()
+    {
+        MainFactory.Volcanoes.AddedVolcano -= _atmosphere.OnIncreaseMaxTemperature;
+    }
+
     [Inject]
     private void Construnct(Terrain terrain, MainFactoryConfig factoryConfig, LevelConfig levelConfig, LevelBordersMarker levelBoundariesMarker, GrassPainter grassPainter, Character character, Cloud cloud)
     {
@@ -37,17 +48,28 @@ public class LevelBuilder : MonoBehaviour
         _cloud = cloud;
     }
 
-    public void Run()
+    public void OnStartLevel()
+    {
+        Clear();
+        Run();
+    }
+
+    private void Run()
     {
         _mainFactory.Run();
         _mainSpawner.Run();
+
+        SubscribeAtmosphereToAllVolcanoes();
     }
 
-    public void Clear()
+    private void Clear()
     {
+        UnsubscribeAtmosphereToAllVolcanoes();
         _mainFactory.Clear();
+
         _grassPainter.ClearMap();
         SetPlayerPosition();
+        _atmosphere.ResetTemperature();
     }
 
     private void SetPlayerPosition()
@@ -55,4 +77,17 @@ public class LevelBuilder : MonoBehaviour
         _character.Transform.position = _spawnPoint.position;
         _cloud.transform.position = _spawnPoint.position;
     }
+
+    private void SubscribeAtmosphereToAllVolcanoes()
+    {
+        for (int i = 0; i < MainFactory.Volcanoes.Storage.Count; i++)
+            MainFactory.Volcanoes.Storage.GetVolcano(i).Heating += _atmosphere.IncreaseTemperature;
+    }
+
+    private void UnsubscribeAtmosphereToAllVolcanoes()
+    {
+        for (int i = 0; i < MainFactory.Volcanoes.Storage.Count; i++)
+            MainFactory.Volcanoes.Storage.GetVolcano(i).Heating -= _atmosphere.IncreaseTemperature;
+    }
+
 }

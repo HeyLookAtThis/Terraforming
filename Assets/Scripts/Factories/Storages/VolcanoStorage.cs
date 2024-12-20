@@ -29,6 +29,16 @@ public class VolcanoStorage : ObjectsStorage, IDisposable
 
     public Volcano GetVolcano(int index) => (Volcano)InteractiveObjects[index];
 
+    public void Clear()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            Volcano volcano = GetVolcano(i);
+            Remove(volcano);
+            volcano.ReturnToDefaultState();
+        }
+    }
+
     public int GetFrozenCount()
     {
         int frozenCount = 0;

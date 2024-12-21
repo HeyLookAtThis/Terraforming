@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120d368273f8de74796530d369a23f7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingPanel: {fileID: 1198138342}
+  _loadingBar: {fileID: 1198138343}
   _levelBuilder: {fileID: 1362456407}
 --- !u!1 &284325954
 GameObject:
@@ -2880,10 +2880,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 630947117}
   - {fileID: 630947115}
   - {fileID: 630947113}
   - {fileID: 630947114}
-  - {fileID: 630947117}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2973,7 +2973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ba714b5c1eb3f43a00fcaefb6d48a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stateSwitcher: {fileID: 0}
+  _panelSwitcher: {fileID: 313905031}
 --- !u!1 &663009379
 GameObject:
   m_ObjectHideFlags: 0
@@ -4157,6 +4157,7 @@ GameObject:
   - component: {fileID: 1198138341}
   - component: {fileID: 1198138340}
   - component: {fileID: 1198138342}
+  - component: {fileID: 1198138343}
   m_Layer: 5
   m_Name: LoadingPanel
   m_TagString: Untagged
@@ -4204,6 +4205,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50677ee0cf4e99443b5f74a6d3923f6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bar: {fileID: 1198138343}
+--- !u!114 &1198138343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198138338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e9a9bdc3fe52b43bb59704586eb13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _secondsToFill: 2
@@ -5342,10 +5356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50677ee0cf4e99443b5f74a6d3923f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _secondsToFill: 2
-  _triggerPercentValue: 66
-  _slider: {fileID: 1482662546}
-  _tmpro: {fileID: 49456745}
+  _bar: {fileID: 0}
 --- !u!114 &1482662546
 MonoBehaviour:
   m_ObjectHideFlags: 0

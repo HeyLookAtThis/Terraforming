@@ -33,7 +33,7 @@ public class LevelBuilder : MonoBehaviour
     }
 
     [Inject]
-    private void Construnct(Terrain terrain, MainFactoryConfig factoryConfig, LevelConfig levelConfig, LevelBordersMarker levelBoundariesMarker, GrassPainter grassPainter, Character character, Cloud cloud)
+    private void Construct(Terrain terrain, MainFactoryConfig factoryConfig, LevelConfig levelConfig, LevelBordersMarker levelBoundariesMarker, GrassPainter grassPainter, Character character, Cloud cloud)
     {
         _config = levelConfig;
         _counter = new LevelCounter(_config.CounterConfig);

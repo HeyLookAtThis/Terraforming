@@ -3,12 +3,12 @@ using Zenject;
 
 public class UIInstaller : MonoInstaller
 {
-    [SerializeField] private PanelsSwitcher _stateSwitcher;
+    [SerializeField] private PanelsSwitcher _panelSwitcher;
 
     public override void InstallBindings()
     {
-        BindStateSwitcher();
+        BindPanelSwitcher();
     }
 
-    private void BindStateSwitcher() => Container.BindInterfacesAndSelfTo<PanelsSwitcher>().FromInstance(_stateSwitcher).AsSingle();
+    private void BindPanelSwitcher() => Container.BindInterfacesAndSelfTo<PanelsSwitcher>().FromInstance(_panelSwitcher).AsSingle();
 }

@@ -29,6 +29,7 @@ public class PreviewPanel : MonoBehaviour, IPanel, IPointerClickHandler
     {
         _flashingText = new FlashingText(_tMPro, _tMPro.color, this);
         _panelSwitcher = panelSwitcher;
+        Debug.Log(_panelSwitcher);
     }
 
     private class FlashingText

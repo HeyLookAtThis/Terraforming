@@ -25,6 +25,8 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
 
     public bool IsFrozen => UsedByPlayer;
 
+    private void OnEnable() => BeginHeatGround();
+
     public override void ReactToScanner()
     {
         if (UsedByPlayer == false)
@@ -34,9 +36,7 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
         }
     }
 
-    public override void ReturnToDefaultState() => Destroy(gameObject);
-
-    public void BeginHeatGround()
+    private void BeginHeatGround()
     {
         if (_heatGenerator != null)
             StopCoroutine(_heatGenerator);

@@ -7,14 +7,15 @@ public class CountDisplayerMediator : MonoBehaviour
 
     private CharacterLootCounter _counter;
     private VolcanoFactory _volcanoFactory;
+    private VolcanoStorage _volcanoStorage;
 
     private void OnEnable()
     {
         _counter.CoinAdded += _displayer.OnShowCoins;
         _counter.SnowflakeAdded += _displayer.OnShowSnowflakes;
 
-        _volcanoFactory.AddedVolcano += OnShowVolcanoes;
-        _volcanoFactory.Storage.FrozenVolcanoesValueChanged += OnShowVolcanoes;
+        _volcanoFactory.CreatedVolcano += OnShowVolcanoes;
+        _volcanoStorage.FrozenVolcanoesValueChanged += OnShowVolcanoes;
     }
 
     private void OnDisable()
@@ -22,16 +23,17 @@ public class CountDisplayerMediator : MonoBehaviour
         _counter.CoinAdded -= _displayer.OnShowCoins;
         _counter.SnowflakeAdded -= _displayer.OnShowSnowflakes;
 
-        _volcanoFactory.AddedVolcano -= OnShowVolcanoes;
-        _volcanoFactory.Storage.FrozenVolcanoesValueChanged -= OnShowVolcanoes;
+        _volcanoFactory.CreatedVolcano -= OnShowVolcanoes;
+        _volcanoStorage.FrozenVolcanoesValueChanged -= OnShowVolcanoes;
     }
 
-    private void OnShowVolcanoes() => _displayer.ShowVolcanoes(_volcanoFactory.Storage.GetFrozenCount(), _volcanoFactory.Storage.Count);
+    private void OnShowVolcanoes() => _displayer.ShowVolcanoes(_volcanoStorage.GetFrozenCount(), _volcanoStorage.Count);
 
     [Inject]
     private void Construct(Character character, LevelBuilder levelBuilder)
     {
         _counter = character.LootCounter;
         _volcanoFactory = levelBuilder.MainFactory.Volcanoes;
+        _volcanoStorage = levelBuilder.MainStorage.Volcanoes;
     }
 }

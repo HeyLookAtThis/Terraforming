@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class CoinsSpawner : Spawner
 {
-    private CoinsFactory _factory;
+    private CoinsStorage _storage;
 
-    public CoinsSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, CoinsFactory factory) : base(levelBorders, levelCounter) => _factory = factory;
+    public CoinsSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, CoinsStorage storage) : base(levelBorders, levelCounter) => _storage = storage;
 
     public void Run()
     {
-        for (int i = 0; i < _factory.Storage.Count; i++)
+        for (int i = 0; i < _storage.Count; i++)
         {
-            IInteractiveObject coin = _factory.Storage.GetObjectTransform(i);
+            IInteractiveObject coin = _storage.GetObjectTransform(i);
             coin.Transform.position = GetAllowedRandomPosition();
         }
     }

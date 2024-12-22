@@ -5,18 +5,14 @@ public class SnowflakeFactory
     private SnowflakeFactoryConfig _config;
     private LevelCounter _levelCounter;
 
-    private SnowflakeStorage _storage;
+    private SnowflakesStorage _storage;
 
-    public SnowflakeFactory(SnowflakeFactoryConfig config, LevelCounter levelCounter)
+    public SnowflakeFactory(SnowflakeFactoryConfig config, LevelCounter levelCounter, SnowflakesStorage storage)
     {
         _config = config;
         _levelCounter = levelCounter;
-
-        string storageName = "SnowflakeStorage";
-        _storage = new SnowflakeStorage(storageName);
+        _storage = storage;
     }
-
-    public SnowflakeStorage Storage => _storage;
 
     public void Run()
     {
@@ -24,16 +20,6 @@ public class SnowflakeFactory
         {
             Snowflake snowflake = Object.Instantiate(_config.Prefab, _storage.Transform);
             _storage.Add(snowflake);
-        }
-    }
-
-    public void Clear()
-    {
-        for (int i = 0; i < _storage.Count; i++)
-        {
-            Snowflake snowflake = _storage.GetSnowflake(i);
-            _storage.Remove(snowflake);
-            snowflake.ReturnToDefaultState();
         }
     }
 }

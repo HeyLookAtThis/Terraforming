@@ -28,13 +28,6 @@ public class Loot : InteractiveObject
         }
     }
 
-    public override void ReturnToDefaultState() 
-    {
-        base.ReturnToDefaultState();
-        _view.TurnOffVisible();
-        gameObject.isStatic = true;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (_view.IsAllowed && UsedByPlayer == false)

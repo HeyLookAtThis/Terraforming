@@ -17,12 +17,6 @@ public class Tree : InteractiveObject
         MakeGreen();
     }
 
-    public override void ReturnToDefaultState()
-    {
-        base.ReturnToDefaultState();
-        Destroy(gameObject);
-    }
-
     public void Initialize(GrassPainter grassPainter) => _grassPainter = grassPainter;
 
     private void MakeGreen()

@@ -16,17 +16,11 @@ public abstract class InteractiveObject : MonoBehaviour, IInteractiveObject
 
     public virtual void ReactToScanner() { }
 
-    public virtual void ReturnToDefaultState() => TurnOffUsed();
+    public void Destroy() => Destroy(gameObject);
 
     protected void TurnOnUsed()
     {
         if (_usedByPlayer == false)
             _usedByPlayer = true;
-    }
-
-    protected void TurnOffUsed()
-    {
-        if (_usedByPlayer == true)
-            _usedByPlayer = false;
     }
 }

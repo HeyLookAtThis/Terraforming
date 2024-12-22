@@ -5,18 +5,15 @@ public class MainFactory
     private VolcanoFactory _volcanoFactory;
     private SnowflakeFactory _snowflakeFactory;
 
-    public MainFactory(MainFactoryConfig config, LevelCounter levelCounter, GrassPainter grassPainter)
+    public MainFactory(MainFactoryConfig config, LevelCounter levelCounter, GrassPainter grassPainter, MainStorage mainStorage)
     {
-        _coinsFactory = new CoinsFactory(config.CoinFactoryConfig);
-        _treeFactory = new TreeFactory(config.TreeFactoryConfig, levelCounter, grassPainter);
-        _volcanoFactory = new VolcanoFactory(config.VolcanoFactoryConfig, levelCounter);  
-        _snowflakeFactory = new SnowflakeFactory(config.SnowflakeFactoryConfig, levelCounter);
+        _coinsFactory = new CoinsFactory(config.CoinFactoryConfig, mainStorage.Coins);
+        _volcanoFactory = new VolcanoFactory(config.VolcanoFactoryConfig, levelCounter, mainStorage.Volcanoes);  
+        _treeFactory = new TreeFactory(config.TreeFactoryConfig, levelCounter, grassPainter, mainStorage.Trees);
+        _snowflakeFactory = new SnowflakeFactory(config.SnowflakeFactoryConfig, levelCounter, mainStorage.Snowflakes);
     }
 
-    public CoinsFactory Coins => _coinsFactory;
-    public TreeFactory Trees => _treeFactory;
     public VolcanoFactory Volcanoes => _volcanoFactory;
-    public SnowflakeFactory Snowflakes => _snowflakeFactory;
 
     public void Run()
     {
@@ -24,12 +21,5 @@ public class MainFactory
         _treeFactory.Run();
         _volcanoFactory.Run();
         _snowflakeFactory.Run();
-    }
-
-    public void Clear()
-    {
-        _coinsFactory.Clear();
-        _treeFactory.Clear();
-        _snowflakeFactory.Clear();
     }
 }

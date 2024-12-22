@@ -9,6 +9,7 @@ public class LevelBuilder : MonoBehaviour
     private LevelConfig _config;
     private LevelCounter _counter;
 
+    private MainStorage _mainStorage;
     private MainFactory _mainFactory;
     private MainSpawner _mainSpawner;
 
@@ -18,19 +19,10 @@ public class LevelBuilder : MonoBehaviour
     private Character _character;
     private Cloud _cloud;
 
+    public MainStorage MainStorage => _mainStorage;
     public MainFactory MainFactory => _mainFactory;
     public Atmosphere Atmosphere => _atmosphere;
     public LevelCounter Counter => _counter;
-
-    private void OnEnable()
-    {
-        MainFactory.Volcanoes.AddedVolcano += _atmosphere.OnIncreaseMaxTemperature;
-    }
-
-    private void OnDisable()
-    {
-        MainFactory.Volcanoes.AddedVolcano -= _atmosphere.OnIncreaseMaxTemperature;
-    }
 
     [Inject]
     private void Construct(Terrain terrain, MainFactoryConfig factoryConfig, LevelConfig levelConfig, LevelBordersMarker levelBoundariesMarker, GrassPainter grassPainter, Character character, Cloud cloud)
@@ -39,10 +31,11 @@ public class LevelBuilder : MonoBehaviour
         _counter = new LevelCounter(_config.CounterConfig);
         _grassPainter = grassPainter;
 
-        _mainFactory = new MainFactory(factoryConfig, _counter, _grassPainter);
-        _mainSpawner = new MainSpawner(_mainFactory, levelBoundariesMarker, _counter);
+        _mainStorage = new MainStorage();
+        _mainFactory = new MainFactory(factoryConfig, _counter, _grassPainter, _mainStorage);
+        _mainSpawner = new MainSpawner(_mainStorage, levelBoundariesMarker, _counter);
 
-        _atmosphere = new Atmosphere(_config.AtmosphereConfig, _mainFactory.Volcanoes.Storage.Count);
+        _atmosphere = new Atmosphere(_config.AtmosphereConfig);
 
         _character = character;
         _cloud = cloud;
@@ -58,17 +51,16 @@ public class LevelBuilder : MonoBehaviour
     {
         _mainFactory.Run();
         _mainSpawner.Run();
-
+        _atmosphere.InitializeMaxTemperature(_mainStorage.Volcanoes.Count);
         SubscribeAtmosphereToAllVolcanoes();
     }
 
     private void Clear()
     {
         UnsubscribeAtmosphereToAllVolcanoes();
-        _mainFactory.Clear();
-
-        _grassPainter.ClearMap();
+        _mainStorage.Clear();
         SetPlayerPosition();
+        _grassPainter.ClearMap();
         _atmosphere.ResetTemperature();
     }
 
@@ -80,14 +72,13 @@ public class LevelBuilder : MonoBehaviour
 
     private void SubscribeAtmosphereToAllVolcanoes()
     {
-        for (int i = 0; i < MainFactory.Volcanoes.Storage.Count; i++)
-            MainFactory.Volcanoes.Storage.GetVolcano(i).Heating += _atmosphere.IncreaseTemperature;
+        for (int i = 0; i < _mainStorage.Volcanoes.Count; i++)
+            _mainStorage.Volcanoes.GetVolcano(i).Heating += _atmosphere.IncreaseTemperature;
     }
 
     private void UnsubscribeAtmosphereToAllVolcanoes()
     {
-        for (int i = 0; i < MainFactory.Volcanoes.Storage.Count; i++)
-            MainFactory.Volcanoes.Storage.GetVolcano(i).Heating -= _atmosphere.IncreaseTemperature;
+        for (int i = 0; i < _mainStorage.Volcanoes.Count; i++)
+            _mainStorage.Volcanoes.GetVolcano(i).Heating -= _atmosphere.IncreaseTemperature;
     }
-
 }

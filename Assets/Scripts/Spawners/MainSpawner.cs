@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class MainSpawner
 {
     private CoinsSpawner _coinsSpawner;
@@ -7,12 +5,12 @@ public class MainSpawner
     private VolcanoSpawner _volcanoSpawner;
     private SnowflakeSpawner _snowflakeSpawner;
 
-    public MainSpawner(MainFactory mainFactory, LevelBordersMarker marker, LevelCounter levelCounter)
+    public MainSpawner(MainStorage mainStorage, LevelBordersMarker marker, LevelCounter levelCounter)
     {
-        _coinsSpawner = new CoinsSpawner(marker, levelCounter, mainFactory.Coins);
-        _treeSpawner = new TreeSpawner(marker, levelCounter, mainFactory.Trees);
-        _volcanoSpawner = new VolcanoSpawner(marker, levelCounter, mainFactory.Volcanoes);
-        _snowflakeSpawner = new SnowflakeSpawner(mainFactory.Snowflakes.Storage, _treeSpawner, marker);
+        _coinsSpawner = new CoinsSpawner(marker, levelCounter, mainStorage.Coins);
+        _treeSpawner = new TreeSpawner(marker, levelCounter, mainStorage.Trees);
+        _volcanoSpawner = new VolcanoSpawner(marker, levelCounter, mainStorage.Volcanoes);
+        _snowflakeSpawner = new SnowflakeSpawner(mainStorage.Snowflakes, _treeSpawner, marker);
     }
 
     public void Run()
@@ -21,10 +19,5 @@ public class MainSpawner
         _treeSpawner.Run();
         _snowflakeSpawner.Run();
         _coinsSpawner.Run();
-    }
-
-    public void Clear()
-    {
-
     }
 }

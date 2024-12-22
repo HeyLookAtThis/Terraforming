@@ -23,7 +23,7 @@ public class GamePanel : MonoBehaviour, IPanel
     [Inject]
     private void Construct(IPanelSwitcher panelSwitcher, LevelBuilder levelBuilder)
     {
-        _storage = levelBuilder.MainFactory.Volcanoes.Storage;
+        _storage = levelBuilder.MainStorage.Volcanoes;
         _switcher = panelSwitcher;
     }
 

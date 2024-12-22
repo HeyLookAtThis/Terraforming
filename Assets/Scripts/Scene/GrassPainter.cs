@@ -32,6 +32,7 @@ public class GrassPainter
 
     private int CoordinatesOrigin => 0;
     private float ShadedValue => 1f;
+    private float TransparentValue => 0f;
     private float Speed => 2f;
 
     public void Draw(Vector3 position, int radius)
@@ -56,6 +57,7 @@ public class GrassPainter
                     if (_map[x, y, GrassLayerIndex] < ShadedValue && angle == 0)
                     {
                         _map[x, y, GrassLayerIndex] += normalizedValue * Speed;
+                        _map[x, y, GroundLayerIndex] -= normalizedValue * Speed;
                         _isDrawing = true;
                     }
                     else
@@ -73,8 +75,13 @@ public class GrassPainter
     public void ClearMap()
     {
         for (int y = 0; y < _terrain.terrainData.alphamapHeight; y++)
+        {
             for (int x = 0; x < _terrain.terrainData.alphamapWidth; x++)
-                    _map[x, y, GroundLayerIndex] = ShadedValue;
+            {
+                _map[x, y, GroundLayerIndex] = ShadedValue;
+                _map[x, y, GrassLayerIndex] = TransparentValue;
+            }
+        }
     }
 
     private void InitializeMap() => _map = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];

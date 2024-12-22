@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TreeSpawner : Spawner
 {
-    private TreeFactory _factory;
+    private TreesStorage _storage;
     private List<IInteractiveObject> _positions;
 
-    public TreeSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, TreeFactory treeFactory) : base(levelBorders, levelCounter)
+    public TreeSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, TreesStorage treeStorage) : base(levelBorders, levelCounter)
     {
-        _factory = treeFactory;
+        _storage = treeStorage;
         _positions = new List<IInteractiveObject>();
     }
 
@@ -17,9 +17,9 @@ public class TreeSpawner : Spawner
 
     public void Run()
     {
-        for (int i = 0; i < _factory.Storage.Count; i++)
+        for (int i = 0; i < _storage.Count; i++)
         {
-            IInteractiveObject tree = _factory.Storage.GetObjectTransform(i);
+            IInteractiveObject tree = _storage.GetObjectTransform(i);
             tree.Transform.position = GetAllowedRandomPosition();
             _positions.Add(tree);
         }

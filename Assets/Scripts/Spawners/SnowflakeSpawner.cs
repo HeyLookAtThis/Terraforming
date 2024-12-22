@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class SnowflakeSpawner
 {
-    private SnowflakeStorage _storage;
+    private SnowflakesStorage _storage;
     private TreeSpawner _treeSpawner;
     private LevelBordersMarker _marker;
 
-    public SnowflakeSpawner(SnowflakeStorage storage, TreeSpawner treeSpawner, LevelBordersMarker marker)
+    public SnowflakeSpawner(SnowflakesStorage storage, TreeSpawner treeSpawner, LevelBordersMarker marker)
     {
         _storage = storage;
         _treeSpawner = treeSpawner;

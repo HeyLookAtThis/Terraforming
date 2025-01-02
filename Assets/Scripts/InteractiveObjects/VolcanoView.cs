@@ -101,7 +101,7 @@ public class VolcanoView : MonoBehaviour
 
         if (isOver)
         {
-            _volcano.gameObject.SetActive(false);
+            _volcano.Freeze();
             yield break;
         }
     }

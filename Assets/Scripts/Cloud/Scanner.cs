@@ -76,7 +76,6 @@ public class Scanner
                         else
                             _foundVolcano?.Invoke((Volcano)interactionObject);
                     }
-
                 }
             }
         }

@@ -14,7 +14,7 @@ public class CountDisplayerMediator : MonoBehaviour
         _counter.CoinAdded += _displayer.OnShowCoins;
         _counter.SnowflakeAdded += _displayer.OnShowSnowflakes;
 
-        _volcanoFactory.CreatedVolcano += OnShowVolcanoes;
+        _volcanoFactory.Finished += OnShowVolcanoes;
         _volcanoStorage.FrozenVolcanoesValueChanged += OnShowVolcanoes;
     }
 
@@ -23,7 +23,7 @@ public class CountDisplayerMediator : MonoBehaviour
         _counter.CoinAdded -= _displayer.OnShowCoins;
         _counter.SnowflakeAdded -= _displayer.OnShowSnowflakes;
 
-        _volcanoFactory.CreatedVolcano -= OnShowVolcanoes;
+        _volcanoFactory.Finished -= OnShowVolcanoes;
         _volcanoStorage.FrozenVolcanoesValueChanged -= OnShowVolcanoes;
     }
 

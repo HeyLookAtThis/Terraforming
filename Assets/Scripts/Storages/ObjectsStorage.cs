@@ -22,11 +22,9 @@ public abstract class ObjectsStorage
 
     public void Clear()
     {
-        for (int i = 0; i < Count; i++)
-        {
-            InteractiveObject interactiveObject = _interactiveObjects[i];
-            _interactiveObjects.Remove(interactiveObject);
+        foreach(var interactiveObject in _interactiveObjects)
             interactiveObject.Destroy();
-        }
+
+        _interactiveObjects.Clear();
     }
 }

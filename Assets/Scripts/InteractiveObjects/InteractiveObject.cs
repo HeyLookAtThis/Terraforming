@@ -8,14 +8,15 @@ public abstract class InteractiveObject : MonoBehaviour, IInteractiveObject
 
     public Transform Transform { get => transform; set => transform.position = value.position; }
 
-    protected virtual void Awake()
+    private void OnEnable()
     {
         gameObject.isStatic = true;
         _usedByPlayer = false;
+        SetDefaultState();
     }
 
-    public virtual void ReactToScanner() { }
-
+    public abstract void ReactToScanner();
+    public abstract void SetDefaultState();
     public void Destroy() => Destroy(gameObject);
 
     protected void TurnOnUsed()
@@ -23,4 +24,6 @@ public abstract class InteractiveObject : MonoBehaviour, IInteractiveObject
         if (_usedByPlayer == false)
             _usedByPlayer = true;
     }
+
+    protected void TurnOffUsed() => _usedByPlayer = false;
 }

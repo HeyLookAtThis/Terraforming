@@ -10,14 +10,14 @@ public class MainSpawner
         _coinsSpawner = new CoinsSpawner(marker, levelCounter, mainStorage.Coins);
         _treeSpawner = new TreeSpawner(marker, levelCounter, mainStorage.Trees);
         _volcanoSpawner = new VolcanoSpawner(marker, levelCounter, mainStorage.Volcanoes);
-        _snowflakeSpawner = new SnowflakeSpawner(mainStorage.Snowflakes, _treeSpawner, marker);
+        _snowflakeSpawner = new SnowflakeSpawner(mainStorage.Snowflakes, mainStorage.Trees, marker);
     }
 
     public void Run()
     {
-        _volcanoSpawner.Run();
-        _treeSpawner.Run();
-        _snowflakeSpawner.Run();
         _coinsSpawner.Run();
+        _treeSpawner.Run();
+        _volcanoSpawner.Run();
+        _snowflakeSpawner.Run();
     }
 }

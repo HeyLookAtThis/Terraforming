@@ -28,7 +28,7 @@ public class VolcanoSpawner : Spawner
 
         while (isSuccess == false)
         {
-            var colliders = Physics.OverlapCapsule(position, position + Vector3.up * radius, radius);
+            var colliders = Physics.OverlapSphere(position, radius);
 
             var collider = colliders.FirstOrDefault(collider => IsWater(collider) || IsTree(collider) || IsVolkano(collider));
 

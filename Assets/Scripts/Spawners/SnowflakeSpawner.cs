@@ -3,13 +3,13 @@ using UnityEngine;
 public class SnowflakeSpawner
 {
     private SnowflakesStorage _storage;
-    private TreeSpawner _treeSpawner;
+    private TreesStorage _treeStorage;
     private LevelBordersMarker _marker;
 
-    public SnowflakeSpawner(SnowflakesStorage storage, TreeSpawner treeSpawner, LevelBordersMarker marker)
+    public SnowflakeSpawner(SnowflakesStorage storage, TreesStorage treeStorage, LevelBordersMarker marker)
     {
         _storage = storage;
-        _treeSpawner = treeSpawner;
+        _treeStorage = treeStorage;
         _marker = marker;
     }
 
@@ -24,8 +24,9 @@ public class SnowflakeSpawner
 
     private Vector3 GetAllowedRandomPosition(int treeIndex)
     {
-        Vector3 treePosition = GetTree(treeIndex).Transform.position;
+        Vector3 treePosition = _treeStorage.GetPosition(treeIndex);
         Vector3 position = GetRandomCoordinateNearTree(treePosition);
+
         bool isSuccess = false;
 
         while (isSuccess == false)
@@ -47,6 +48,4 @@ public class SnowflakeSpawner
         Vector2 randomPositionInsideCircle = Random.insideUnitCircle * distance;
         return new Vector3(treePosition.x + randomPositionInsideCircle.x, treePosition.y, treePosition.z + randomPositionInsideCircle.y);
     }
-
-    private IInteractiveObject GetTree(int treeIndex) => _treeSpawner.GetTansform(treeIndex);
 }

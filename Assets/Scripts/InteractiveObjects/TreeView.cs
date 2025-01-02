@@ -21,10 +21,17 @@ public class TreeView : MonoBehaviour
         Initialize();
     }
 
+    public void MakeDefault()
+    {
+        _emptyTrunk.SetActive(true);
+        _greenTrunk.SetActive(false);
+    }
+
     public void MakeGreen()
     {
         _emptyTrunk.SetActive(false);
         _greenTrunk.SetActive(true);
+
         _growEffect.Play();
         PlaySound();
     }
@@ -34,16 +41,11 @@ public class TreeView : MonoBehaviour
         _source.clip = _growSound;
         _source.loop = false;
         _source.playOnAwake = false;
-
-        _emptyTrunk.SetActive(true);
-        _greenTrunk.SetActive(false);
     }
 
     private void PlaySound()
     {
-        _source.clip = _growSound;
         _source.Play();
-
         SwitchSound();
     }
 

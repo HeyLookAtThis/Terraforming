@@ -35,10 +35,9 @@ public class Thermometer : MonoBehaviour
     private void Construct(LevelBuilder levelBuilder)
     {
         _atmosphere = levelBuilder.Atmosphere;
-        InitializeValues();
     }
 
-    private void InitializeValues()
+    public void InitializeValues()
     {
         _slider.minValue = _atmosphere.MinTemperature;
         _slider.maxValue = _atmosphere.MaxTemperature;

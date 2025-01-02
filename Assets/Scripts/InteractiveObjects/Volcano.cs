@@ -7,6 +7,7 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
     [SerializeField] VolcanoView _view;
 
     private Coroutine _heatGenerator;
+    private bool _isFrozen;
 
     private UnityAction _wasFrozen;
     private UnityAction<float> _heating;
@@ -23,17 +24,28 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
         remove => _heating -= value;
     }
 
-    public bool IsFrozen => UsedByPlayer;
-
-    private void OnEnable() => BeginHeatGround();
+    public bool IsFrozen => _isFrozen;
 
     public override void ReactToScanner()
     {
         if (UsedByPlayer == false)
         {
-            _view.Freeze();
             TurnOnUsed();
+            _view.Freeze();
         }
+    }
+
+    public override void SetDefaultState()
+    {
+        TurnOffUsed();
+        BeginHeatGround();
+    }
+
+    public void Freeze()
+    {
+        _isFrozen = true;
+        _wasFrozen?.Invoke();
+        gameObject.SetActive(false);
     }
 
     private void BeginHeatGround()
@@ -55,9 +67,6 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
         }
 
         if (IsFrozen)
-        {
-            _wasFrozen?.Invoke();
             yield break;
-        }
     }
 }

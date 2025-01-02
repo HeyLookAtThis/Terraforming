@@ -13,7 +13,7 @@ public class PanelsSwitcher : MonoBehaviour, IPanelSwitcher
     private List<IPanel> _panels;
     private IPanel _currentPanel;
 
-    private void Awake()
+    public void Initialize()
     {
         _panels = new List<IPanel> { _gamePanel, _winPanel, _losingPanel, _loadingPanel, _previewPanel };
         HideAll();

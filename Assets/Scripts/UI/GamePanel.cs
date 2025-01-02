@@ -1,23 +1,31 @@
 using UnityEngine;
 using Zenject;
 
-public class GamePanel : MonoBehaviour, IPanel
+public class GamePanel : MonoBehaviour, IPanel, IGameTimer
 {
     [SerializeField] private Thermometer _thermometer;
 
     private IPanelSwitcher _switcher;
     private VolcanoStorage _storage;
 
+    public float PlayingTimeScale => 1.0f;
+    public float PausingTimeScale => 0.0f;
+
     private void OnEnable()
     {
         _storage.AllVolcanoesFrozen += _switcher.SwitchPanel<VictoryPanel>;
         _thermometer.ReachedMaxValue += _switcher.SwitchPanel<GameOverPanel>;
+
+        _thermometer.InitializeValues();
+        StartGame();
     }
 
     private void OnDisable()
     {
         _storage.AllVolcanoesFrozen -= _switcher.SwitchPanel<VictoryPanel>;
         _thermometer.ReachedMaxValue -= _switcher.SwitchPanel<GameOverPanel>;
+
+        StopGame();
     }
 
     [Inject]
@@ -28,6 +36,7 @@ public class GamePanel : MonoBehaviour, IPanel
     }
 
     public void Hide() => gameObject.SetActive(false);
-
     public void Show() => gameObject.SetActive(true);
+    public void StartGame() => Time.timeScale = PlayingTimeScale;
+    public void StopGame() => Time.timeScale = PausingTimeScale;
 }

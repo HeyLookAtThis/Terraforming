@@ -22,10 +22,7 @@ public class VolcanoStorage : ObjectsStorage, IDisposable
         remove => _allVolcanoesFrozen -= value;
     }
 
-    public void Dispose()
-    {
-        UnsubscribeOnVolcanoes();
-    }
+    public void Dispose() => UnsubscribeOnVolcanoes();
 
     public Volcano GetVolcano(int index) => (Volcano)InteractiveObjects[index];
 

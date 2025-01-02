@@ -19,8 +19,6 @@ public class LootView : MonoBehaviour
 
         _audioSourse.playOnAwake = false;
         _audioSourse.loop = false;
-
-        TurnOffVisible();
     }
 
     public void TurnOnVisible()

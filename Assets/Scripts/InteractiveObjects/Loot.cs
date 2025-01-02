@@ -10,22 +10,27 @@ public class Loot : InteractiveObject
     private SphereCollider _sphereCollider;
     private Coroutine _playerChaser;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _sphereCollider = GetComponent<SphereCollider>();
         _sphereCollider.isTrigger = true;
     }
 
     public override void ReactToScanner()
     {
-        base.ReactToScanner();
-
         if (UsedByPlayer == false)
         {
             gameObject.isStatic = false;
             _view.TurnOnVisible();
         }
+    }
+
+    public override void SetDefaultState()
+    {
+        gameObject.isStatic = true;
+
+        TurnOffUsed();
+        _view.TurnOffVisible();
     }
 
     private void OnTriggerEnter(Collider other)

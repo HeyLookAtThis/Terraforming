@@ -11,10 +11,11 @@ public class Tree : InteractiveObject
 
     private int GrassPainterRadiusMultiplier => 10;
 
-    public override void ReactToScanner()
+    public override void ReactToScanner() => MakeGreen();
+    public override void SetDefaultState()
     {
-        base.ReactToScanner();
-        MakeGreen();
+        TurnOffUsed();
+        _view.MakeDefault();
     }
 
     public void Initialize(GrassPainter grassPainter) => _grassPainter = grassPainter;

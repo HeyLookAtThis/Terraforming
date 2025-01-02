@@ -1,8 +1,10 @@
+using UnityEngine;
+
 public class TreesStorage : ObjectsStorage
 {
     public TreesStorage(string storageName) : base(storageName)
     {
     }
 
-    public Tree GetTree(int index) => (Tree)InteractiveObjects[index];
+    public Vector3 GetPosition(int index) => GetObjectTransform(index).Transform.position;
 }

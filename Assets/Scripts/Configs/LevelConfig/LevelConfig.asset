@@ -16,7 +16,7 @@ MonoBehaviour:
     <Radius>k__BackingField: 23
     <Center>k__BackingField: {x: 25, y: 1, z: 25}
   _counterConfig:
-    <FirstLevelNumber>k__BackingField: 1
+    <FirstLevelNumber>k__BackingField: 7
     <LastLevelNumber>k__BackingField: 7
   _atmosphereConfig:
     <TimeToReachMaxTemperature>k__BackingField: 60

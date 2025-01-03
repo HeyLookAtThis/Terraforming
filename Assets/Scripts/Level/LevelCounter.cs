@@ -1,3 +1,10 @@
+public enum Levels
+{
+    easy,
+    normal = 3,
+    hard = 7
+}
+
 public class LevelCounter
 {
     private LevelCounterConfig _config;
@@ -22,7 +29,7 @@ public class LevelCounter
             _currentLevel++;
     }
 
-    public void SetFirstLevelLevel()
+    public void SetFirstLevel()
     {
         _currentLevel = _firstLevel;
     }

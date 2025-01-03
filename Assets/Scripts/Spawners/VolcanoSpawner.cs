@@ -4,15 +4,20 @@ using UnityEngine;
 public class VolcanoSpawner : Spawner
 {
     private VolcanoStorage _storage;
+    private CircleCoordinateSystem _cellsSystem;
 
-    public VolcanoSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, VolcanoStorage storage) : base(levelBorders, levelCounter) => _storage = storage;
+    public VolcanoSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, VolcanoStorage storage, CircleCoordinateSystem cellsSystem) : base(levelBorders, levelCounter)
+    {
+        _storage = storage;
+        _cellsSystem = cellsSystem;
+    }
 
     public void Run()
     {
         for (int i = 0; i < _storage.Count; i++)
         {
             IInteractiveObject volcano = _storage.GetObjectTransform(i);
-            volcano.Transform.position = GetAllowedRandomPosition();
+            _cellsSystem.PlaceObject(volcano, LevelCounter.CurrentLevel);
             volcano.Transform.LookAt(LevelBorders.Center);
         }
     }

@@ -4,10 +4,12 @@ using UnityEngine;
 public class TreeSpawner : Spawner
 {
     private TreesStorage _storage;
+    private CircleCoordinateSystem _cellsSystem;
 
-    public TreeSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, TreesStorage treeStorage) : base(levelBorders, levelCounter)
+    public TreeSpawner(LevelBordersMarker levelBorders, LevelCounter levelCounter, TreesStorage treeStorage, CircleCoordinateSystem cellsSystem) : base(levelBorders, levelCounter)
     {
         _storage = treeStorage;
+        _cellsSystem = cellsSystem;
     }
 
     public void Run()
@@ -15,7 +17,8 @@ public class TreeSpawner : Spawner
         for (int i = 0; i < _storage.Count; i++)
         {
             IInteractiveObject tree = _storage.GetObjectTransform(i);
-            tree.Transform.position = GetAllowedRandomPosition();
+            _cellsSystem.PlaceObject(tree, LevelCounter.CurrentLevel);
+            //tree.Transform.position = GetAllowedRandomPosition();
         }
     }
 

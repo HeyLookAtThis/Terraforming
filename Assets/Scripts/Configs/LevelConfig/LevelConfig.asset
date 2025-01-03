@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
   _markerConfig:
-    <Radius>k__BackingField: 23
+    <DistanceToStart>k__BackingField: 9
+    <DistanceToEnd>k__BackingField: 23
+    <DistanceBetweenAxis>k__BackingField: 5
     <Center>k__BackingField: {x: 25, y: 1, z: 25}
   _counterConfig:
-    <FirstLevelNumber>k__BackingField: 7
+    <FirstLevelNumber>k__BackingField: 5
     <LastLevelNumber>k__BackingField: 7
   _atmosphereConfig:
     <TimeToReachMaxTemperature>k__BackingField: 60

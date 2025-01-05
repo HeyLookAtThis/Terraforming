@@ -11,8 +11,6 @@ public class Cell
         Clear();
     }
 
-    public bool IsFree => _isFree;
-
     public void Occupy(IInteractiveObject interactiveObject)
     {
         if (_isFree)

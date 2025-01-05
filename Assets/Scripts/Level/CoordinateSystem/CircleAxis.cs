@@ -4,22 +4,19 @@ using UnityEngine;
 public class CircleAxis
 {
     private List<Cell> _cells;
-    private List<Cell> _emptyCell;
+    private List<Cell> _freeCells;
 
-    public CircleAxis(float radius, float arcLength, LevelBordersMarker marker)
+    public CircleAxis(float radius, LevelBordersMarker marker) => InitializeCoordinates(radius, marker);
+
+    public bool IsFilled => _freeCells.Count == 0;
+    private float ArcLength => 7.85f;
+
+    public void PlaceObjectToRandomCell(IInteractiveObject interactiveObject)
     {
-        Initialize(radius, arcLength, marker);
-    }
+        int index = GetRandomCellIndex();
 
-    public int FreeCellsCount => _emptyCell.Count;
-
-    public void PlaceObject(int index, IInteractiveObject interactiveObject)
-    {
-        if(index < _cells.Count)
-        {
-            _cells[index].Occupy(interactiveObject);
-            _emptyCell.RemoveAt(index);
-        }
+        _freeCells[index].Occupy(interactiveObject);
+        _freeCells.RemoveAt(index);
     }
 
     public void ClearCells()
@@ -30,13 +27,13 @@ public class CircleAxis
         ResetEmptyCells();
     }
 
-    private void Initialize(float radius, float arcLength, LevelBordersMarker levelBordersMarker)
+    private void InitializeCoordinates(float radius, LevelBordersMarker levelBordersMarker)
     {
         _cells = new List<Cell>();
 
         float length = GetCircleLength(radius);
-        float currentArcLength = arcLength;
-        int cellsCount = (int)(length / arcLength);
+        float currentArcLength = ArcLength;
+        int cellsCount = (int)(length / ArcLength);
 
         for (int i = 0; i < cellsCount; i++)
         {
@@ -50,7 +47,7 @@ public class CircleAxis
             Cell cell = new Cell(position);
             _cells.Add(cell);
 
-            currentArcLength += arcLength;
+            currentArcLength += ArcLength;
         }
 
         ResetEmptyCells();
@@ -58,5 +55,6 @@ public class CircleAxis
 
     private float GetAngle(float radius, float acrLength) => acrLength / (Mathf.PI * radius) * 180f;
     private float GetCircleLength(float radius) => 2f * Mathf.PI * radius;
-    private void ResetEmptyCells() => _emptyCell = new List<Cell>(_cells);
+    private void ResetEmptyCells() => _freeCells = new List<Cell>(_cells);
+    private int GetRandomCellIndex() => (int)Random.Range(0, _freeCells.Count - 1);
 }

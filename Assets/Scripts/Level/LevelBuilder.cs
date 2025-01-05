@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +10,7 @@ public class LevelBuilder : MonoBehaviour
 
     private MainStorage _mainStorage;
     private MainFactory _mainFactory;
-    private MainSpawner _mainSpawner;
+    private MainPlacemaker _mainPlacemaker;
 
     private Atmosphere _atmosphere;
     private GrassPainter _grassPainter;
@@ -33,7 +32,7 @@ public class LevelBuilder : MonoBehaviour
 
         _mainStorage = new MainStorage();
         _mainFactory = new MainFactory(factoryConfig, _counter, _grassPainter, _mainStorage);
-        _mainSpawner = new MainSpawner(_mainStorage, levelBoundariesMarker, _counter);
+        _mainPlacemaker = new MainPlacemaker(_mainStorage, levelBoundariesMarker, _counter);
 
         _atmosphere = new Atmosphere(_config.AtmosphereConfig);
 
@@ -49,8 +48,10 @@ public class LevelBuilder : MonoBehaviour
 
     private void Run()
     {
+        SetPlayerPosition();
+
         _mainFactory.Run();
-        _mainSpawner.Run();
+        _mainPlacemaker.Run();
         _atmosphere.InitializeMaxTemperature(_mainStorage.Volcanoes.Count);
 
         SubscribeAtmosphereToVolcanoes();
@@ -63,8 +64,6 @@ public class LevelBuilder : MonoBehaviour
         _mainStorage.Clear();
         _grassPainter.ClearMap();
         _atmosphere.ResetTemperature();
-
-        SetPlayerPosition();
     }
 
     private void SetPlayerPosition()

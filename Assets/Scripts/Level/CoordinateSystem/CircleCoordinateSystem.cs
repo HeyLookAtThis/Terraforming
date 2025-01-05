@@ -1,52 +1,23 @@
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 
 public class CircleCoordinateSystem
 {
     private List<CircleAxis> _axis;
 
-    public CircleCoordinateSystem(LevelBordersMarker marker)
+    public CircleCoordinateSystem(LevelBordersMarker marker) => Initialize(marker);
+
+    public void PlaceObject(IInteractiveObject interactiveObject)
     {
-        Initialize(marker);
+        var axis = _axis.FirstOrDefault(axis => axis.IsFilled == false);
+        axis.PlaceObjectToRandomCell(interactiveObject);
     }
 
-    private float ArcLength => 7.85f;
-
-    public void PlaceObject(IInteractiveObject interactiveObject, int currentLevel)
+    public void Clear()
     {
-        if (currentLevel < 3)
-        {
-            _axis[0].PlaceObject(FindEmptyCellIndex(_axis[0]), interactiveObject);
-        }
-        else if (currentLevel >= 3 && currentLevel < 7)
-        {
-            if (_axis[0].FreeCellsCount > 0)
-            {
-                _axis[0].PlaceObject(FindEmptyCellIndex(_axis[0]), interactiveObject);
-            }
-            else
-            {
-                _axis[1].PlaceObject(FindEmptyCellIndex(_axis[1]), interactiveObject);
-            }
-        }
-        else if (currentLevel >= 7 && currentLevel < 13)
-        {
-            if (_axis[0].FreeCellsCount > 0)
-            {
-                _axis[0].PlaceObject(FindEmptyCellIndex(_axis[0]), interactiveObject);
-            }
-            else if(_axis[0].FreeCellsCount == 0 && _axis[1].FreeCellsCount > 0)
-            {
-                _axis[1].PlaceObject(FindEmptyCellIndex(_axis[1]), interactiveObject);
-            }
-            else
-            {
-                _axis[2].PlaceObject(FindEmptyCellIndex(_axis[1]), interactiveObject);
-            }
-        }
+        foreach(var axis in _axis)
+            axis.ClearCells();
     }
-
-    private int FindEmptyCellIndex(CircleAxis cells) => (int)Random.Range(0, cells.FreeCellsCount - 1);
 
     private void Initialize(LevelBordersMarker marker)
     {
@@ -55,9 +26,9 @@ public class CircleCoordinateSystem
 
         _axis = new List<CircleAxis>();
 
-        for (int i  = 0; i < axisCount; i++)
+        for (int i  = 0; i <= axisCount; i++)
         {
-            CircleAxis axis = new CircleAxis(radius, ArcLength, marker);
+            CircleAxis axis = new CircleAxis(radius, marker);
             _axis.Add(axis);
 
             radius += marker.Config.DistanceBetweenAxis;

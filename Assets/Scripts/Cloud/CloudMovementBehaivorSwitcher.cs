@@ -10,16 +10,20 @@ public class CloudMovementBehaivorSwitcher
     public CloudMovementBehaivorSwitcher(Cloud cloud,Transform target)
     {
         _cloud = cloud;
+        WateringCloudMover wateringCloudMover = new WateringCloudMover(cloud.transform, target);
 
         _movers = new List<IMover>
         {
-            new WateringCloudMover(cloud.transform, target),
+            wateringCloudMover,
             new EmptyCloudMover(cloud.transform, target, cloud.Config.EmptyCloudConfig),
             new CloudToCharacterMover(cloud.transform,target, cloud.Config.CloudUnderChatacterConfig)
         };
 
+        WateringCloudMover = wateringCloudMover;
         SetMover<WateringCloudMover>();
     }
+
+    public WateringCloudMover WateringCloudMover { get; private set; }
 
     public void SetMover<T>() where T : IMover
     {

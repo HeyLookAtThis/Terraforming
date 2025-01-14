@@ -6982,6 +6982,14 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7656540105981232406, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656540105981232406, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

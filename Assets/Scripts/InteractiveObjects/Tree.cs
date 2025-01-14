@@ -58,7 +58,7 @@ public class Tree : InteractiveObject
 
         while(passedTime < runtime)
         {
-            _grassPainter.Draw(transform.position, _radius * GrassPainterRadiusMultiplier);
+            _grassPainter.Draw(transform.position, _radius * GrassPainterRadiusMultiplier, this);
             passedTime += Time.deltaTime;
             yield return waitForEndOfFrame;
         }

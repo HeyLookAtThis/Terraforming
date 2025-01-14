@@ -1,33 +1,30 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Scanner
+public class Scanner : IDisposable
 {
     private Cloud _cloud;
-    private float _sphereRadius;
     private Collider[] _colliders;
+    private WateringCloudMover _wateringCloudMover;
 
+    private float _sphereRadius;
+    private bool _isActive;
+
+    private UnityAction<Volcano> _foundVolcano;
     private UnityAction _foundWater;
     private UnityAction _lostWater;
-    private UnityAction<Volcano> _foundVolcano;
 
-    public Scanner(Cloud cloud)
+    public Scanner(Cloud cloud, WateringCloudMover wateringCloudMover)
     {
         _cloud = cloud;
         _sphereRadius = cloud.Config.CloudUnderChatacterConfig.ScannerRadius;
-    }
 
-    public event UnityAction FoundWater
-    {
-        add => _foundWater += value;
-        remove => _foundWater -= value;
-    }
+        _isActive = true;
 
-    public event UnityAction LostWater
-    {
-        add => _lostWater += value;
-        remove => _lostWater -= value;
+        _wateringCloudMover = wateringCloudMover;
+        _wateringCloudMover.ChangedActivity += OnSetActivity;
     }
 
     public event UnityAction<Volcano> FoundVolcano
@@ -36,47 +33,63 @@ public class Scanner
         remove => _foundVolcano -= value;
     }
 
+    public event UnityAction FoudWater
+    {
+        add => _foundWater += value;
+        remove => _foundWater -= value;
+    }
+
+    public event UnityAction LostWater
+    {
+        add => _foundWater += value;
+        remove => _foundWater -= value;
+    }
+
     private float YPosition => 1f;
+
+    public void Dispose() => _wateringCloudMover.ChangedActivity -= OnSetActivity;
 
     public void Update()
     {
+        if (_isActive == false)
+            return;
+
         Vector3 position = new Vector3(_cloud.transform.position.x, YPosition, _cloud.transform.position.z);
-
         _colliders = Physics.OverlapSphere(position, _sphereRadius);
-        CheckColliders();
 
-        if(IsUnderWater())
+        TryFindObjects();
+        TryFindWater();
+    }
+
+    private void OnSetActivity(bool activity) => _isActive = activity;
+
+    private void TryFindObjects()
+    {
+        foreach (var collider in _colliders)
+            if (collider.TryGetComponent<InteractiveObject>(out InteractiveObject interactionObject))
+                TryActivateInteractiveObject(interactionObject);
+    }
+
+    private void TryFindWater()
+    {
+        var collider = _colliders.FirstOrDefault(collider => collider.TryGetComponent<Water>(out Water water));
+
+        if (collider != null)
             _foundWater?.Invoke();
         else
             _lostWater?.Invoke();
     }
 
-    private bool IsUnderWater()
+    private void TryActivateInteractiveObject(InteractiveObject interactiveObject)
     {
-        var waterCollider = _colliders.FirstOrDefault(collider => collider.TryGetComponent<Water>(out Water water));
-
-        if(waterCollider == null)
-            return false;
-
-        return true;
-    }
-
-    private void CheckColliders()
-    {
-        foreach (var collider in _colliders)
+        if (interactiveObject.UsedByPlayer == false)
         {
-            if (collider.TryGetComponent<InteractiveObject>(out InteractiveObject interactionObject))
+            if (_cloud.Resizer.HaveWater)
             {
-                if (interactionObject.UsedByPlayer == false)
-                {
-                    if (_cloud.Reservoir.HaveWater)
-                    {
-                        if (interactionObject is Volcano == false)
-                            interactionObject.ReactToScanner();
-                        else
-                            _foundVolcano?.Invoke((Volcano)interactionObject);
-                    }
-                }
+                if (interactiveObject is Volcano == false)
+                    interactiveObject.ReactToScanner();
+                else
+                    _foundVolcano?.Invoke((Volcano)interactiveObject);
             }
         }
     }

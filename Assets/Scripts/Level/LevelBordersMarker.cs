@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelBordersMarker
 {
@@ -20,4 +21,5 @@ public class LevelBordersMarker
     public float Radius => _radius;
 
     public bool IsIncludedInLevel(Vector2 coordinate) => Vector2.Distance(coordinate, new Vector2(_center.x, _center.z)) <= _radius;
+    public bool IsUnderWater(Vector3 coordinate) => Vector3.Distance(new Vector2(coordinate.x, coordinate.z), new Vector2(Center.x, Center.z)) <= WaterRadius;
 }

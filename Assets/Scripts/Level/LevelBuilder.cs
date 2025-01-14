@@ -64,6 +64,8 @@ public class LevelBuilder : MonoBehaviour
         _mainStorage.Clear();
         _grassPainter.ClearMap();
         _atmosphere.ResetTemperature();
+        _character.LootCounter.ResetValues();
+        _cloud.SetDefaultState();
     }
 
     private void SetPlayerPosition()

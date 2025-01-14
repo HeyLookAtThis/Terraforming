@@ -13,15 +13,13 @@ public class CharacterView : MonoBehaviour
 
     private bool _isNeedPlaySound;
 
-    private void Awake()
-    {
-        _stepEffect.Stop();
-    }
-
     public void Initialize()
     {
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+
+        _stepEffect.Stop();
+        StartSitOnCloud();
     }
 
     public void StartIdiling() => _animator.SetBool(CharacterAnimator.Params.IsIdiling, true);

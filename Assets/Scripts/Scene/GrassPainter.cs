@@ -11,9 +11,8 @@ public class GrassPainter
 
     private float[,,] _map;
 
-    private bool _isDrawing;
-
-    private UnityAction<bool> _drawing;
+    private Vector3 _previousPosition;
+    private UnityAction _worked;
 
     public GrassPainter(Terrain terrain, LevelBordersMarker marker)
     {
@@ -24,10 +23,10 @@ public class GrassPainter
         ClearMap();
     }
 
-    public event UnityAction<bool> Drawing
+    public event UnityAction Worked
     {
-        add => _drawing += value;
-        remove => _drawing -= value;
+        add => _worked += value;
+        remove => _worked -= value;
     }
 
     private int CoordinatesOrigin => 0;
@@ -35,8 +34,11 @@ public class GrassPainter
     private float TransparentValue => 0f;
     private float Speed => 2f;
 
-    public void Draw(Vector3 position, int radius)
+    public void Draw(Vector3 position, int radius, MonoBehaviour monoBehaviour)
     {
+        if (position == _previousPosition || _marker.IsUnderWater(position))
+            return;
+
         Vector2 convertedPosition = GetConvertedPosition(position);
 
         for (int x = (int)convertedPosition.x - radius; x < (int)convertedPosition.x + radius; x++)
@@ -56,19 +58,17 @@ public class GrassPainter
                 {
                     if (_map[x, y, GrassLayerIndex] < ShadedValue && angle == 0)
                     {
+                        if (monoBehaviour.GetType() == typeof(Cloud))
+                            _worked?.Invoke();
+
                         _map[x, y, GrassLayerIndex] += normalizedValue * Speed;
                         _map[x, y, GroundLayerIndex] -= normalizedValue * Speed;
-                        _isDrawing = true;
-                    }
-                    else
-                    {
-                        _isDrawing = false;
                     }
                 }
             }
         }
 
-        _drawing?.Invoke(_isDrawing);
+        _previousPosition = position;
         _terrain.terrainData.SetAlphamaps(CoordinatesOrigin, CoordinatesOrigin, _map);
     }
 
@@ -82,6 +82,8 @@ public class GrassPainter
                 _map[x, y, GrassLayerIndex] = TransparentValue;
             }
         }
+
+        _terrain.terrainData.SetAlphamaps(CoordinatesOrigin, CoordinatesOrigin, _map);
     }
 
     private void InitializeMap() => _map = new float[_terrain.terrainData.alphamapWidth, _terrain.terrainData.alphamapHeight, _terrain.terrainData.alphamapLayers];

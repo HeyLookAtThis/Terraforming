@@ -25,6 +25,17 @@ public class Character : MonoBehaviour, ITarget
 
     public Transform Transform => transform;
 
+    private void Awake()
+    {
+        _controller = GetComponent<CharacterController>();
+        _view.Initialize();
+        _input = new PlayerInput();
+        _stateMachine = new CharacterStateMachine(this);
+        _lootCounter = new CharacterLootCounter();
+    }
+
+    private void OnEnable() => _input.Enable();
+
     private void OnDisable() => _input.Disable();
 
     private void Update()
@@ -34,17 +45,5 @@ public class Character : MonoBehaviour, ITarget
     }
 
     [Inject]
-    private void Construct(CameraDirectionIndicator directionIndicator)
-    {
-        _controller = GetComponent<CharacterController>();
-        _view.Initialize();
-
-        _directionIndicator = directionIndicator;
-
-        _input = new PlayerInput();
-        _input.Enable();
-
-        _stateMachine = new CharacterStateMachine(this);
-        _lootCounter = new CharacterLootCounter();
-    }
+    private void Construct(CameraDirectionIndicator directionIndicator) => _directionIndicator = directionIndicator;
 }

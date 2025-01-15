@@ -4,6 +4,7 @@ using Zenject;
 public class GamePanel : MonoBehaviour, IPanel, IGameTimer
 {
     [SerializeField] private Thermometer _thermometer;
+    [SerializeField] private Panel _mobileInputPanel;
 
     private IPanelSwitcher _switcher;
     private VolcanoStorage _storage;
@@ -18,6 +19,11 @@ public class GamePanel : MonoBehaviour, IPanel, IGameTimer
 
         _thermometer.InitializeValues();
         StartGame();
+
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+            _mobileInputPanel.gameObject.SetActive(false);
+        else
+            _mobileInputPanel.gameObject.SetActive(true);
     }
 
     private void OnDisable()

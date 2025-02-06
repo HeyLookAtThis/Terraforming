@@ -33,8 +33,8 @@ public class PreviewPanel : MonoBehaviour, IPanel, IPointerClickHandler
 
         _animation = DOTween.Sequence();
 
-        Tween fading = _tMPro.DOFade(fadeValue, duration).SetLoops(-1, LoopType.Yoyo);
-        _animation.Append(fading);
+        Tween fading = _tMPro.DOFade(fadeValue, duration);
+        _animation.Append(fading).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void StopFadeText() => _animation.Kill();

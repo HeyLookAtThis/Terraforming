@@ -1,3 +1,4 @@
+using Agava.WebUtility;
 using UnityEngine;
 using Zenject;
 
@@ -20,10 +21,10 @@ public class GamePanel : MonoBehaviour, IPanel, IGameTimer
         _thermometer.InitializeValues();
         StartGame();
 
-        if (SystemInfo.deviceType == DeviceType.Desktop)
-            _mobileInputPanel.gameObject.SetActive(false);
-        else
+        if (Device.IsMobile)
             _mobileInputPanel.gameObject.SetActive(true);
+        else
+            _mobileInputPanel.gameObject.SetActive(false);        
     }
 
     private void OnDisable()

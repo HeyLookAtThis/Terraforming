@@ -23,12 +23,14 @@ public class Thermometer : MonoBehaviour
     {
         _atmosphere.TemperatureChanged += OnBeginChangeValue;
         _atmosphere.MaxTemperatureChanged += OnSetMaxTemperature;
+        _atmosphere.ReachedMaxTemperature += OnInvokeReachedMaxValue;
     }
 
     private void OnDisable()
     {
         _atmosphere.TemperatureChanged -= OnBeginChangeValue;
         _atmosphere.MaxTemperatureChanged -= OnSetMaxTemperature;
+        _atmosphere.ReachedMaxTemperature -= OnInvokeReachedMaxValue;
     }
 
     [Inject]
@@ -44,14 +46,25 @@ public class Thermometer : MonoBehaviour
         _slider.value = _atmosphere.MinTemperature;
     }
 
-    public void OnSetMaxTemperature() => _slider.maxValue = _atmosphere.MaxTemperature;
+    private void OnSetMaxTemperature() => _slider.maxValue = _atmosphere.MaxTemperature;
 
-    public void OnBeginChangeValue(float temperature)
+    private void OnBeginChangeValue(float temperature)
+    {
+        StopCoroutine();
+        _valueChanger = StartCoroutine(ValueChanger(temperature));
+    }
+
+    private void OnInvokeReachedMaxValue()
+    {
+        StopCoroutine();
+        Debug.Log('ý');
+        _reachedMaxValue?.Invoke();
+    }
+
+    private void StopCoroutine()
     {
         if (_valueChanger != null)
             StopCoroutine(_valueChanger);
-
-        _valueChanger = StartCoroutine(ValueChanger(temperature));
     }
 
     private IEnumerator ValueChanger(float temperature)
@@ -68,11 +81,6 @@ public class Thermometer : MonoBehaviour
         }
 
         if (_slider.value == temperature)
-        {
-            if (_slider.value == _slider.maxValue)
-                _reachedMaxValue?.Invoke();
-
             yield break;
-        }
     }
 }

@@ -47,11 +47,16 @@ public class Atmosphere
 
     public void IncreaseTemperature(float temperature)
     {
-        _currentTemperature += temperature;
-        _temperatureChanged?.Invoke(_currentTemperature);
-
-        if (_currentTemperature >= _maxTemperature)
+        if (_currentTemperature < _maxTemperature)
+        {
+            _currentTemperature += temperature;
+            _temperatureChanged?.Invoke(_currentTemperature);
+        }
+        else
+        {
+            _currentTemperature = _maxTemperature;
             _reachedMaxTemperature?.Invoke();
+        }
     }
 
     public void ResetTemperature()

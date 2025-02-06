@@ -1,3 +1,4 @@
+using Agava.WebUtility;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
@@ -16,7 +17,7 @@ public class ControlTreaner : MonoBehaviour
 
     private void Awake()
     {
-        if (SystemInfo.deviceType != DeviceType.Desktop)
+        if (Device.IsMobile)
             gameObject.SetActive(false);
     }
 

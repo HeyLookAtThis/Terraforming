@@ -1,5 +1,4 @@
 using DG.Tweening;
-using UnityEngine;
 
 public class KeyboardTreaner : InputTreaner
 {
@@ -9,11 +8,12 @@ public class KeyboardTreaner : InputTreaner
 
         float blinkingDuration = Duration * 2;
         float blinkingAlphaValue = 0.7f;
+        int loops = 10;
 
         Tween show = Group.DOFade(UnitValue, Duration).From(NullValue);
         Tween scale = Body.DOScale(UnitValue, Duration).From(NullValue);
         Tween move = Body.DOAnchorPos(PositionOnScreen, Duration).From(StartingPosition);
-        Tween blinking = Group.DOFade(blinkingAlphaValue, blinkingDuration).From(UnitValue).SetLoops(-1, LoopType.Yoyo);
+        Tween blinking = Group.DOFade(blinkingAlphaValue, blinkingDuration).From(UnitValue).SetLoops(loops, LoopType.Yoyo);
 
         Animation.Append(show).Join(scale).Join(move).Append(blinking);
     }

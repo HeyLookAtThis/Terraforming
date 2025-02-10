@@ -5,7 +5,7 @@ using Zenject;
 public class GamePanel : MonoBehaviour, IPanel, IGameTimer
 {
     [SerializeField] private Thermometer _thermometer;
-    [SerializeField] private Panel _mobileInputPanel;
+    [SerializeField] private GameObject _mobileInputPanel;
 
     private IPanelSwitcher _switcher;
     private VolcanoStorage _storage;

@@ -1,22 +1,13 @@
-public enum Levels
-{
-    easy,
-    normal = 3,
-    hard = 7
-}
-
 public class LevelCounter
 {
-    private LevelCounterConfig _config;
-
     private int _firstLevel;
     private int _lastLevel;
     private int _currentLevel;
 
+    public bool IsFirstLevel => _currentLevel == _firstLevel;
+
     public LevelCounter(LevelCounterConfig config)
     {
-        _config = config;
-
         _firstLevel = _currentLevel = config.FirstLevelNumber;
         _lastLevel = config.LastLevelNumber;
     }

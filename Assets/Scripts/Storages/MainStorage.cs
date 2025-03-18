@@ -1,7 +1,7 @@
 public class MainStorage
 {
     private CoinsStorage _coins;
-    private VolcanoStorage _volcanoes;
+    private VolcanoesStorage _volcanoes;
     private TreesStorage _trees;
     private SnowflakesStorage _snowflakes;
 
@@ -11,7 +11,7 @@ public class MainStorage
         _coins = new CoinsStorage(coinsStorageName);
 
         string volcanoStorageName = "VolcanoStorage";
-        _volcanoes = new VolcanoStorage(volcanoStorageName);
+        _volcanoes = new VolcanoesStorage(volcanoStorageName);
 
         string treesStorageName = "TreesStorage";
         _trees = new TreesStorage(treesStorageName);
@@ -21,7 +21,7 @@ public class MainStorage
     }
 
     public CoinsStorage Coins => _coins;
-    public VolcanoStorage Volcanoes => _volcanoes;
+    public VolcanoesStorage Volcanoes => _volcanoes;
     public TreesStorage Trees => _trees;
     public SnowflakesStorage Snowflakes => _snowflakes;
 

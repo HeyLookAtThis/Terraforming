@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class VictoryPanel : MonoBehaviour, IPanel
+public class VictoryPanel : Panel
 {
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _nextLevelButton;
 
-    private IPanelSwitcher _switcher;
     private LevelCounter _levelCounter;
 
     private void OnEnable()
@@ -23,20 +22,15 @@ public class VictoryPanel : MonoBehaviour, IPanel
     }
 
     [Inject]
-    private void Construct(IPanelSwitcher panelSwitcher, LevelBuilder levelBuilder)
+    private void Construct(LevelBuilder levelBuilder)
     {
-        _switcher = panelSwitcher;
         _levelCounter = levelBuilder.Counter;
     }
-
-    public void Hide() => gameObject.SetActive(false);
-    public void Show() => gameObject.SetActive(true);
-
-    private void OnRunLoadingPanel() => _switcher.SwitchPanel<LoadingPanel>();
+    private void OnRunLoadingPanel() => PanelSwitcher.SwitchPanel<LoadingPanel>();
 
     private void OnStartLoadNextLevel()
     {
         _levelCounter.SetNextLevel();
-        _switcher.SwitchPanel<LoadingPanel>();
+        PanelSwitcher.SwitchPanel<LoadingPanel>();
     }
 }

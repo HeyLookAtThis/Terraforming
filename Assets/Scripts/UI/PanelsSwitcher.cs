@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class PanelsSwitcher : MonoBehaviour, IPanelSwitcher
 {
-    [SerializeField] private PreviewPanel _previewPanel;
-    [SerializeField] private LoadingPanel _loadingPanel;
-    [SerializeField] private GamePanel _gamePanel;
-    [SerializeField] private VictoryPanel _winPanel;
-    [SerializeField] private GameOverPanel _losingPanel;
+    [SerializeField] private List<Panel> _panels;
 
-    private List<IPanel> _panels;
     private IPanel _currentPanel;
 
     public void Initialize()
     {
-        _panels = new List<IPanel> { _gamePanel, _winPanel, _losingPanel, _loadingPanel, _previewPanel };
         HideAll();
         SwitchPanel<PreviewPanel>();
     }

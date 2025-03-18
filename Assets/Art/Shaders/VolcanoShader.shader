@@ -17,7 +17,7 @@ Shader "Custom/VolcanoShader"
         LOD 200
 
         CGPROGRAM
-        #pragma surface surf Lambert alpha vertex:vert
+        #pragma surface surf BlinnPhong alpha vertex:vert
 
         #pragma target 3.0
 

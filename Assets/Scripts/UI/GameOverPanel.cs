@@ -1,12 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
-public class GameOverPanel : MonoBehaviour, IPanel
+public class GameOverPanel : Panel
 {
     [SerializeField] private Button _restartButton;
-
-    private IPanelSwitcher _switcher;
 
     private void OnEnable()
     {
@@ -18,11 +15,5 @@ public class GameOverPanel : MonoBehaviour, IPanel
         _restartButton.onClick.RemoveListener(OnRunLoadingPanel);
     }
 
-    [Inject]
-    private void Construct(IPanelSwitcher panelSwitcher) => _switcher = panelSwitcher;
-
-    public void Hide() => gameObject.SetActive(false);
-    public void Show() => gameObject.SetActive(true);
-
-    private void OnRunLoadingPanel() => _switcher.SwitchPanel<LoadingPanel>();
+    private void OnRunLoadingPanel() => PanelSwitcher.SwitchPanel<LoadingPanel>();
 }

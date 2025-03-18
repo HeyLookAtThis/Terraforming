@@ -10,6 +10,8 @@ public class Loot : InteractiveObject
     private SphereCollider _sphereCollider;
     private Coroutine _playerChaser;
 
+    public LootView View => _view;
+
     private void Awake()
     {
         _sphereCollider = GetComponent<SphereCollider>();

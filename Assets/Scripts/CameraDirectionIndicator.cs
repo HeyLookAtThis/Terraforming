@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraDirectionIndicator : MonoBehaviour
 {
-    [SerializeField] private Transform _targetTransform;
+    [SerializeField] private Transform _vartualCameraTransform;
 
     private float _currentYAxisAngle;
     private float _targetYAxisAngle;
@@ -11,22 +11,13 @@ public class CameraDirectionIndicator : MonoBehaviour
 
     private void Update()
     {
-        Move();
         Rotate();
-    }
-
-    private void Move()
-    {
-        if(transform.position == _targetTransform.position)
-            return;
-
-        transform.position = _targetTransform.position;
     }
 
     private void Rotate()
     {
         _currentYAxisAngle = transform.eulerAngles.y;
-        _targetYAxisAngle = _targetTransform.eulerAngles.y;
+        _targetYAxisAngle = _vartualCameraTransform.eulerAngles.y;
 
         if (_targetYAxisAngle == _currentYAxisAngle)
             return;

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class LootView : MonoBehaviour
@@ -10,6 +11,14 @@ public class LootView : MonoBehaviour
 
     private AudioSource _audioSourse;
     private Sequence _animation;
+
+    private UnityAction _turnedOn;
+
+    public event UnityAction TurnedOn
+    {
+        add => _turnedOn += value;
+        remove => _turnedOn -= value;
+    }
 
     public bool IsAllowed => _model.activeSelf;
 
@@ -27,6 +36,7 @@ public class LootView : MonoBehaviour
     {
         if (_model.activeSelf == false)
         {
+            _turnedOn?.Invoke();
             RunAppeareance();
             _particles.Play();
         }
@@ -47,10 +57,9 @@ public class LootView : MonoBehaviour
 
         float duration = 0.5f;
 
-        Tween appearance = transform.DOScale(Vector3.one, duration).From(Vector3.zero).SetEase(Ease.InBounce);
-        Tween rotation = transform.DORotate(new(0, 360, 0), duration, RotateMode.FastBeyond360);
-
-        _animation.Append(appearance).Append(rotation).OnComplete(() => RunRotateAnimation());
+        _animation.Append(transform.DOScale(Vector3.one, duration).From(Vector3.zero).SetEase(Ease.InBounce))
+            .Append(transform.DORotate(new(0, 360, 0), duration, RotateMode.FastBeyond360))
+            .OnComplete(() => RunRotateAnimation());
     }
 
     private void RunDisapearance()
@@ -59,9 +68,8 @@ public class LootView : MonoBehaviour
 
         float duration = 0.5f;
 
-        Tween appearance = transform.DOScale(Vector3.zero, duration);
-
-        _animation.Append(appearance).OnComplete(() => _model.SetActive(false));
+        _animation.Append(transform.DOScale(Vector3.zero, duration))
+            .OnComplete(() => _model.SetActive(false));
     }
 
     private void RunRotateAnimation()
@@ -69,12 +77,12 @@ public class LootView : MonoBehaviour
         ResetAnimation();
 
         float duration = 0.5f;
-        float sizeMultiplier = 0.9f;
+        float sizeTargetSize = 1.1f;
+        float localY = 0.1f;
 
-        Tween resize = transform.DOScale(sizeMultiplier, duration);
-        Tween rotation = transform.DORotate(new(0, 90, 0), duration).SetEase(Ease.OutQuad);
-
-        _animation.Append(resize).Join(rotation).SetLoops(-1, LoopType.Yoyo);
+        _animation.Append(transform.DOScale(sizeTargetSize, duration))
+            .Join(transform.DOLocalMoveY(localY, duration)
+            .SetEase(Ease.InOutSine)).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void ResetAnimation()

@@ -52,6 +52,6 @@ public class WateringCloudMover : IMover
         _updated?.Invoke();
     }
 
-    public void Move(float timeDeltaTime) => _transform.position = _target.transform.position;
+    public void Move(float timeDeltaTime) => _transform.position = _target.transform.position + Vector3.up * (1 - _transform.localScale.y);
     private void Rotate() => _transform.forward = _target.transform.forward;
 }

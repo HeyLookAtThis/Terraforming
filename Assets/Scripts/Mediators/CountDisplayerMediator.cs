@@ -7,7 +7,7 @@ public class CountDisplayerMediator : MonoBehaviour
 
     private CharacterLootCounter _counter;
     private VolcanoFactory _volcanoFactory;
-    private VolcanoStorage _volcanoStorage;
+    private VolcanoesStorage _volcanoStorage;
 
     private void OnEnable()
     {

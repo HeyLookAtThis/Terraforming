@@ -6,11 +6,11 @@ public class VolcanoFactory
     private VolcanoFactoryConfig _config;
 
     private LevelCounter _levelCounter;
-    private VolcanoStorage _storage;
+    private VolcanoesStorage _storage;
 
     private UnityAction _finished;
 
-    public VolcanoFactory(VolcanoFactoryConfig config, LevelCounter levelCounter, VolcanoStorage storage)
+    public VolcanoFactory(VolcanoFactoryConfig config, LevelCounter levelCounter, VolcanoesStorage storage)
     {
         _config = config;
         _levelCounter = levelCounter;

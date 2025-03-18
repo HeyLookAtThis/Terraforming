@@ -1,12 +1,12 @@
 using System;
 using UnityEngine.Events;
 
-public class VolcanoStorage : ObjectsStorage, IDisposable
+public class VolcanoesStorage : ObjectsStorage, IDisposable
 {
     private UnityAction _frozenVolcanoesChanged;
     private UnityAction _allVolcanoesFrozen;
 
-    public VolcanoStorage(string storageName) : base(storageName)
+    public VolcanoesStorage(string storageName) : base(storageName)
     {
     }
 

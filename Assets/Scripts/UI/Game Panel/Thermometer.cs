@@ -57,7 +57,6 @@ public class Thermometer : MonoBehaviour
     private void OnInvokeReachedMaxValue()
     {
         StopCoroutine();
-        Debug.Log('ý');
         _reachedMaxValue?.Invoke();
     }
 

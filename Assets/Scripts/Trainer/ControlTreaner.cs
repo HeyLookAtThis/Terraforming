@@ -1,6 +1,7 @@
 using Agava.WebUtility;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 public class ControlTreaner : MonoBehaviour
@@ -8,6 +9,7 @@ public class ControlTreaner : MonoBehaviour
     [SerializeField] private KeyboardTreaner _keyboard;
     [SerializeField] private MouseTreaner _mouse;
 
+    private LevelBuilder _levelBuilder;
     private ITarget _chatacter;
 
     private Vector3 _startingPosition;
@@ -15,14 +17,22 @@ public class ControlTreaner : MonoBehaviour
 
     private bool _wasMoved;
 
-    private void Awake()
+    private UnityAction _completed;
+
+    public event UnityAction Completed
     {
-        if (Device.IsMobile)
-            gameObject.SetActive(false);
+        add => _completed += value;
+        remove => _completed -= value;
     }
 
     private void OnEnable()
     {
+        if(_levelBuilder.Counter.IsFirstLevel == false)
+            gameObject.SetActive(false);
+
+        if (Device.IsMobile)
+            Complete();
+
         _keyboard.gameObject.SetActive(true);
         _keyboard.Show();
 
@@ -45,15 +55,26 @@ public class ControlTreaner : MonoBehaviour
         if (_mouse.gameObject.activeSelf && Input.GetMouseButtonDown(1) && Input.mousePosition != _startingMousePosition)
         {
             _mouse.Hide();
-            _mouse.Animation.OnComplete(() => gameObject.SetActive(false));
+            _mouse.Animation.OnComplete(() => Complete());
         }
     }
 
-    [Inject]
-    private void Construct(ITarget target) => _chatacter = target;
+    private void Complete()
+    {
+        _completed.Invoke();
+        gameObject.SetActive(false);
+    }
+
     private void SwitchKeyboardToMouse()
     {
         _keyboard.gameObject.SetActive(false);
         _mouse.gameObject.SetActive(true);
+    }
+
+    [Inject]
+    private void Construct(ITarget target, LevelBuilder levelBuilder)
+    {
+        _chatacter = target;
+        _levelBuilder = levelBuilder;
     }
 }

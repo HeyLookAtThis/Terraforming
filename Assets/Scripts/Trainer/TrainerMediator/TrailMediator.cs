@@ -13,12 +13,12 @@ public class TrailMediator : MonoBehaviour
         Vector3 position = (_target.position - _character.Transform.position) / 2;
         Move(position);
 
-        transform.forward = _target.position - _character.Transform.position;
+        _arrow.transform.forward = _target.position - _character.Transform.position;
         float size = Vector3.Distance(_target.position, _character.Transform.position);
-        transform.localScale = new Vector3(size, size, size);
+        _arrow.transform.localScale = new Vector3(size, size, size);
     }
 
-    private void Move(Vector3 position) => transform.Translate(position.x, transform.position.y, position.z);
+    private void Move(Vector3 position) => _arrow.transform.Translate(position.x, transform.position.y, position.z);
 
     public void SetTarget(Transform target) => _target = target;
 

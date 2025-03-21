@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
 
-public class TrainerCameraMediator : MonoBehaviour
+public class TrainerTargetMediator : MonoBehaviour
 {
     [SerializeField] private ControlTreaner _controlTreaner;
     [SerializeField] private TrainerCameraActivator _cameraActivator;
-    [SerializeField] private TrailMediator _trail;
+    [SerializeField] private Arrow _arrow;
 
-    private Character _character;
+    private CharacterLootCounter _lootCounter;
     private TreesStorage _treeStorage;
     private SnowflakesStorage _snowflakesStorage;
     private VolcanoesStorage _volcanoesStorage;
@@ -26,14 +26,14 @@ public class TrainerCameraMediator : MonoBehaviour
     private void OnEnable()
     {
         _controlTreaner.Completed += OnShowTree;
-        _character.LootCounter.SnowflakeAdded += OnShowVolcano;
+        _lootCounter.SnowflakeAdded += OnShowVolcano;
         _snowflakesStorage.GetSnowflake(FirstIndex).View.TurnedOn += OnShowSnowflake;
     }
 
     private void OnDisable()
     {
         _controlTreaner.Completed -= OnShowTree;
-        _character.LootCounter.SnowflakeAdded -= OnShowVolcano;
+        _lootCounter.SnowflakeAdded -= OnShowVolcano;
         _snowflakesStorage.GetSnowflake(FirstIndex).View.TurnedOn -= OnShowSnowflake;
     }
 
@@ -41,7 +41,9 @@ public class TrainerCameraMediator : MonoBehaviour
     {
         Transform tree = _treeStorage.GetObjectTransform(FirstIndex).Transform;
 
-        _trail.SetTarget(tree);
+        _arrow.SetTarget(tree);
+        _arrow.Activate();
+
         _cameraActivator.SetTarget(_treeStorage.GetObjectTransform(FirstIndex).Transform);
     }
 
@@ -49,7 +51,7 @@ public class TrainerCameraMediator : MonoBehaviour
     {
         Transform snowflake = _snowflakesStorage.GetObjectTransform(FirstIndex).Transform;
 
-        _trail.SetTarget(snowflake);
+        _arrow.SetTarget(snowflake);
         _cameraActivator.SetTarget(_snowflakesStorage.GetObjectTransform(FirstIndex).Transform);
     }
 
@@ -59,7 +61,9 @@ public class TrainerCameraMediator : MonoBehaviour
         {
             Transform volcano = _volcanoesStorage.GetObjectTransform(FirstIndex).Transform;
 
-            _trail.SetTarget(volcano);
+            _arrow.InitializeVolcano(_volcanoesStorage.GetVolcano(FirstIndex));
+            _arrow.SetTarget(volcano);
+
             _cameraActivator.SetTarget(volcano);
 
             gameObject.SetActive(false);
@@ -70,7 +74,7 @@ public class TrainerCameraMediator : MonoBehaviour
     [Inject]
     private void Construct(Character character, LevelBuilder levelBuilder)
     {
-        _character = character;
+        _lootCounter = character.LootCounter;
         _snowflakesStorage = levelBuilder.MainStorage.Snowflakes;
         _volcanoesStorage = levelBuilder.MainStorage.Volcanoes;
         _treeStorage = levelBuilder.MainStorage.Trees;

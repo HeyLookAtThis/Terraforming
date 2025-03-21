@@ -7,7 +7,7 @@ public class TrainerCameraActivator : MonoBehaviour
 
     private float _passedTime;
 
-    private float ShowingTime => 3;
+    private float ShowingTime => 2.5f;
 
     private void Update()
     {

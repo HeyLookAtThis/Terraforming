@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Trainer : MonoBehaviour
 {
-    [SerializeField] private TrainerCameraMediator _mediator;
+    [SerializeField] private TrainerTargetMediator _mediator;
     [SerializeField] private TrainerCameraActivator _activator;
 
     private Coroutine _deactivator;

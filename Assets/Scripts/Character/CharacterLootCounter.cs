@@ -21,6 +21,7 @@ public class CharacterLootCounter
     }
 
     public int SnowflakesValue => _snowflakesValue;
+    public int CoinsValue => _coinsValue;
 
     public void ResetValues()
     {

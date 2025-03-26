@@ -1,10 +1,12 @@
+using UnityEngine.Events;
+
 public class LevelCounter
 {
     private int _firstLevel;
     private int _lastLevel;
     private int _currentLevel;
 
-    public bool IsFirstLevel => _currentLevel == _firstLevel;
+    private UnityAction _setNextLevel;
 
     public LevelCounter(LevelCounterConfig config)
     {
@@ -12,12 +14,22 @@ public class LevelCounter
         _lastLevel = config.LastLevelNumber;
     }
 
+    public event UnityAction SetNextLevel
+    {
+        add => _setNextLevel += value;
+        remove => _setNextLevel -= value;
+    }
+
+    public bool IsFirstLevel => _currentLevel == _firstLevel;
     public int CurrentLevel => _currentLevel;
 
-    public void SetNextLevel()
+    public void SetNext()
     {
         if(_currentLevel < _lastLevel)
+        {
             _currentLevel++;
+            _setNextLevel?.Invoke();
+        }
     }
 
     public void SetFirstLevel()

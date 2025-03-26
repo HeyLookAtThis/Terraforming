@@ -26,11 +26,12 @@ public class VictoryPanel : Panel
     {
         _levelCounter = levelBuilder.Counter;
     }
+
     private void OnRunLoadingPanel() => PanelSwitcher.SwitchPanel<LoadingPanel>();
 
     private void OnStartLoadNextLevel()
     {
-        _levelCounter.SetNextLevel();
+        _levelCounter.SetNext();
         PanelSwitcher.SwitchPanel<LoadingPanel>();
     }
 }

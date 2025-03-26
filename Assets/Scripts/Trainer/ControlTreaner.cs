@@ -30,9 +30,6 @@ public class ControlTreaner : MonoBehaviour
         if(_levelBuilder.Counter.IsFirstLevel == false)
             gameObject.SetActive(false);
 
-        if (Device.IsMobile)
-            Complete();
-
         _keyboard.gameObject.SetActive(true);
         _keyboard.Show();
 
@@ -44,6 +41,9 @@ public class ControlTreaner : MonoBehaviour
 
     private void Update()
     {
+        if (Device.IsMobile)
+            Complete();
+
         if (_startingPosition != _chatacter.Transform.position && _wasMoved == false)
         {
             _wasMoved = true;

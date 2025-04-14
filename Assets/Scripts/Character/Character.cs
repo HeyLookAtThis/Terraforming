@@ -34,15 +34,14 @@ public class Character : MonoBehaviour, ITarget
         _lootCounter = new CharacterLootCounter();
     }
 
-    private void OnEnable() => _input.Enable();
-
-    private void OnDisable() => _input.Disable();
-
     private void Update()
     {
         _stateMachine.HandleInput();
         _stateMachine.Update();
     }
+
+    public void Activate() => _input.Enable();
+    public void Deactivate() => _input.Disable();
 
     [Inject]
     private void Construct(CameraDirectionIndicator directionIndicator) => _directionIndicator = directionIndicator;

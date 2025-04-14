@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LoadingPanel : Panel, IGameTimer
+public class LoadingPanel : Panel
 {
     [SerializeField] private LoadingBar _bar;
 
@@ -9,18 +9,13 @@ public class LoadingPanel : Panel, IGameTimer
 
     private void OnEnable()
     {
-        StartGame();
         _bar.Filled += OnSwitchToGamePanel;
     }
 
     private void OnDisable()
     {
         _bar.Filled -= OnSwitchToGamePanel;
-        StopGame();
     }
-
-    public void StartGame() => Time.timeScale = PlayingTimeScale;
-    public void StopGame() => Time.timeScale = PausingTimeScale;
 
     private void OnSwitchToGamePanel() => PanelSwitcher.SwitchPanel<GamePanel>();
 }

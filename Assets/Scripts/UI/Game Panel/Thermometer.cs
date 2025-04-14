@@ -85,12 +85,12 @@ public class Thermometer : MonoBehaviour
         while (_image.fillAmount != targetValue)
         {
             _image.fillAmount = Mathf.MoveTowards(_image.fillAmount, targetValue, Time.deltaTime);
+            ShowPercent();
             yield return waitTime;
         }
 
         if (_image.fillAmount == targetValue)
         {
-            ShowPercent();
             yield break;
         }
     }

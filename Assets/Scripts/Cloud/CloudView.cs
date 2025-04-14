@@ -4,6 +4,7 @@ using UnityEngine;
 public class CloudView : MonoBehaviour
 {
     [SerializeField] private Cloud _cloud;
+    [SerializeField] private CloudScaleDisplayer _scaleDisplayer;
     [SerializeField] private ParticleSystem _rainEffect;
     [SerializeField] private ParticleSystem _fillingUpEffect;
     [SerializeField] private AudioClip _rainSound;
@@ -21,6 +22,7 @@ public class CloudView : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _resizer = new Resizer(_cloud.Config, _cloud.transform, this);
 
+        _scaleDisplayer.InitializeResizer(_resizer);
         SetDefaultState();
     }
 

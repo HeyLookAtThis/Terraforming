@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +14,6 @@ public class Resizer
     private CloudView _view;
 
     private UnityAction _waterIsOver;
-    private Coroutine _increaser;
 
     public Resizer(CloudConfig config, Transform cloud, CloudView cloudView)
     {
@@ -40,6 +38,7 @@ public class Resizer
     }
 
     public bool HaveWater => _currentSize > 0;
+    public float CurrentPercent => _currentSize / ((_maxSize - _minSize) / 100);
 
     public void SetDefault() => _cloud.localScale = Vector3.one;
 

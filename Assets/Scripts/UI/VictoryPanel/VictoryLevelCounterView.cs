@@ -16,7 +16,7 @@ public class VictoryLevelCounterView : MonoBehaviour
     private void OnEnable() => Show();
 
     public void Show() => _image.DOFillAmount(_levelCounter.CurrentLevel / Divider, Duration);
-
+    
     [Inject]
     private void Construct(LevelBuilder levelBuilder) => _levelCounter = levelBuilder.Counter;
 }

@@ -3,17 +3,13 @@ using Zenject;
 
 public class PlayerInstaller : MonoInstaller
 {
-    [SerializeField] private CameraDirectionIndicator _cameraDirectionIndicator;
     [SerializeField] private Character _prefab;
     [SerializeField] private Transform _spawnPoint;
 
     public override void InstallBindings()
     {
-        BindDirectionIndicator();
         BindPlayer();
     }
-
-    private void BindDirectionIndicator() => Container.Bind<CameraDirectionIndicator>().FromInstance(_cameraDirectionIndicator).AsSingle();
 
     private void BindPlayer()
     {

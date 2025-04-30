@@ -22,7 +22,7 @@ public class CloudView : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _resizer = new Resizer(_cloud.Config, _cloud.transform, this);
 
-        _scaleDisplayer.InitializeResizer(_resizer);
+        _scaleDisplayer.Initialize(_resizer);
         SetDefaultState();
     }
 

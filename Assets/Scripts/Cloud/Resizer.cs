@@ -38,7 +38,8 @@ public class Resizer
     }
 
     public bool HaveWater => _currentSize > 0;
-    public float CurrentPercent => _currentSize / ((_maxSize - _minSize) / 100);
+    public float CurrentScale => ((_currentSize - _minSize) / ((_maxSize - _minSize) / FullPercent)) / FullPercent;
+    private float FullPercent => 100f;
 
     public void SetDefault() => _cloud.localScale = Vector3.one;
 

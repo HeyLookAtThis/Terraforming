@@ -7,6 +7,7 @@ public class LevelInstaller : MonoInstaller
     [SerializeField] private LevelConfig _levelConfig;
     [SerializeField] private LevelBuilder _levelBuilder;
     [SerializeField] private MainFactoryConfig _factoryConfig;
+    [SerializeField] private CameraDirectionIndicator _cameraDirectionIndicator;
 
     public override void InstallBindings()
     {
@@ -16,6 +17,7 @@ public class LevelInstaller : MonoInstaller
         BindGrassPainter();
         BindFactoryConfig();
         BindLevelBuilder();
+        BindDirectionIndicator();
     }
 
     private void BindFactoryConfig() => Container.Bind<MainFactoryConfig>().FromInstance(_factoryConfig).AsSingle();
@@ -24,4 +26,5 @@ public class LevelInstaller : MonoInstaller
     private void BindTerrain() => Container.Bind<Terrain>().FromInstance(_terrain).AsSingle();
     private void BindLevelBoundariesMarker() => Container.Bind<LevelBordersMarker>().AsSingle();
     private void BindLevelConfig() => Container.Bind<LevelConfig>().FromInstance(_levelConfig).AsSingle();
+    private void BindDirectionIndicator() => Container.Bind<CameraDirectionIndicator>().FromInstance(_cameraDirectionIndicator).AsSingle();
 }

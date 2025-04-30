@@ -1167,7 +1167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1071d11d9f579da4783300803a3a9072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraDirectionIndicator: {fileID: 1240769925}
   _prefab: {fileID: 1637914370611293143, guid: 7e2051f287ea07d459c4073f98984d67, type: 3}
   _spawnPoint: {fileID: 7801269519765196157}
 --- !u!114 &630947114
@@ -1200,6 +1199,7 @@ MonoBehaviour:
   _levelConfig: {fileID: 11400000, guid: 5c14383b0ea672245a7f5119e45369ba, type: 2}
   _levelBuilder: {fileID: 1362456407}
   _factoryConfig: {fileID: 11400000, guid: 1f1fda1585e5bfe4fab53c5077fa25f7, type: 2}
+  _cameraDirectionIndicator: {fileID: 1240769925}
 --- !u!114 &630947117
 MonoBehaviour:
   m_ObjectHideFlags: 0

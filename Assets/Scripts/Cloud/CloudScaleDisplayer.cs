@@ -1,28 +1,30 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class CloudScaleDisplayer : MonoBehaviour
 {
+    [SerializeField] private Transform _cloud;
     [SerializeField] private Image _image;
-    [SerializeField] private RectTransform _rectTransform;
 
+    private CameraDirectionIndicator _cameraDirectionIndicator;
     private Resizer _resizer;
 
-    private Quaternion _rotation => new Quaternion(0, 90, 90, 1);
-
-    private void Awake()
-    {
-        _rectTransform = GetComponent<RectTransform>();
-    }
+    private float YPosition => 1.1f;
 
     private void Update()
     {
-        if (_rectTransform.rotation != _rotation)
-            _rectTransform.rotation = _rotation;
+        transform.SetPositionAndRotation(new Vector3(_cloud.position.x, YPosition, _cloud.position.z), Quaternion.Euler(_cameraDirectionIndicator.TargetDirection));
 
-        if (_image.fillAmount != _resizer.CurrentPercent)
-            _image.fillAmount = _resizer.CurrentPercent;
+        if (_image.fillAmount != _resizer.CurrentScale)
+            _image.fillAmount = _resizer.CurrentScale;
     }
 
-    public void InitializeResizer(Resizer resizer) => _resizer = resizer;
+    public void Initialize(Resizer resizer)
+    {
+        _resizer = resizer;
+    }
+
+    [Inject]
+    private void Construct(CameraDirectionIndicator cameraDirectionIndicator) => _cameraDirectionIndicator = cameraDirectionIndicator;
 }

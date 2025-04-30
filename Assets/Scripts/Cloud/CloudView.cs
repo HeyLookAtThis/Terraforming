@@ -11,6 +11,7 @@ public class CloudView : MonoBehaviour
     [SerializeField] private AudioClip _fillingUpSound;
 
     private AudioSource _audioSource;
+    private GamePanel _gamePanel;
     private Resizer _resizer;
 
     public Resizer Resizer => _resizer;
@@ -40,6 +41,14 @@ public class CloudView : MonoBehaviour
         Scanner.LostWater -= _resizer.OnStopIncrease;
 
         GrassPainter.Worked -= _resizer.OnDecrease;
+
+        _gamePanel.Disabled += OnStopSound;
+    }
+
+    public void InitializeObjectSounder(GamePanel gamePanel)
+    {
+        _gamePanel = gamePanel;
+        _gamePanel.Disabled += OnStopSound;
     }
 
     public void SetDefaultState()
@@ -65,6 +74,8 @@ public class CloudView : MonoBehaviour
     public void StopFillingUp() => StopEffect(_fillingUpEffect);
     public void StopRain() => StopEffect(_rainEffect);
 
+    private void OnStopSound() => _audioSource.Stop();
+
     private void StartEffect(ParticleSystem effect)
     {
         if(effect.isPlaying == false)
@@ -72,9 +83,9 @@ public class CloudView : MonoBehaviour
             effect.Play();
 
             if (effect == _fillingUpEffect)
-                PlaySound(_fillingUpSound);
+                TryPlayThisSound(_fillingUpSound);
             else
-                PlaySound(_rainSound);
+                TryPlayThisSound(_rainSound);
         }
     }
 
@@ -85,19 +96,19 @@ public class CloudView : MonoBehaviour
             effect.Stop();
 
             if (effect == _fillingUpEffect)
-                StopSound(_fillingUpSound);
+                TryStopThisSound(_fillingUpSound);
             else
-                StopSound(_rainSound);
+                TryStopThisSound(_rainSound);
         }
     }
 
-    private void StopSound(AudioClip audio)
+    private void TryStopThisSound(AudioClip audio)
     {
         if (_audioSource.clip == audio && _audioSource.isPlaying)
             _audioSource.Stop();
     }
 
-    private void PlaySound(AudioClip audio)
+    private void TryPlayThisSound(AudioClip audio)
     {
         if (_audioSource.clip != audio)
             _audioSource.clip = audio;

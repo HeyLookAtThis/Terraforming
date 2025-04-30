@@ -7,14 +7,16 @@ public class VolcanoFactory
 
     private LevelCounter _levelCounter;
     private VolcanoesStorage _storage;
+    private GamePanel _gamePanel;
 
     private UnityAction _finished;
 
-    public VolcanoFactory(VolcanoFactoryConfig config, LevelCounter levelCounter, VolcanoesStorage storage)
+    public VolcanoFactory(VolcanoFactoryConfig config, LevelCounter levelCounter, VolcanoesStorage storage, GamePanel gamePanel)
     {
         _config = config;
         _levelCounter = levelCounter;
         _storage = storage;
+        _gamePanel = gamePanel;
     }
 
     public event UnityAction Finished
@@ -28,6 +30,7 @@ public class VolcanoFactory
         while (_storage.Count < _levelCounter.CurrentLevel)
         {
             Volcano volcano = Object.Instantiate(_config.Prefab, _storage.Transform);
+            volcano.View.Initialize(_gamePanel);
             _storage.Add(volcano);
             _storage.SubscribeOnVolcano(volcano);
         }

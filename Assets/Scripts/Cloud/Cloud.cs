@@ -18,6 +18,7 @@ public class Cloud : MonoBehaviour
     public Resizer Resizer => _view.Resizer;
     public CloudConfig Config => _config;
     public Scanner Scanner => _scanner;
+    public CloudView View => _view;
 
     private void Awake() => _scanner = new Scanner(this, _movementBehaivorSwitcher.WateringCloudMover);
     private void OnEnable() => _movementBehaivorSwitcher.WateringCloudMover.Updated += OnRunDrawer;

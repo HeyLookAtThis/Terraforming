@@ -21,6 +21,8 @@ public class VolcanoView : MonoBehaviour
     private Coroutine _freezer;
     private Material _material;
 
+    private GamePanel _gamePanel;
+
     private float MinValueOfSpatialBlend => 0f;
     private float MaxValueOfSpatialBlend => 1f;
 
@@ -28,7 +30,11 @@ public class VolcanoView : MonoBehaviour
     {
         _source = GetComponentInChildren<AudioSource>();
         _material = _renderer.material;
-        Initialize();
+    }
+
+    private void OnDisable()
+    {
+        _gamePanel.Disabled -= OnStopSound;
     }
 
     public void Freeze()
@@ -41,7 +47,7 @@ public class VolcanoView : MonoBehaviour
         RunFreezer();
     }
 
-    private void Initialize()
+    public void Initialize(GamePanel gamePanel)
     {
         _source.clip = _soundAround;
         _source.loop = true;
@@ -53,7 +59,12 @@ public class VolcanoView : MonoBehaviour
 
         _smokeEffect.Play();
         _freezEffect.Stop();
+
+        _gamePanel = gamePanel;
+        _gamePanel.Disabled += OnStopSound;
     }
+
+    private void OnStopSound() => _source.Stop();
 
     private void RunFreezer()
     {

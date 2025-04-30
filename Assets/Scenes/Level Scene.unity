@@ -645,8 +645,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb124eebca261d84a8b352dc0bf0bfcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mediator: {fileID: 988021625}
-  _activator: {fileID: 933882947}
+  _targetMediator: {fileID: 988021625}
+  _cameraActivator: {fileID: 933882947}
+  _arrow: {fileID: 123347125}
 --- !u!1 &417280166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2979311333979733226, guid: 60277715f37008e47b74e692fd933f45, type: 3}
   _spawnPoint: {fileID: 7801269519765196157}
+  _gamePanel: {fileID: 8180147460251132720}
 --- !u!114 &630947115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,6 +1215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _panelSwitcher: {fileID: 5003333458021950529}
+  _gamePanel: {fileID: 8180147460251132720}
 --- !u!1 &712622513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2979,6 +2982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 7801269519765196157}
+  _gamePanel: {fileID: 8180147460251132720}
 --- !u!4 &1362456408
 Transform:
   m_ObjectHideFlags: 0
@@ -3586,6 +3590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1897740493 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3861790818943722742, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
+  m_PrefabInstance: {fileID: 7202463010377908230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1913614294
 GameObject:
   m_ObjectHideFlags: 0
@@ -8007,6 +8016,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2259089095283994702}
     m_Modifications:
+    - target: {fileID: 422542830297009572, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
+      propertyPath: _gamePanel
+      value: 
+      objectReference: {fileID: 8180147460251132720}
+    - target: {fileID: 422542830297009572, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 1897740493}
     - target: {fileID: 1456030403525960410, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
       propertyPath: m_CastShadows
       value: 1
@@ -8037,7 +8054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3861790818943722742, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
       propertyPath: m_PlayOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4877492419329693290, guid: eff3c2ca8d355aa469129d8ddf57ac58, type: 3}
       propertyPath: m_LocalScale.x

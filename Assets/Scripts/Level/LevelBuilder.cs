@@ -4,6 +4,7 @@ using Zenject;
 public class LevelBuilder : MonoBehaviour
 {
     [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private GamePanel _gamePanel;
 
     private LevelConfig _config;
     private LevelCounter _counter;
@@ -31,7 +32,7 @@ public class LevelBuilder : MonoBehaviour
         _grassPainter = grassPainter;
 
         _mainStorage = new MainStorage();
-        _mainFactory = new MainFactory(factoryConfig, _counter, _grassPainter, _mainStorage);
+        _mainFactory = new MainFactory(factoryConfig, _counter, _grassPainter, _mainStorage, _gamePanel);
         _mainPlacemaker = new MainPlacemaker(_mainStorage, levelBoundariesMarker, _counter);
 
         _atmosphere = new Atmosphere(_config.AtmosphereConfig);

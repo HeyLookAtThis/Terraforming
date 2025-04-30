@@ -9,6 +9,7 @@ public class Tree : InteractiveObject
     private GrassPainter _grassPainter;
     private Coroutine _grassPainterRunner;
 
+    public TreeView View => _view;
     private int GrassPainterRadiusMultiplier => 10;
 
     public override void ReactToScanner() => MakeGreen();

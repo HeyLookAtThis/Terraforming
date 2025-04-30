@@ -25,6 +25,7 @@ public class Volcano : InteractiveObject, IAtmosphereHeater
     }
 
     public bool IsFrozen => _isFrozen;
+    public VolcanoView View => _view;
 
     public override void ReactToScanner()
     {

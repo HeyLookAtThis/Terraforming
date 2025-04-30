@@ -6,15 +6,17 @@ public class TreeFactory
 
     private LevelCounter _levelCounter;
     private GrassPainter _grassPainter;
+    private GamePanel _gamePanel;
 
     private TreesStorage _storage;
 
-    public TreeFactory(TreeFactoryConfig config, LevelCounter levelCounter, GrassPainter grassPainter, TreesStorage storage)
+    public TreeFactory(TreeFactoryConfig config, LevelCounter levelCounter, GrassPainter grassPainter, TreesStorage storage, GamePanel gamePanel)
     {
         _config = config;
         _levelCounter = levelCounter;
         _grassPainter = grassPainter;
         _storage = storage;
+        _gamePanel = gamePanel;
     }
 
     public void Run()
@@ -24,6 +26,7 @@ public class TreeFactory
         while (_storage.Count < mustCreate)
         {
             Tree tree = Object.Instantiate(_config.Prefab, _storage.Transform);
+            tree.View.Initialize(_gamePanel);
             tree.Initialize(_grassPainter);
             _storage.Add(tree);
         }

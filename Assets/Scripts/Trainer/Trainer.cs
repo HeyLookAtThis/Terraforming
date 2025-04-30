@@ -1,15 +1,31 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class Trainer : MonoBehaviour
 {
-    [SerializeField] private TrainerTargetMediator _mediator;
-    [SerializeField] private TrainerCameraActivator _activator;
+    [SerializeField] private TrainerTargetMediator _targetMediator;
+    [SerializeField] private TrainerCameraActivator _cameraActivator;
+    [SerializeField] private Arrow _arrow;
 
     private Coroutine _deactivator;
+    private LevelCounter _levelCounter;
 
-    private void OnEnable() => _mediator.WasWorked += OnDeactivate;
-    private void OnDisable() => _mediator.WasWorked -= OnDeactivate;
+    private void OnEnable()
+    {
+        if (_levelCounter.IsFirstLevel)
+        {
+            Activate();
+            _arrow.Activate();
+        }
+
+        _targetMediator.WasWorked += OnDeactivate;
+    }
+
+    private void OnDisable()
+    {
+        _targetMediator.WasWorked -= OnDeactivate;
+    }
 
     private void OnDeactivate() 
     {
@@ -19,15 +35,20 @@ public class Trainer : MonoBehaviour
         _deactivator = StartCoroutine(Deactivator());
     }
 
+    private void Activate() => gameObject.SetActive(true);
+
     private IEnumerator Deactivator()
     {
-        while (_activator.gameObject.activeSelf)
+        while (_cameraActivator.gameObject.activeSelf)
             yield return null;
 
-        if(_activator.gameObject.activeSelf == false)
+        if(_cameraActivator.gameObject.activeSelf == false)
         {
             gameObject.SetActive(false);
             yield break;
         }
     }
+
+    [Inject]
+    private void Construct(LevelBuilder levelBuilder) => _levelCounter = levelBuilder.Counter;
 }

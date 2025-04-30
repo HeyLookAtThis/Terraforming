@@ -13,12 +13,17 @@ public class TreeView : MonoBehaviour
 
     private AudioSource _source;
     private Coroutine _soundSwithcer;
+    private GamePanel _gamePanel;
 
     private void Awake()
     {
         _source = GetComponent<AudioSource>();
         _growEffect.Stop();
-        Initialize();
+    }
+
+    private void OnDisable()
+    {
+        _gamePanel.Disabled -= OnStopSound;
     }
 
     public void MakeDefault()
@@ -36,12 +41,17 @@ public class TreeView : MonoBehaviour
         PlaySound();
     }
 
-    private void Initialize()
+    public void Initialize(GamePanel gamePanel)
     {
         _source.clip = _growSound;
         _source.loop = false;
         _source.playOnAwake = false;
+
+        _gamePanel = gamePanel;
+        _gamePanel.Disabled += OnStopSound;
     }
+
+    private void OnStopSound() => _source.Stop();
 
     private void PlaySound()
     {

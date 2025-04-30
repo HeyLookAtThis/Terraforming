@@ -1,5 +1,6 @@
 using Agava.WebUtility;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 public class GamePanel : Panel
@@ -10,11 +11,25 @@ public class GamePanel : Panel
     private VolcanoesStorage _storage;
     private Character _character;
 
-    public float PlayingTimeScale => 1.0f;
-    public float PausingTimeScale => 0.0f;
+    private UnityAction _enabled;
+    private UnityAction _disabled;
+
+    public event UnityAction Enabled
+    {
+        add => _enabled += value;
+        remove => _enabled -= value;
+    }
+
+    public event UnityAction Disabled
+    {
+        add => _disabled += value;
+        remove => _disabled -= value;
+    }
 
     private void OnEnable()
     {
+        _enabled?.Invoke();
+
         _storage.AllVolcanoesFrozen += PanelSwitcher.SwitchPanel<VictoryPanel>;
         _thermometer.ReachedMaxValue += PanelSwitcher.SwitchPanel<GameOverPanel>;
 
@@ -29,6 +44,8 @@ public class GamePanel : Panel
 
     private void OnDisable()
     {
+        _disabled?.Invoke();
+
         _storage.AllVolcanoesFrozen -= PanelSwitcher.SwitchPanel<VictoryPanel>;
         _thermometer.ReachedMaxValue -= PanelSwitcher.SwitchPanel<GameOverPanel>;
 

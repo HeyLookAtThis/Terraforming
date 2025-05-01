@@ -10,22 +10,18 @@ public class KeyboardTreaner : InputTreaner
         float blinkingAlphaValue = 0.7f;
         int loops = 10;
 
-        Tween show = Group.DOFade(UnitValue, Duration).From(NullValue);
-        Tween scale = Body.DOScale(UnitValue, Duration).From(NullValue);
-        Tween move = Body.DOAnchorPos(PositionOnScreen, Duration).From(StartingPosition);
-        Tween blinking = Group.DOFade(blinkingAlphaValue, blinkingDuration).From(UnitValue).SetLoops(loops, LoopType.Yoyo);
-
-        Animation.Append(show).Join(scale).Join(move).Append(blinking);
+        Animation.Append(Group.DOFade(UnitValue, Duration).From(NullValue))
+            .Join(Body.DOScale(UnitValue, Duration).From(NullValue))
+            .Join(Body.DOAnchorPos(PositionOnScreen, Duration).From(StartingPosition))
+            .Append(Group.DOFade(blinkingAlphaValue, blinkingDuration).From(UnitValue).SetLoops(loops, LoopType.Yoyo));
     }
 
     public override void Hide()
     {
         base.Hide();
 
-        Tween show = Group.DOFade(NullValue, Duration);
-        Tween scale = Body.DOScale(NullValue, Duration).From(UnitValue);
-        Tween move = Body.DOAnchorPos(StartingPosition, Duration);
-
-        Animation.Append(show).Join(scale).Join(move);
+        Animation.Append(Group.DOFade(NullValue, Duration))
+            .Join(Body.DOScale(NullValue, Duration).From(UnitValue))
+            .Join(Body.DOAnchorPos(StartingPosition, Duration));
     }
 }

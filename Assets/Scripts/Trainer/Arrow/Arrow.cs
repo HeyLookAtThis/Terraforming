@@ -9,12 +9,23 @@ public class Arrow : MonoBehaviour
     private Transform _target;
 
     private Volcano _volcano;
+    private GamePanel _gamePanel;
 
     private float Speed => 10f;
     private float DistanceLengthProportion => 4f;
 
-    private void OnEnable() => transform.position = _character.Transform.position;
-    private void OnDisable() => _volcano.WasFrozen -= OnDeactivate;
+    private void OnEnable()
+    {
+        transform.position = _character.Transform.position;
+
+        _gamePanel.Disabled += OnDeactivate;
+    }
+
+    private void OnDisable()
+    {
+        _gamePanel.Disabled -= OnDeactivate;
+        _volcano.WasFrozen -= OnDeactivate;
+    }
 
     private void Update()
     {
@@ -62,5 +73,9 @@ public class Arrow : MonoBehaviour
     private void OnDeactivate() => gameObject.SetActive(false);
 
     [Inject]
-    private void Construct(ITarget character) => _character = character;
+    private void Construct(ITarget character, GamePanel gamePanel)
+    {
+        _character = character;
+        _gamePanel = gamePanel;
+    }
 }

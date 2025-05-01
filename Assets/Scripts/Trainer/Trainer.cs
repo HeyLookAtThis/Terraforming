@@ -6,7 +6,6 @@ public class Trainer : MonoBehaviour
 {
     [SerializeField] private TrainerTargetMediator _targetMediator;
     [SerializeField] private TrainerCameraActivator _cameraActivator;
-    [SerializeField] private Arrow _arrow;
 
     private Coroutine _deactivator;
     private LevelCounter _levelCounter;
@@ -14,10 +13,7 @@ public class Trainer : MonoBehaviour
     private void OnEnable()
     {
         if (_levelCounter.IsFirstLevel)
-        {
-            Activate();
-            _arrow.Activate();
-        }
+            _targetMediator.TurnOn();
 
         _targetMediator.WasWorked += OnDeactivate;
     }
@@ -35,8 +31,6 @@ public class Trainer : MonoBehaviour
         _deactivator = StartCoroutine(Deactivator());
     }
 
-    private void Activate() => gameObject.SetActive(true);
-
     private IEnumerator Deactivator()
     {
         while (_cameraActivator.gameObject.activeSelf)
@@ -44,7 +38,7 @@ public class Trainer : MonoBehaviour
 
         if(_cameraActivator.gameObject.activeSelf == false)
         {
-            gameObject.SetActive(false);
+            _targetMediator.TurnOff();
             yield break;
         }
     }

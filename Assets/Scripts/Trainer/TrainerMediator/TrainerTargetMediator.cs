@@ -37,6 +37,9 @@ public class TrainerTargetMediator : MonoBehaviour
         _snowflakesStorage.GetSnowflake(FirstIndex).View.TurnedOn -= OnShowSnowflake;
     }
 
+    public void TurnOn() => gameObject.SetActive(true);
+    public void TurnOff() => gameObject.SetActive(false);
+
     private void OnShowTree()
     {
         Transform tree = _treeStorage.GetObjectTransform(FirstIndex).Transform;
@@ -66,7 +69,7 @@ public class TrainerTargetMediator : MonoBehaviour
 
             _cameraActivator.SetTarget(volcano);
 
-            gameObject.SetActive(false);
+            TurnOff();
             _wasWorked?.Invoke();
         }
     }

@@ -16,6 +16,7 @@ public class ControlTreaner : MonoBehaviour
     private Vector3 _startingMousePosition;
 
     private bool _wasMoved;
+    private bool _wasCompleted;
 
     private UnityAction _completed;
 
@@ -27,26 +28,29 @@ public class ControlTreaner : MonoBehaviour
 
     private void OnEnable()
     {
-        if(_levelBuilder.Counter.IsFirstLevel == false)
-            gameObject.SetActive(false);
+        if (_levelBuilder.Counter.IsFirstLevel && Device.IsMobile == false)
+        {
+            _wasCompleted = false;
 
-        _keyboard.gameObject.SetActive(true);
-        _keyboard.Show();
+            _keyboard.gameObject.SetActive(true);
+            _keyboard.Show();
 
-        _startingPosition = _chatacter.Transform.position;
-        _startingMousePosition = Input.mousePosition;
+            SetStartingCharacterPosition();
+            _startingMousePosition = Input.mousePosition;
 
-        _wasMoved = false;
+            _wasMoved = false;
+        }
     }
 
     private void Update()
     {
-        if (Device.IsMobile)
-            Complete();
+        if (Device.IsMobile || _wasCompleted)
+            return;
 
-        if (_startingPosition != _chatacter.Transform.position && _wasMoved == false)
+        if (IsCharacterMoved() && _wasMoved == false)
         {
             _wasMoved = true;
+
             _keyboard.Hide();
 
             _keyboard.Animation.OnComplete(() => SwitchKeyboardToMouse());
@@ -62,13 +66,32 @@ public class ControlTreaner : MonoBehaviour
     private void Complete()
     {
         _completed.Invoke();
-        gameObject.SetActive(false);
+
+        _keyboard.gameObject.SetActive(false);
+        _mouse.gameObject.SetActive(false);
+
+        _wasCompleted = true;
     }
 
     private void SwitchKeyboardToMouse()
     {
         _keyboard.gameObject.SetActive(false);
         _mouse.gameObject.SetActive(true);
+    }
+
+    private void SetStartingCharacterPosition()
+    {
+        _startingPosition.y = 0;
+        _startingPosition.x = _chatacter.Transform.position.x;
+        _startingPosition.z = _chatacter.Transform.position.z;
+    }
+
+    private bool IsCharacterMoved()
+    {
+        if(_startingPosition.x == _chatacter.Transform.position.x && _startingPosition.z == _chatacter.Transform.position.z)
+            return false;
+
+        return true;
     }
 
     [Inject]
